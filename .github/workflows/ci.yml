@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tools:
+    name: Migration tooling
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pytest pyyaml pyflakes
+      - run: python -m pyflakes tools
+      - run: python -m pytest -q tools/tests
+      - name: Deprecation scan
+        run: python tools/migrate/scan.py --no-write
+
+  console:
+    name: Console (lint, unit, Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:unit
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report
+            test-results
+          retention-days: 14
+
+  firmware:
+    name: Firmware (unit tests, board builds, no-regression gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Host packages
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends ninja-build gperf ccache device-tree-compiler gcc-multilib g++-multilib rsync
+          pip install -q west pyyaml
+      - name: OS version of this tree
+        id: os
+        run: echo "version=$(sed -n 's/^ *revision: v\([0-9]*\.[0-9]*\)-branch.*/v\1/p' west.yml | head -1)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/zephyr-ws/${{ steps.os.outputs.version }}
+            ~/zephyr-sdk-0.17.0
+          key: zephyr-${{ steps.os.outputs.version }}-${{ hashFiles('west.yml') }}-sdk-0.17.0
+      - name: Zephyr workspace
+        run: scripts/ws.sh auto setup
+      - name: No-regression gate
+        run: |
+          args=""
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            args="--base-ref origin/${{ github.base_ref }}"
+            # a pull request into main is the release: every board must be migrated
+            if [ "${{ github.base_ref }}" = "main" ]; then args="$args --require-all-boards"; fi
+          fi
+          python tools/migrate/gate.py $args
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: firmware-evidence
+          path: |
+            migration/evidence/current.json
+            build/logs
+          retention-days: 14

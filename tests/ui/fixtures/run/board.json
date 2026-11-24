@@ -1,0 +1,86 @@
+{
+  "site": "https://example.atlassian.net",
+  "project": "FW",
+  "epic": {
+    "key": "FW-101",
+    "url": "https://example.atlassian.net/browse/FW-101"
+  },
+  "tickets": {
+    "foundation": {
+      "key": "FW-102",
+      "url": "https://example.atlassian.net/browse/FW-102",
+      "status": "Done",
+      "session": "https://app.devin.ai/sessions/fixture-foundation",
+      "pr": {
+        "number": 11,
+        "url": "https://github.com/example/firmware/pull/11",
+        "state": "merged"
+      },
+      "review": {
+        "status": "resolved",
+        "findings": 3,
+        "resolved": 3
+      }
+    },
+    "can": {
+      "key": "FW-103",
+      "url": "https://example.atlassian.net/browse/FW-103",
+      "status": "In Review",
+      "session": "https://app.devin.ai/sessions/fixture-can",
+      "pr": {
+        "number": 12,
+        "url": "https://github.com/example/firmware/pull/12",
+        "state": "open"
+      },
+      "review": {
+        "status": "in review",
+        "findings": 2,
+        "resolved": 1
+      }
+    },
+    "mppt-lowpower": {
+      "key": "FW-104",
+      "url": "https://example.atlassian.net/browse/FW-104",
+      "status": "In Progress",
+      "session": "https://app.devin.ai/sessions/fixture-mppt-lowpower"
+    },
+    "pwm": {
+      "key": "FW-105",
+      "url": "https://example.atlassian.net/browse/FW-105",
+      "status": "In Review",
+      "session": "https://app.devin.ai/sessions/fixture-pwm",
+      "pr": {
+        "number": 14,
+        "url": "https://github.com/example/firmware/pull/14",
+        "state": "open"
+      },
+      "review": {
+        "status": "resolved",
+        "findings": 1,
+        "resolved": 1
+      }
+    },
+    "numerics": {
+      "key": "FW-106",
+      "url": "https://example.atlassian.net/browse/FW-106",
+      "status": "In Progress",
+      "session": "https://app.devin.ai/sessions/fixture-numerics",
+      "pr": {
+        "number": 15,
+        "url": "https://github.com/example/firmware/pull/15",
+        "state": "open"
+      },
+      "review": {
+        "status": "in review",
+        "findings": 4,
+        "resolved": 1
+      }
+    },
+    "integration": {
+      "key": "FW-107",
+      "url": "https://example.atlassian.net/browse/FW-107",
+      "status": "To Do",
+      "session": "https://app.devin.ai/sessions/fixture-integration"
+    }
+  }
+}

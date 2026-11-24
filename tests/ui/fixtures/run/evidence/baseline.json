@@ -1,0 +1,85 @@
+{
+  "zephyr": "v3.2",
+  "tests": {
+    "suites": 7,
+    "total": 95,
+    "failures": 0,
+    "ignored": 0,
+    "exit": 0
+  },
+  "warnings": [],
+  "boards": {
+    "mppt_2420_hc": {
+      "target": "mppt_2420_hc@0.2",
+      "status": "built",
+      "flash": {
+        "used": 103672,
+        "size": 131072
+      },
+      "sram": {
+        "used": 22512,
+        "size": 32768
+      }
+    },
+    "mppt_2420_lc": {
+      "target": "mppt_2420_lc",
+      "status": "built",
+      "flash": {
+        "used": 83696,
+        "size": 131072
+      },
+      "sram": {
+        "used": 13904,
+        "size": 16384
+      }
+    },
+    "mppt_2420_rc": {
+      "target": "mppt_2420_rc",
+      "status": "built",
+      "flash": {
+        "used": 92964,
+        "size": 131072
+      },
+      "sram": {
+        "used": 21872,
+        "size": 32768
+      }
+    },
+    "mppt_2420_hpx": {
+      "target": "mppt_2420_hpx",
+      "status": "built",
+      "flash": {
+        "used": 84280,
+        "size": 131072
+      },
+      "sram": {
+        "used": 14400,
+        "size": 32768
+      }
+    },
+    "mppt_1210_hus": {
+      "target": "mppt_1210_hus@0.7",
+      "status": "built",
+      "flash": {
+        "used": 81880,
+        "size": 196608
+      },
+      "sram": {
+        "used": 13736,
+        "size": 20480
+      }
+    },
+    "pwm_2420_lus": {
+      "target": "pwm_2420_lus@0.3",
+      "status": "built",
+      "flash": {
+        "used": 80396,
+        "size": 196608
+      },
+      "sram": {
+        "used": 13568,
+        "size": 20480
+      }
+    }
+  }
+}

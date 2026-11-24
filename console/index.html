@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Migration Console · Zephyr v3.2 → v4.3</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+          <rect x="1" y="1" width="24" height="24" rx="6" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M7 17l4-8 3 5 2-3 3 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" />
+        </svg>
+        <div>
+          <h1>Migration Console</h1>
+          <p class="sub">Charge-controller firmware · <span id="route-label">Zephyr v3.2 → v4.3</span></p>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Views">
+        <button role="tab" data-view="overview" aria-selected="true">Overview</button>
+        <button role="tab" data-view="inventory">Inventory <span class="count" id="tab-count-inventory"></span></button>
+        <button role="tab" data-view="plan">Plan</button>
+        <button role="tab" data-view="board">Board</button>
+        <button role="tab" data-view="evidence">Evidence</button>
+      </nav>
+      <div class="status" id="run-status" data-testid="run-status"></div>
+    </header>
+    <main id="view" tabindex="-1"></main>
+    <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+      <div class="drawer-head">
+        <h2 id="drawer-title"></h2>
+        <button id="drawer-close" class="icon-btn" aria-label="Close details">✕</button>
+      </div>
+      <div id="drawer-body" class="drawer-body"></div>
+    </aside>
+    <div id="scrim" class="scrim" hidden></div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

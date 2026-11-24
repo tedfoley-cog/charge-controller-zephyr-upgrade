@@ -135,7 +135,8 @@ def evaluate(evidence: dict, baseline: dict, require_all: bool = False, delta: d
     for name, board in evidence["boards"].items():
         base = baseline["boards"].get(name, {})
         if board["status"] == "pending":
-            check(f"{name}: migrated", not require_all, "still on hardware model v1 (pending ticket)")
+            if require_all:
+                check(f"{name}: migrated", False, "still on hardware model v1 (pending ticket)")
             continue
         check(f"{name}: builds", board["status"] == "built", board["status"])
         if board["status"] == "built" and base.get("flash"):

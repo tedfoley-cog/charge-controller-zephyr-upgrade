@@ -1,0 +1,125 @@
+{
+  "ticket": "mppt-lowpower",
+  "zephyr": "v4.3",
+  "tests": {
+    "suites": 7,
+    "total": 97,
+    "failures": 0,
+    "ignored": 0,
+    "exit": 0
+  },
+  "warnings": [],
+  "boards": {
+    "mppt_2420_hc": {
+      "target": "mppt_2420_hc@0.2",
+      "status": "pending"
+    },
+    "mppt_2420_lc": {
+      "target": "mppt_2420_lc",
+      "status": "built",
+      "flash": {
+        "used": 85788,
+        "size": 131072
+      },
+      "sram": {
+        "used": 14216,
+        "size": 16384
+      }
+    },
+    "mppt_2420_rc": {
+      "target": "mppt_2420_rc",
+      "status": "pending"
+    },
+    "mppt_2420_hpx": {
+      "target": "mppt_2420_hpx",
+      "status": "built",
+      "flash": {
+        "used": 89674,
+        "size": 131072
+      },
+      "sram": {
+        "used": 14712,
+        "size": 32768
+      }
+    },
+    "mppt_1210_hus": {
+      "target": "mppt_1210_hus@0.7",
+      "status": "built",
+      "flash": {
+        "used": 84582,
+        "size": 196608
+      },
+      "sram": {
+        "used": 14048,
+        "size": 20480
+      }
+    },
+    "pwm_2420_lus": {
+      "target": "pwm_2420_lus@0.3",
+      "status": "pending"
+    }
+  },
+  "checks": [
+    {
+      "name": "unit tests pass",
+      "ok": true,
+      "detail": "97 run, 0 failed"
+    },
+    {
+      "name": "no unit test removed",
+      "ok": true,
+      "detail": "97 now vs 95 at baseline"
+    },
+    {
+      "name": "mppt_2420_lc: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_lc: flash budget",
+      "ok": true,
+      "detail": "85788 B (+2.5% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_lc: fits SRAM",
+      "ok": true,
+      "detail": "14216 of 16384 B"
+    },
+    {
+      "name": "mppt_2420_hpx: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_hpx: flash budget",
+      "ok": true,
+      "detail": "89674 B (+6.4% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_hpx: fits SRAM",
+      "ok": true,
+      "detail": "14712 of 32768 B"
+    },
+    {
+      "name": "mppt_1210_hus: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_1210_hus: flash budget",
+      "ok": true,
+      "detail": "84582 B (+3.3% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_1210_hus: fits SRAM",
+      "ok": true,
+      "detail": "14048 of 20480 B"
+    },
+    {
+      "name": "no new compiler warnings in app code",
+      "ok": true,
+      "detail": "0 now vs 0 at baseline"
+    }
+  ],
+  "verdict": "pass"
+}
