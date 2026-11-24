@@ -1,0 +1,6 @@
+mppt_2420_hc@0.2
+mppt_2420_lc
+mppt_2420_rc
+mppt_2420_hpx
+mppt_1210_hus@0.7
+pwm_2420_lus@0.3

@@ -1,0 +1,200 @@
+# Deprecation / incompatibility rules for Zephyr v3.2 -> v4.3.
+# Each rule is a regex over a set of files. `since` is the release that
+# deprecated or changed the API, `removed` the release where the old form
+# stops working. `stream` is the work stream that owns the fix.
+from: v3.2
+to: v4.3
+guides: https://docs.zephyrproject.org/latest/releases/index.html
+rules:
+  - id: WEST-001
+    title: Zephyr pinned to the v3.2 vendor fork
+    category: manifest
+    severity: breaking
+    since: "4.3"
+    files: ["west.yml"]
+    pattern: 'revision:\s*v3\.2-branch'
+    fix: Point the zephyr project at zephyrproject-rtos v4.3-branch.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-4.3.html
+    stream: foundation
+  - id: WEST-002
+    title: CMSIS module renamed (cmsis -> cmsis_6)
+    category: manifest
+    severity: breaking
+    since: "4.1"
+    removed: "4.1"
+    files: ["west.yml"]
+    pattern: '^\s*-\s*cmsis\s*$'
+    fix: Allow-list cmsis_6 instead of cmsis so Cortex-M core headers resolve.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-4.1.html
+    stream: foundation
+  - id: KCFG-001
+    title: CONFIG_CPLUSPLUS removed (use CONFIG_CPP)
+    category: kconfig
+    severity: breaking
+    since: "3.3"
+    removed: "3.5"
+    files: ["**/prj.conf", "boards/**/*_defconfig", "boards/**/*.conf"]
+    pattern: '^CONFIG_CPLUSPLUS='
+    fix: Replace with CONFIG_CPP=y.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html
+    stream: foundation
+  - id: KCFG-002
+    title: CONFIG_LIB_CPLUSPLUS removed (use CONFIG_REQUIRES_FULL_LIBCPP)
+    category: kconfig
+    severity: breaking
+    since: "3.3"
+    removed: "3.5"
+    files: ["**/prj.conf", "boards/**/*_defconfig", "boards/**/*.conf"]
+    pattern: '^CONFIG_LIB_CPLUSPLUS='
+    fix: Replace with CONFIG_REQUIRES_FULL_LIBCPP=y.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html
+    stream: foundation
+  - id: KCFG-003
+    title: Newlib selected explicitly (picolibc is the default C library)
+    category: kconfig
+    severity: advisory
+    since: "3.5"
+    files: ["**/prj.conf"]
+    pattern: '^CONFIG_NEWLIB_LIBC(_NANO|_FLOAT_PRINTF)?='
+    fix: Keep only if newlib is required; otherwise drop and re-measure flash.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html
+    stream: foundation
+  - id: BUILD-001
+    title: BOARD_ROOT / DTS_ROOT set from the application CMakeLists
+    category: build
+    severity: deprecated
+    since: "3.7"
+    files: ["app/CMakeLists.txt", "tests/CMakeLists.txt"]
+    pattern: 'set\((BOARD_ROOT|DTS_ROOT)\s'
+    fix: Declare board_root and dts_root once in zephyr/module.yml.
+    ref: https://docs.zephyrproject.org/latest/develop/modules.html
+    stream: foundation
+  - id: TEST-001
+    title: native_posix board removed (use native_sim)
+    category: test-harness
+    severity: breaking
+    since: "3.6"
+    removed: "4.2"
+    files: ["tests/**", ".github/**"]
+    pattern: 'native_posix'
+    fix: Build tests for native_sim and rename the board overlay.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html
+    stream: foundation
+  - id: API-MAIN-001
+    title: main() must return int
+    category: api
+    severity: breaking
+    since: "3.4"
+    files: ["app/src/**", "tests/src/**"]
+    pattern: '^\s*void\s+main\s*\('
+    fix: Change to int main(void) and return a status.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-3.4.html
+    stream: foundation
+  - id: BOARD-001
+    title: Board uses hardware model v1 layout (boards/<arch>/)
+    category: board-model
+    severity: breaking
+    since: "3.7"
+    removed: "3.7"
+    files: ["boards/arm/*/Kconfig.board"]
+    pattern: '^config BOARD_'
+    fix: Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html
+    stream: board
+  - id: BOARD-002
+    title: Board defconfig selects the SoC (now derived from board.yml)
+    category: board-model
+    severity: breaking
+    since: "3.7"
+    removed: "3.7"
+    files: ["boards/arm/*/*_defconfig"]
+    pattern: '^CONFIG_SOC_(SERIES_)?STM32'
+    fix: Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html
+    stream: board
+  - id: BOARD-003
+    title: config BOARD default set in Kconfig.defconfig
+    category: board-model
+    severity: breaking
+    since: "3.7"
+    removed: "3.7"
+    files: ["boards/arm/*/Kconfig.defconfig"]
+    pattern: '^config BOARD\s*$'
+    fix: Delete the BOARD default; the name comes from board.yml.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html
+    stream: board
+  - id: BOARD-004
+    title: Board revisions declared in revision.cmake
+    category: board-model
+    severity: breaking
+    since: "3.7"
+    removed: "3.7"
+    files: ["boards/arm/*/revision.cmake"]
+    pattern: 'board_check_revision'
+    fix: Declare revisions in board.yml and rename <board>_<rev>.conf to <board>_<rev>_defconfig.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html
+    stream: board
+  - id: DT-CAN-001
+    title: CAN bus-speed / sjw / sample-point devicetree properties
+    category: devicetree
+    severity: breaking
+    since: "3.7"
+    removed: "4.0"
+    files: ["boards/**/*.dts", "boards/**/*.overlay"]
+    pattern: '^\s*(bus-speed(-data)?|sjw(-data)?)\s*='
+    fix: Use bitrate / bitrate-data; drop sjw (computed by the driver).
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html
+    stream: board
+  - id: DT-CAN-002
+    title: STM32G4 CAN node label can1 (now fdcan1)
+    category: devicetree
+    severity: breaking
+    since: "3.5"
+    files: ["boards/arm/mppt_2420_hc/*.dts", "boards/arm/mppt_2420_rc/*.dts"]
+    pattern: '^&can1\s*\{'
+    fix: Reference &fdcan1 on STM32G4 parts and update the app's node lookup.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html
+    stream: can
+  - id: DT-LABEL-001
+    title: Devicetree label property on a device node
+    category: devicetree
+    severity: deprecated
+    since: "3.2"
+    files: ["boards/**/*.dts", "boards/**/*.overlay"]
+    pattern: '^\s*label\s*=\s*"[A-Z0-9_]+";'
+    fix: Remove label and look the device up by node label.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-3.2.html
+    stream: board
+  - id: API-CAN-001
+    title: CAN frame / filter id_type and rtr fields (replaced by flags)
+    category: api
+    severity: breaking
+    since: "3.3"
+    removed: "3.3"
+    files: ["app/src/**"]
+    pattern: '(\.id_type\s*=|\.rtr\s*=|\.rtr_mask\s*=|\.id_mask\s*=|CAN_(EXTENDED|STANDARD)_IDENTIFIER|CAN_DATAFRAME)'
+    fix: Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.
+    ref: https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html
+    stream: can
+  - id: API-ISOTP-001
+    title: ISO-TP isotp_msg_id addressing bitfields (replaced by flags)
+    category: api
+    severity: breaking
+    since: "3.5"
+    removed: "3.5"
+    files: ["app/src/**"]
+    pattern: '\.(use_ext_addr|use_fixed_addr)\s*='
+    fix: Use .flags = ISOTP_MSG_FIXED_ADDR | ISOTP_MSG_IDE.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html
+    stream: can
+  - id: NUM-001
+    title: Double-precision literal in single-precision control maths
+    category: numerics
+    severity: deprecated
+    since: "3.5"
+    files: ["app/src/*.cpp", "app/src/*.c"]
+    pattern: '(?<![\w.])\d+\.\d+(?![fF\w.])(?=[^"]*(?:"[^"]*"[^"]*)*$)'
+    exclude: '^\s*(//|\*|/\*|#)|printf|LOG_|TS_|TEST_|^\s*"'
+    fix: Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.
+    ref: https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html
+    stream: numerics
