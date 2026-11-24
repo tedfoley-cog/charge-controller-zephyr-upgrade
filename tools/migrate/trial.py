@@ -13,7 +13,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from common import MIGRATION, REPO, board_name, boards, read_json, write_json
+from common import MIGRATION, REPO, board_name, boards, write_json
 from scan import build_inventory, summarize
 
 WS = REPO / "scripts" / "ws.sh"
