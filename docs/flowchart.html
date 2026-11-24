@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Zephyr v3.2 → v4.3 upgrade flow</title>
+    <style>
+      body { margin: 0; padding: 32px; background: #0b0f14; color: #e6edf3; font: 15px system-ui, sans-serif; }
+      h1 { font-size: 20px; margin: 0 0 4px; }
+      p { color: #8b98a8; margin: 0 0 24px; }
+      .mermaid { background: #121821; border: 1px solid #243040; border-radius: 12px; padding: 24px; }
+    </style>
+  </head>
+  <body>
+    <h1>Embedded OS upgrade: Zephyr v3.2 → v4.3</h1>
+    <p>Baseline, inventory, ticketed plan, parallel tested pull requests, release gate.</p>
+    <pre class="mermaid">
+flowchart LR
+  subgraph S1 [Analyse]
+    A[Baseline v3.2] --> B[Scan rules]
+    A --> C[Trial build v4.3]
+    B --> D[Inventory]
+    C --> D
+  end
+  subgraph S2 [Plan]
+    D --> E[Plan]
+    E --> F[Jira board]
+  end
+  subgraph S3 [Migrate in parallel]
+    F --> G[Foundation PR]
+    G --> H1[CAN boards PR]
+    G --> H2[MPPT boards PR]
+    G --> H3[PWM board PR]
+    G --> H4[Numerics PR]
+  end
+  subgraph S4 [Prove]
+    H1 --> I[Gate + review]
+    H2 --> I
+    H3 --> I
+    H4 --> I
+    I --> J[Release PR]
+    J --> K[Console UI test]
+  end
+    </pre>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'dark', flowchart: { htmlLabels: false } });
+    </script>
+  </body>
+</html>

@@ -44,7 +44,7 @@ streams:
     gate: "python3 tools/migrate/gate.py --ticket can --boards mppt_2420_hc,mppt_2420_rc --base-ref origin/upgrade/zephyr-4.3"
   - id: mppt-lowpower
     wave: 1
-    title: "Low-power MPPT boards: mppt_1210_hus and mppt_2420_hpx to hardware model v2"
+    title: "MPPT boards without CAN: mppt_1210_hus and mppt_2420_hpx to hardware model v2"
     boards: [mppt_1210_hus, mppt_2420_hpx]
     finding_streams: []
     owns:

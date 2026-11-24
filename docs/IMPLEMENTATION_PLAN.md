@@ -56,7 +56,7 @@ Source: the public [LibreSolar charge-controller-firmware](https://github.com/Li
 |---|---|---|---|
 | 0 | Foundation | `west.yml`, `zephyr/module.yml`, CMake roots, Kconfig renames, `tests/` harness, reference board | 95 unit tests on `native_sim`, reference board builds |
 | 1 | CAN boards | CAN-enabled boards, `app/src/ext/can.cpp` | boards build, CAN frame/filter regression tests |
-| 1 | Low-power MPPT boards | STM32L0 MPPT boards | boards build inside flash budget |
+| 1 | MPPT boards without CAN | mppt_1210_hus, mppt_2420_hpx | boards build inside flash budget |
 | 1 | PWM boards | PWM controller boards | boards build inside flash budget |
 | 1 | Numerics | float/double promotion in control code | zero new warnings, characterization tests unchanged |
 | 2 | Integration | merge of wave branches | all boards, all tests, full gate |
