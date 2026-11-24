@@ -161,7 +161,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--base-ref", help="git ref of the base branch; the tree must add unit tests versus it")
     parser.add_argument("--ticket", help="plan ticket id; evidence is written to migration/evidence/<ticket>.json")
     parser.add_argument("--out", default=str(MIGRATION / "evidence" / "current.json"))
+    parser.add_argument("--print-version", action="store_true", help="print the Zephyr version this tree targets")
     args = parser.parse_args(argv)
+    if args.print_version:
+        print(tree_version())
+        return 0
 
     only = args.boards.split(",") if args.boards else None
     evidence = collect(only, skip_boards=args.tests_only)
