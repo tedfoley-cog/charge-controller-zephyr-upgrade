@@ -105,7 +105,7 @@ case "$CMD" in
         ensure_ws
         log="$LOGS/$VER-$board.log"
         set +e
-        (cd "$FW" && ZEPHYR_SDK_INSTALL_DIR="$SDK_DIR" \
+        (cd "$FW" && ZEPHYR_TOOLCHAIN_VARIANT=zephyr ZEPHYR_SDK_INSTALL_DIR="$SDK_DIR" \
             west build -b "$board" -d "$WS/build/$board" -p always app 2>&1) | rewrite_paths >"$log"
         rc=${PIPESTATUS[0]}
         set -e
