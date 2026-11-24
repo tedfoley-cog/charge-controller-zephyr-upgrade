@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import yaml
@@ -45,3 +46,20 @@ def boards(repo: Path = REPO) -> list[str]:
 
 def board_name(target: str) -> str:
     return target.split("@")[0]
+
+
+def glob_match(path: str, pattern: str) -> bool:
+    """Path glob where `*` stays inside one directory and `**` crosses them."""
+    regex = ""
+    i = 0
+    while i < len(pattern):
+        if pattern.startswith("**", i):
+            regex += ".*"
+            i += 2
+        elif pattern[i] == "*":
+            regex += "[^/]*"
+            i += 1
+        else:
+            regex += re.escape(pattern[i])
+            i += 1
+    return re.fullmatch(regex, path) is not None

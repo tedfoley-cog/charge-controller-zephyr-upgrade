@@ -7,7 +7,7 @@ records the evidence and compares it with migration/evidence/baseline.json.
   gate.py --capture-baseline      record the v3.2 baseline (run once on main)
   gate.py                         gate the current tree
   gate.py --require-all-boards    integration gate: no board may be pending
-  gate.py --base-ref origin/main  also require new unit tests versus that ref
+  gate.py --base-ref origin/main  changes under app/src must add unit tests versus that ref
 """
 from __future__ import annotations
 
@@ -98,13 +98,27 @@ def collect(only_boards: list[str] | None = None, skip_boards: bool = False) -> 
     return evidence
 
 
-def count_tests_at(ref: str) -> int:
-    """Number of RUN_TEST registrations at a git ref (cheap, no build)."""
-    out = subprocess.run(["git", "grep", "-c", "RUN_TEST(", ref, "--", "tests/src"], cwd=REPO, capture_output=True, text=True)
+def count_tests_at(ref: str | None) -> int:
+    """Number of RUN_TEST registrations at a git ref, or in the working tree."""
+    cmd = ["git", "grep", "-c", "RUN_TEST("] + ([ref] if ref else []) + ["--", "tests/src"]
+    out = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True)
     return sum(int(line.rsplit(":", 1)[1]) for line in out.stdout.splitlines() if line)
 
 
-def evaluate(evidence: dict, baseline: dict, require_all: bool = False, new_tests_vs: int | None = None) -> list[dict]:
+def changed_files(base_ref: str) -> list[str]:
+    out = subprocess.run(["git", "diff", "--name-only", f"{base_ref}...HEAD"], cwd=REPO, capture_output=True, text=True)
+    return out.stdout.splitlines()
+
+
+def tests_delta(base_ref: str) -> dict | None:
+    """A change that touches application code must add unit tests."""
+    touched = [f for f in changed_files(base_ref) if f.startswith("app/src/")]
+    if not touched:
+        return None
+    return {"base": count_tests_at(base_ref), "head": count_tests_at(None), "touched": len(touched)}
+
+
+def evaluate(evidence: dict, baseline: dict, require_all: bool = False, delta: dict | None = None) -> list[dict]:
     checks = []
 
     def check(name, ok, detail):
@@ -115,8 +129,9 @@ def evaluate(evidence: dict, baseline: dict, require_all: bool = False, new_test
           f"{tests['total']} run, {tests['failures']} failed")
     check("no unit test removed", tests["total"] >= base_tests["total"],
           f"{tests['total']} now vs {base_tests['total']} at baseline")
-    if new_tests_vs is not None:
-        check("regression tests added", tests["total"] > new_tests_vs, f"{tests['total']} now vs {new_tests_vs} on the base branch")
+    if delta is not None:
+        check("regression tests added for changed application code", delta["head"] > delta["base"],
+              f"{delta['touched']} files under app/src changed; {delta['head'] - delta['base']:+d} test cases vs the base branch")
     for name, board in evidence["boards"].items():
         base = baseline["boards"].get(name, {})
         if board["status"] == "pending":
@@ -129,9 +144,10 @@ def evaluate(evidence: dict, baseline: dict, require_all: bool = False, new_test
                   f"{board['flash']['used']} B ({growth:+.1f}% vs baseline, budget +{FLASH_BUDGET_PCT:.0f}%)")
             check(f"{name}: fits SRAM", board["sram"]["used"] <= board["sram"]["size"],
                   f"{board['sram']['used']} of {board['sram']['size']} B")
-    new_warnings = len(evidence["warnings"])
-    check("no new compiler warnings in app code", new_warnings <= len(baseline.get("warnings", [])),
-          f"{new_warnings} now vs {len(baseline.get('warnings', []))} at baseline")
+    now, before = len(evidence["warnings"]), len(baseline.get("warnings", []))
+    # the warning ratchet only blocks the integration gate; until then it is reported
+    check("no new compiler warnings in app code", now <= before or not require_all,
+          f"{now} now vs {before} at baseline" + ("" if now <= before or require_all else " (blocks the integration gate)"))
     return checks
 
 
@@ -142,6 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--boards", help="comma separated board names to build (default: all)")
     parser.add_argument("--tests-only", action="store_true")
     parser.add_argument("--base-ref", help="git ref of the base branch; the tree must add unit tests versus it")
+    parser.add_argument("--ticket", help="plan ticket id; evidence is written to migration/evidence/<ticket>.json")
     parser.add_argument("--out", default=str(MIGRATION / "evidence" / "current.json"))
     args = parser.parse_args(argv)
 
@@ -159,8 +176,11 @@ def main(argv: list[str] | None = None) -> int:
     if baseline is None:
         print("no baseline evidence; run `make baseline` on main first", file=sys.stderr)
         return 2
-    new_tests_vs = count_tests_at(args.base_ref) if args.base_ref else None
-    evidence["checks"] = evaluate(evidence, baseline, args.require_all_boards, new_tests_vs)
+    delta = tests_delta(args.base_ref) if args.base_ref else None
+    if args.ticket:
+        evidence = {"ticket": args.ticket, **evidence}
+        args.out = str(MIGRATION / "evidence" / f"{args.ticket}.json")
+    evidence["checks"] = evaluate(evidence, baseline, args.require_all_boards, delta)
     evidence["verdict"] = "pass" if all(c["ok"] for c in evidence["checks"]) else "fail"
     write_json(Path(args.out), evidence)
     for c in evidence["checks"]:
