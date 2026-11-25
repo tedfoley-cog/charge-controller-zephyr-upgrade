@@ -1,0 +1,5062 @@
+{
+  "from": "v3.2",
+  "to": "v4.3",
+  "rules": 18,
+  "summary": {
+    "total": 133,
+    "by_severity": {
+      "breaking": 84,
+      "deprecated": 46,
+      "advisory": 3
+    },
+    "by_category": {
+      "api": 13,
+      "board-model": 28,
+      "devicetree": 12,
+      "kconfig": 9,
+      "test-harness": 26,
+      "manifest": 2,
+      "build": 4,
+      "numerics": 39
+    },
+    "by_stream": {
+      "can": 14,
+      "foundation": 42,
+      "board": 38,
+      "numerics": 39
+    },
+    "by_source": {
+      "static": 130,
+      "build": 3
+    },
+    "files": 46
+  },
+  "findings": [
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:49",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 49,
+      "snippet": ".id_type = CAN_EXTENDED_IDENTIFIER,",
+      "context": [
+        {
+          "line": 47,
+          "text": ""
+        },
+        {
+          "line": 48,
+          "text": "struct isotp_msg_id rx_addr = {"
+        },
+        {
+          "line": 49,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 50,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 51,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:55",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 55,
+      "snippet": ".id_type = CAN_EXTENDED_IDENTIFIER,",
+      "context": [
+        {
+          "line": 53,
+          "text": ""
+        },
+        {
+          "line": 54,
+          "text": "struct isotp_msg_id tx_addr = {"
+        },
+        {
+          "line": 55,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 56,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 57,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:149",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 149,
+      "snippet": ".rtr = CAN_DATAFRAME,",
+      "context": [
+        {
+          "line": 147,
+          "text": "const struct can_filter ctrl_filter = {"
+        },
+        {
+          "line": 148,
+          "text": "    .id = TS_CAN_TYPE_PUBSUB,"
+        },
+        {
+          "line": 149,
+          "text": "    .rtr = CAN_DATAFRAME,"
+        },
+        {
+          "line": 150,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 151,
+          "text": "    .id_mask = TS_CAN_TYPE_MASK,"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:150",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 150,
+      "snippet": ".id_type = CAN_EXTENDED_IDENTIFIER,",
+      "context": [
+        {
+          "line": 148,
+          "text": "    .id = TS_CAN_TYPE_PUBSUB,"
+        },
+        {
+          "line": 149,
+          "text": "    .rtr = CAN_DATAFRAME,"
+        },
+        {
+          "line": 150,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 151,
+          "text": "    .id_mask = TS_CAN_TYPE_MASK,"
+        },
+        {
+          "line": 152,
+          "text": "    .rtr_mask = 1,"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:151",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 151,
+      "snippet": ".id_mask = TS_CAN_TYPE_MASK,",
+      "context": [
+        {
+          "line": 149,
+          "text": "    .rtr = CAN_DATAFRAME,"
+        },
+        {
+          "line": 150,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 151,
+          "text": "    .id_mask = TS_CAN_TYPE_MASK,"
+        },
+        {
+          "line": 152,
+          "text": "    .rtr_mask = 1,"
+        },
+        {
+          "line": 153,
+          "text": "};"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:152",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 152,
+      "snippet": ".rtr_mask = 1,",
+      "context": [
+        {
+          "line": 150,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 151,
+          "text": "    .id_mask = TS_CAN_TYPE_MASK,"
+        },
+        {
+          "line": 152,
+          "text": "    .rtr_mask = 1,"
+        },
+        {
+          "line": 153,
+          "text": "};"
+        },
+        {
+          "line": 154,
+          "text": ""
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:163",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 163,
+      "snippet": "frame.id_type = CAN_EXTENDED_IDENTIFIER;",
+      "context": [
+        {
+          "line": 161,
+          "text": "{"
+        },
+        {
+          "line": 162,
+          "text": "    struct can_frame frame = { 0 };"
+        },
+        {
+          "line": 163,
+          "text": "    frame.id_type = CAN_EXTENDED_IDENTIFIER;"
+        },
+        {
+          "line": 164,
+          "text": "    frame.rtr = CAN_DATAFRAME;"
+        },
+        {
+          "line": 165,
+          "text": "    frame.id = can_id;"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-CAN-001:app/src/ext/can.cpp:164",
+      "rule": "API-CAN-001",
+      "source": "static",
+      "title": "CAN frame / filter id_type and rtr fields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.3",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 164,
+      "snippet": "frame.rtr = CAN_DATAFRAME;",
+      "context": [
+        {
+          "line": 162,
+          "text": "    struct can_frame frame = { 0 };"
+        },
+        {
+          "line": 163,
+          "text": "    frame.id_type = CAN_EXTENDED_IDENTIFIER;"
+        },
+        {
+          "line": 164,
+          "text": "    frame.rtr = CAN_DATAFRAME;"
+        },
+        {
+          "line": 165,
+          "text": "    frame.id = can_id;"
+        },
+        {
+          "line": 166,
+          "text": "    memcpy(frame.data, can_data, 8);"
+        }
+      ],
+      "fix": "Set frame.flags = CAN_FRAME_IDE, filter.flags = CAN_FILTER_IDE and filter.mask.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "API-ISOTP-001:app/src/ext/can.cpp:50",
+      "rule": "API-ISOTP-001",
+      "source": "static",
+      "title": "ISO-TP isotp_msg_id addressing bitfields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": "3.5",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 50,
+      "snippet": ".use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)",
+      "context": [
+        {
+          "line": 48,
+          "text": "struct isotp_msg_id rx_addr = {"
+        },
+        {
+          "line": 49,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 50,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 51,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        },
+        {
+          "line": 52,
+          "text": "};"
+        }
+      ],
+      "fix": "Use .flags = ISOTP_MSG_FIXED_ADDR | ISOTP_MSG_IDE.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "API-ISOTP-001:app/src/ext/can.cpp:51",
+      "rule": "API-ISOTP-001",
+      "source": "static",
+      "title": "ISO-TP isotp_msg_id addressing bitfields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": "3.5",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 51,
+      "snippet": ".use_fixed_addr = 1, // enable SAE J1939 compatible addressing",
+      "context": [
+        {
+          "line": 49,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 50,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 51,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        },
+        {
+          "line": 52,
+          "text": "};"
+        },
+        {
+          "line": 53,
+          "text": ""
+        }
+      ],
+      "fix": "Use .flags = ISOTP_MSG_FIXED_ADDR | ISOTP_MSG_IDE.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "API-ISOTP-001:app/src/ext/can.cpp:56",
+      "rule": "API-ISOTP-001",
+      "source": "static",
+      "title": "ISO-TP isotp_msg_id addressing bitfields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": "3.5",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 56,
+      "snippet": ".use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)",
+      "context": [
+        {
+          "line": 54,
+          "text": "struct isotp_msg_id tx_addr = {"
+        },
+        {
+          "line": 55,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 56,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 57,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        },
+        {
+          "line": 58,
+          "text": "};"
+        }
+      ],
+      "fix": "Use .flags = ISOTP_MSG_FIXED_ADDR | ISOTP_MSG_IDE.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "API-ISOTP-001:app/src/ext/can.cpp:57",
+      "rule": "API-ISOTP-001",
+      "source": "static",
+      "title": "ISO-TP isotp_msg_id addressing bitfields (replaced by flags)",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": "3.5",
+      "stream": "can",
+      "file": "app/src/ext/can.cpp",
+      "line": 57,
+      "snippet": ".use_fixed_addr = 1, // enable SAE J1939 compatible addressing",
+      "context": [
+        {
+          "line": 55,
+          "text": "    .id_type = CAN_EXTENDED_IDENTIFIER,"
+        },
+        {
+          "line": 56,
+          "text": "    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)"
+        },
+        {
+          "line": 57,
+          "text": "    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing"
+        },
+        {
+          "line": 58,
+          "text": "};"
+        },
+        {
+          "line": 59,
+          "text": ""
+        }
+      ],
+      "fix": "Use .flags = ISOTP_MSG_FIXED_ADDR | ISOTP_MSG_IDE.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "API-MAIN-001:tests/src/main.cpp:26",
+      "rule": "API-MAIN-001",
+      "source": "static",
+      "title": "main() must return int",
+      "category": "api",
+      "severity": "breaking",
+      "since": "3.4",
+      "removed": null,
+      "stream": "foundation",
+      "file": "tests/src/main.cpp",
+      "line": 26,
+      "snippet": "void main()",
+      "context": [
+        {
+          "line": 24,
+          "text": "} /* extern \"C\" */"
+        },
+        {
+          "line": 25,
+          "text": ""
+        },
+        {
+          "line": 26,
+          "text": "void main()"
+        },
+        {
+          "line": 27,
+          "text": "{"
+        },
+        {
+          "line": 28,
+          "text": "    int err = 0;"
+        }
+      ],
+      "fix": "Change to int main(void) and return a status.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.4.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/mppt_1210_hus/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_1210_hus/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_MPPT_1210_HUS",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_MPPT_1210_HUS"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar MPPT 1210 HUS\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32L072XX"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/mppt_2420_hc/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_MPPT_2420_HC",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_MPPT_2420_HC"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar MPPT 2420 HC\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32G431XX"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/mppt_2420_hpx/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hpx/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_MPPT_2420_HPX",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_MPPT_2420_HPX"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar MPPT 2420 HPX\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32G431XX"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/mppt_2420_lc/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_lc/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_MPPT_2420_LC",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_MPPT_2420_LC"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar MPPT 2420 LC\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32F072XB"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/mppt_2420_rc/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_MPPT_2420_RC",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_MPPT_2420_RC"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar MPPT 2420 RC\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32G431XX"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-001:boards/arm/pwm_2420_lus/Kconfig.board:4",
+      "rule": "BOARD-001",
+      "source": "static",
+      "title": "Board uses hardware model v1 layout (boards/<arch>/)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/pwm_2420_lus/Kconfig.board",
+      "line": 4,
+      "snippet": "config BOARD_PWM_2420_LUS",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "config BOARD_PWM_2420_LUS"
+        },
+        {
+          "line": 5,
+          "text": "\tbool \"Libre Solar PWM 2420 LUS\""
+        },
+        {
+          "line": 6,
+          "text": "\tdepends on SOC_STM32L072XX"
+        }
+      ],
+      "fix": "Move to boards/<vendor>/<board>, add board.yml, rename Kconfig.board to Kconfig.<board> and select the SoC.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32L0X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32L0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32L072XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32L072XX=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32L0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32L072XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CLOCK_CONTROL=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32G4X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32G431XX=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_ARM_MPU=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32G4X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32G431XX=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_ARM_MPU=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32F0X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32F0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32F072XB=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32F072XB=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32F0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32F072XB=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CLOCK_CONTROL=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32G4X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32G431XX=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32G4X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32G431XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_ARM_MPU=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig:3",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig",
+      "line": 3,
+      "snippet": "CONFIG_SOC_SERIES_STM32L0X=y",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32L0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32L072XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-002:boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig:4",
+      "rule": "BOARD-002",
+      "source": "static",
+      "title": "Board defconfig selects the SoC (now derived from board.yml)",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig",
+      "line": 4,
+      "snippet": "CONFIG_SOC_STM32L072XX=y",
+      "context": [
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "CONFIG_SOC_SERIES_STM32L0X=y"
+        },
+        {
+          "line": 4,
+          "text": "CONFIG_SOC_STM32L072XX=y"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CLOCK_CONTROL=y"
+        }
+      ],
+      "fix": "Remove CONFIG_SOC_* from the defconfig; list the SoC in board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/mppt_1210_hus/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_1210_hus/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_MPPT_1210_HUS"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"mppt_1210_hus\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/mppt_2420_hc/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_MPPT_2420_HC"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"mppt_2420_hc\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/mppt_2420_hpx/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hpx/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_MPPT_2420_HPX"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"mppt_2420_hpx\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/mppt_2420_lc/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_lc/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_MPPT_2420_LC"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"mppt_2420_lc\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/mppt_2420_rc/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_MPPT_2420_RC"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"mppt_2420_rc\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-003:boards/arm/pwm_2420_lus/Kconfig.defconfig:6",
+      "rule": "BOARD-003",
+      "source": "static",
+      "title": "config BOARD default set in Kconfig.defconfig",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/pwm_2420_lus/Kconfig.defconfig",
+      "line": 6,
+      "snippet": "config BOARD",
+      "context": [
+        {
+          "line": 4,
+          "text": "if BOARD_PWM_2420_LUS"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "config BOARD"
+        },
+        {
+          "line": 7,
+          "text": "\tdefault \"pwm_2420_lus\""
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Delete the BOARD default; the name comes from board.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-004:boards/arm/mppt_1210_hus/revision.cmake:3",
+      "rule": "BOARD-004",
+      "source": "static",
+      "title": "Board revisions declared in revision.cmake",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_1210_hus/revision.cmake",
+      "line": 3,
+      "snippet": "board_check_revision(",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "board_check_revision("
+        },
+        {
+          "line": 4,
+          "text": "        FORMAT MAJOR.MINOR.PATCH"
+        },
+        {
+          "line": 5,
+          "text": "        DEFAULT_REVISION 0.7.1"
+        }
+      ],
+      "fix": "Declare revisions in board.yml and rename <board>_<rev>.conf to <board>_<rev>_defconfig.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-004:boards/arm/mppt_2420_hc/revision.cmake:3",
+      "rule": "BOARD-004",
+      "source": "static",
+      "title": "Board revisions declared in revision.cmake",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/revision.cmake",
+      "line": 3,
+      "snippet": "board_check_revision(FORMAT MAJOR.MINOR.PATCH)",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "board_check_revision(FORMAT MAJOR.MINOR.PATCH)"
+        }
+      ],
+      "fix": "Declare revisions in board.yml and rename <board>_<rev>.conf to <board>_<rev>_defconfig.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "BOARD-004:boards/arm/pwm_2420_lus/revision.cmake:3",
+      "rule": "BOARD-004",
+      "source": "static",
+      "title": "Board revisions declared in revision.cmake",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "3.7",
+      "stream": "board",
+      "file": "boards/arm/pwm_2420_lus/revision.cmake",
+      "line": 3,
+      "snippet": "board_check_revision(",
+      "context": [
+        {
+          "line": 1,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 2,
+          "text": ""
+        },
+        {
+          "line": 3,
+          "text": "board_check_revision("
+        },
+        {
+          "line": 4,
+          "text": "        FORMAT MAJOR.MINOR.PATCH"
+        },
+        {
+          "line": 5,
+          "text": "        DEFAULT_REVISION 0.3"
+        }
+      ],
+      "fix": "Declare revisions in board.yml and rename <board>_<rev>.conf to <board>_<rev>_defconfig.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:218",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
+      "line": 218,
+      "snippet": "bus-speed = <500000>;",
+      "context": [
+        {
+          "line": 216,
+          "text": "\tpinctrl-0 = <&fdcan1_rx_pa11 &fdcan1_tx_pa12>;"
+        },
+        {
+          "line": 217,
+          "text": "\tpinctrl-names = \"default\";"
+        },
+        {
+          "line": 218,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 219,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 220,
+          "text": "\tsjw = <1>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:219",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
+      "line": 219,
+      "snippet": "bus-speed-data = <500000>;",
+      "context": [
+        {
+          "line": 217,
+          "text": "\tpinctrl-names = \"default\";"
+        },
+        {
+          "line": 218,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 219,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 220,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 221,
+          "text": "\tsjw-data = <1>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:220",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
+      "line": 220,
+      "snippet": "sjw = <1>;",
+      "context": [
+        {
+          "line": 218,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 219,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 220,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 221,
+          "text": "\tsjw-data = <1>;"
+        },
+        {
+          "line": 222,
+          "text": "\tsample-point = <875>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:221",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
+      "line": 221,
+      "snippet": "sjw-data = <1>;",
+      "context": [
+        {
+          "line": 219,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 220,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 221,
+          "text": "\tsjw-data = <1>;"
+        },
+        {
+          "line": 222,
+          "text": "\tsample-point = <875>;"
+        },
+        {
+          "line": 223,
+          "text": "\tsample-point-data = <875>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_lc/mppt_2420_lc.dts:237",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_lc/mppt_2420_lc.dts",
+      "line": 237,
+      "snippet": "bus-speed = <500000>;",
+      "context": [
+        {
+          "line": 235,
+          "text": "\tpinctrl-0 = <&can_rx_pb8 &can_tx_pb9>;"
+        },
+        {
+          "line": 236,
+          "text": "\tpinctrl-names = \"default\";"
+        },
+        {
+          "line": 237,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 238,
+          "text": "\tstatus = \"okay\";"
+        },
+        {
+          "line": 239,
+          "text": "};"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:225",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
+      "line": 225,
+      "snippet": "bus-speed = <500000>;",
+      "context": [
+        {
+          "line": 223,
+          "text": "\tpinctrl-0 = <&fdcan1_rx_pa11 &fdcan1_tx_pa12>;"
+        },
+        {
+          "line": 224,
+          "text": "\tpinctrl-names = \"default\";"
+        },
+        {
+          "line": 225,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 226,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 227,
+          "text": "\tsjw = <1>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:226",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
+      "line": 226,
+      "snippet": "bus-speed-data = <500000>;",
+      "context": [
+        {
+          "line": 224,
+          "text": "\tpinctrl-names = \"default\";"
+        },
+        {
+          "line": 225,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 226,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 227,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 228,
+          "text": "\tsjw-data = <1>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:227",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
+      "line": 227,
+      "snippet": "sjw = <1>;",
+      "context": [
+        {
+          "line": 225,
+          "text": "\tbus-speed = <500000>;"
+        },
+        {
+          "line": 226,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 227,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 228,
+          "text": "\tsjw-data = <1>;"
+        },
+        {
+          "line": 229,
+          "text": "\tsample-point = <875>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:228",
+      "rule": "DT-CAN-001",
+      "source": "static",
+      "title": "CAN bus-speed / sjw / sample-point devicetree properties",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.7",
+      "removed": "4.0",
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
+      "line": 228,
+      "snippet": "sjw-data = <1>;",
+      "context": [
+        {
+          "line": 226,
+          "text": "\tbus-speed-data = <500000>;"
+        },
+        {
+          "line": 227,
+          "text": "\tsjw = <1>;"
+        },
+        {
+          "line": 228,
+          "text": "\tsjw-data = <1>;"
+        },
+        {
+          "line": 229,
+          "text": "\tsample-point = <875>;"
+        },
+        {
+          "line": 230,
+          "text": "\tsample-point-data = <875>;"
+        }
+      ],
+      "fix": "Use bitrate / bitrate-data; drop sjw (computed by the driver).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.7.html"
+    },
+    {
+      "id": "DT-CAN-002:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:215",
+      "rule": "DT-CAN-002",
+      "source": "static",
+      "title": "STM32G4 CAN node label can1 (now fdcan1)",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": null,
+      "stream": "can",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
+      "line": 215,
+      "snippet": "&can1 {",
+      "context": [
+        {
+          "line": 213,
+          "text": "};"
+        },
+        {
+          "line": 214,
+          "text": ""
+        },
+        {
+          "line": 215,
+          "text": "&can1 {"
+        },
+        {
+          "line": 216,
+          "text": "\tpinctrl-0 = <&fdcan1_rx_pa11 &fdcan1_tx_pa12>;"
+        },
+        {
+          "line": 217,
+          "text": "\tpinctrl-names = \"default\";"
+        }
+      ],
+      "fix": "Reference &fdcan1 on STM32G4 parts and update the app's node lookup.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "DT-CAN-002:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:222",
+      "rule": "DT-CAN-002",
+      "source": "static",
+      "title": "STM32G4 CAN node label can1 (now fdcan1)",
+      "category": "devicetree",
+      "severity": "breaking",
+      "since": "3.5",
+      "removed": null,
+      "stream": "can",
+      "file": "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
+      "line": 222,
+      "snippet": "&can1 {",
+      "context": [
+        {
+          "line": 220,
+          "text": "};"
+        },
+        {
+          "line": 221,
+          "text": ""
+        },
+        {
+          "line": 222,
+          "text": "&can1 {"
+        },
+        {
+          "line": 223,
+          "text": "\tpinctrl-0 = <&fdcan1_rx_pa11 &fdcan1_tx_pa12>;"
+        },
+        {
+          "line": 224,
+          "text": "\tpinctrl-names = \"default\";"
+        }
+      ],
+      "fix": "Reference &fdcan1 on STM32G4 parts and update the app's node lookup.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-001:app/prj.conf:6",
+      "rule": "KCFG-001",
+      "source": "static",
+      "title": "CONFIG_CPLUSPLUS removed (use CONFIG_CPP)",
+      "category": "kconfig",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.5",
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 6,
+      "snippet": "CONFIG_CPLUSPLUS=y",
+      "context": [
+        {
+          "line": 4,
+          "text": "CONFIG_HEAP_MEM_POOL_SIZE=256"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CPLUSPLUS=y"
+        },
+        {
+          "line": 7,
+          "text": "CONFIG_LIB_CPLUSPLUS=y"
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Replace with CONFIG_CPP=y.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "KCFG-001:tests/prj.conf:6",
+      "rule": "KCFG-001",
+      "source": "static",
+      "title": "CONFIG_CPLUSPLUS removed (use CONFIG_CPP)",
+      "category": "kconfig",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.5",
+      "stream": "foundation",
+      "file": "tests/prj.conf",
+      "line": 6,
+      "snippet": "CONFIG_CPLUSPLUS=y",
+      "context": [
+        {
+          "line": 4,
+          "text": "CONFIG_HEAP_MEM_POOL_SIZE=256"
+        },
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CPLUSPLUS=y"
+        },
+        {
+          "line": 7,
+          "text": "CONFIG_LIB_CPLUSPLUS=y"
+        },
+        {
+          "line": 8,
+          "text": ""
+        }
+      ],
+      "fix": "Replace with CONFIG_CPP=y.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "KCFG-002:app/prj.conf:7",
+      "rule": "KCFG-002",
+      "source": "static",
+      "title": "CONFIG_LIB_CPLUSPLUS removed (use CONFIG_REQUIRES_FULL_LIBCPP)",
+      "category": "kconfig",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.5",
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 7,
+      "snippet": "CONFIG_LIB_CPLUSPLUS=y",
+      "context": [
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CPLUSPLUS=y"
+        },
+        {
+          "line": 7,
+          "text": "CONFIG_LIB_CPLUSPLUS=y"
+        },
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        }
+      ],
+      "fix": "Replace with CONFIG_REQUIRES_FULL_LIBCPP=y.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "KCFG-002:tests/prj.conf:7",
+      "rule": "KCFG-002",
+      "source": "static",
+      "title": "CONFIG_LIB_CPLUSPLUS removed (use CONFIG_REQUIRES_FULL_LIBCPP)",
+      "category": "kconfig",
+      "severity": "breaking",
+      "since": "3.3",
+      "removed": "3.5",
+      "stream": "foundation",
+      "file": "tests/prj.conf",
+      "line": 7,
+      "snippet": "CONFIG_LIB_CPLUSPLUS=y",
+      "context": [
+        {
+          "line": 5,
+          "text": ""
+        },
+        {
+          "line": 6,
+          "text": "CONFIG_CPLUSPLUS=y"
+        },
+        {
+          "line": 7,
+          "text": "CONFIG_LIB_CPLUSPLUS=y"
+        },
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "#CONFIG_WATCHDOG=y"
+        }
+      ],
+      "fix": "Replace with CONFIG_REQUIRES_FULL_LIBCPP=y.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.3.html"
+    },
+    {
+      "id": "TEST-001:tests/CMakeLists.txt:7",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/CMakeLists.txt",
+      "line": 7,
+      "snippet": "#set(BOARD \"native_posix\")",
+      "context": [
+        {
+          "line": 5,
+          "text": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 6,
+          "text": ""
+        },
+        {
+          "line": 7,
+          "text": "#set(BOARD \"native_posix\")"
+        },
+        {
+          "line": 8,
+          "text": "#set(ZEPHYR_TOOLCHAIN_VARIANT \"host\")"
+        },
+        {
+          "line": 9,
+          "text": ""
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/boards/native_posix.overlay:8",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/boards/native_posix.overlay",
+      "line": 8,
+      "snippet": "/* delete conflicting nodes from Zephyr native_posix board */",
+      "context": [
+        {
+          "line": 6,
+          "text": ""
+        },
+        {
+          "line": 7,
+          "text": "/ {"
+        },
+        {
+          "line": 8,
+          "text": "\t/* delete conflicting nodes from Zephyr native_posix board */"
+        },
+        {
+          "line": 9,
+          "text": "\t/delete-node/ leds;"
+        },
+        {
+          "line": 10,
+          "text": "\t/delete-node/ aliases;"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2121",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2121,
+      "snippet": "\"title\": \"native_posix board removed (use native_sim)\",",
+      "context": [
+        {
+          "line": 2119,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2120,
+          "text": "      \"source\": \"static\","
+        },
+        {
+          "line": 2121,
+          "text": "      \"title\": \"native_posix board removed (use native_sim)\","
+        },
+        {
+          "line": 2122,
+          "text": "      \"category\": \"test-harness\","
+        },
+        {
+          "line": 2123,
+          "text": "      \"severity\": \"breaking\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2129",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2129,
+      "snippet": "\"snippet\": \"#set(BOARD \\\"native_posix\\\")\",",
+      "context": [
+        {
+          "line": 2127,
+          "text": "      \"file\": \"tests/CMakeLists.txt\","
+        },
+        {
+          "line": 2128,
+          "text": "      \"line\": 7,"
+        },
+        {
+          "line": 2129,
+          "text": "      \"snippet\": \"#set(BOARD \\\"native_posix\\\")\","
+        },
+        {
+          "line": 2130,
+          "text": "      \"context\": ["
+        },
+        {
+          "line": 2131,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2141",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2141,
+      "snippet": "\"text\": \"#set(BOARD \\\"native_posix\\\")\"",
+      "context": [
+        {
+          "line": 2139,
+          "text": "        {"
+        },
+        {
+          "line": 2140,
+          "text": "          \"line\": 7,"
+        },
+        {
+          "line": 2141,
+          "text": "          \"text\": \"#set(BOARD \\\"native_posix\\\")\""
+        },
+        {
+          "line": 2142,
+          "text": "        },"
+        },
+        {
+          "line": 2143,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2156",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2156,
+      "snippet": "\"id\": \"TEST-001:tests/boards/native_posix.overlay:8\",",
+      "context": [
+        {
+          "line": 2154,
+          "text": "    },"
+        },
+        {
+          "line": 2155,
+          "text": "    {"
+        },
+        {
+          "line": 2156,
+          "text": "      \"id\": \"TEST-001:tests/boards/native_posix.overlay:8\","
+        },
+        {
+          "line": 2157,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2158,
+          "text": "      \"source\": \"static\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2159",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2159,
+      "snippet": "\"title\": \"native_posix board removed (use native_sim)\",",
+      "context": [
+        {
+          "line": 2157,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2158,
+          "text": "      \"source\": \"static\","
+        },
+        {
+          "line": 2159,
+          "text": "      \"title\": \"native_posix board removed (use native_sim)\","
+        },
+        {
+          "line": 2160,
+          "text": "      \"category\": \"test-harness\","
+        },
+        {
+          "line": 2161,
+          "text": "      \"severity\": \"breaking\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2165",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2165,
+      "snippet": "\"file\": \"tests/boards/native_posix.overlay\",",
+      "context": [
+        {
+          "line": 2163,
+          "text": "      \"removed\": \"4.2\","
+        },
+        {
+          "line": 2164,
+          "text": "      \"stream\": \"foundation\","
+        },
+        {
+          "line": 2165,
+          "text": "      \"file\": \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 2166,
+          "text": "      \"line\": 8,"
+        },
+        {
+          "line": 2167,
+          "text": "      \"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2167",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2167,
+      "snippet": "\"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\",",
+      "context": [
+        {
+          "line": 2165,
+          "text": "      \"file\": \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 2166,
+          "text": "      \"line\": 8,"
+        },
+        {
+          "line": 2167,
+          "text": "      \"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\","
+        },
+        {
+          "line": 2168,
+          "text": "      \"context\": ["
+        },
+        {
+          "line": 2169,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2179",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2179,
+      "snippet": "\"text\": \"\\t/* delete conflicting nodes from Zephyr native_posix board */\"",
+      "context": [
+        {
+          "line": 2177,
+          "text": "        {"
+        },
+        {
+          "line": 2178,
+          "text": "          \"line\": 8,"
+        },
+        {
+          "line": 2179,
+          "text": "          \"text\": \"\\t/* delete conflicting nodes from Zephyr native_posix board */\""
+        },
+        {
+          "line": 2180,
+          "text": "        },"
+        },
+        {
+          "line": 2181,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/inventory.json:2415",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/inventory.json",
+      "line": 2415,
+      "snippet": "\"text\": \"#set(BOARD \\\"native_posix\\\")\"",
+      "context": [
+        {
+          "line": 2413,
+          "text": "        {"
+        },
+        {
+          "line": 2414,
+          "text": "          \"line\": 7,"
+        },
+        {
+          "line": 2415,
+          "text": "          \"text\": \"#set(BOARD \\\"native_posix\\\")\""
+        },
+        {
+          "line": 2416,
+          "text": "        }"
+        },
+        {
+          "line": 2417,
+          "text": "      ],"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/plan.json:74",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/plan.json",
+      "line": 74,
+      "snippet": "\"TEST-001:tests/boards/native_posix.overlay:8\",",
+      "context": [
+        {
+          "line": 72,
+          "text": "        \"KCFG-002:tests/prj.conf:7\","
+        },
+        {
+          "line": 73,
+          "text": "        \"TEST-001:tests/CMakeLists.txt:7\","
+        },
+        {
+          "line": 74,
+          "text": "        \"TEST-001:tests/boards/native_posix.overlay:8\","
+        },
+        {
+          "line": 75,
+          "text": "        \"WEST-001:west.yml:14\","
+        },
+        {
+          "line": 76,
+          "text": "        \"WEST-002:west.yml:17\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/plan.json:103",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/plan.json",
+      "line": 103,
+      "snippet": "\"tests/boards/native_posix.overlay\",",
+      "context": [
+        {
+          "line": 101,
+          "text": "        \"boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig\","
+        },
+        {
+          "line": 102,
+          "text": "        \"tests/CMakeLists.txt\","
+        },
+        {
+          "line": 103,
+          "text": "        \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 104,
+          "text": "        \"tests/prj.conf\","
+        },
+        {
+          "line": 105,
+          "text": "        \"tests/src/main.cpp\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/done/plan.json:109",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/done/plan.json",
+      "line": 109,
+      "snippet": "\"description\": \"## Scope\\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\\n\\n## Owned paths\\n- `west.yml`\\n- `zephyr/**`\\n- `app/CMakeLists.txt`\\n- `app/prj.conf`\\n- `app",
+      "context": [
+        {
+          "line": 107,
+          "text": "      ],"
+        },
+        {
+          "line": 108,
+          "text": "      \"manual_estimate_hours\": 23.1,"
+        },
+        {
+          "line": 109,
+          "text": "      \"description\": \"## Scope\\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\\n\\n## Owned paths\\n- `west.yml`\\n- `zephyr/**`\\n- `app/CMakeLists.txt`\\n- `app/prj.conf`\\n"
+        },
+        {
+          "line": 110,
+          "text": "    },"
+        },
+        {
+          "line": 111,
+          "text": "    {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2121",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2121,
+      "snippet": "\"title\": \"native_posix board removed (use native_sim)\",",
+      "context": [
+        {
+          "line": 2119,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2120,
+          "text": "      \"source\": \"static\","
+        },
+        {
+          "line": 2121,
+          "text": "      \"title\": \"native_posix board removed (use native_sim)\","
+        },
+        {
+          "line": 2122,
+          "text": "      \"category\": \"test-harness\","
+        },
+        {
+          "line": 2123,
+          "text": "      \"severity\": \"breaking\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2129",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2129,
+      "snippet": "\"snippet\": \"#set(BOARD \\\"native_posix\\\")\",",
+      "context": [
+        {
+          "line": 2127,
+          "text": "      \"file\": \"tests/CMakeLists.txt\","
+        },
+        {
+          "line": 2128,
+          "text": "      \"line\": 7,"
+        },
+        {
+          "line": 2129,
+          "text": "      \"snippet\": \"#set(BOARD \\\"native_posix\\\")\","
+        },
+        {
+          "line": 2130,
+          "text": "      \"context\": ["
+        },
+        {
+          "line": 2131,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2141",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2141,
+      "snippet": "\"text\": \"#set(BOARD \\\"native_posix\\\")\"",
+      "context": [
+        {
+          "line": 2139,
+          "text": "        {"
+        },
+        {
+          "line": 2140,
+          "text": "          \"line\": 7,"
+        },
+        {
+          "line": 2141,
+          "text": "          \"text\": \"#set(BOARD \\\"native_posix\\\")\""
+        },
+        {
+          "line": 2142,
+          "text": "        },"
+        },
+        {
+          "line": 2143,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2156",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2156,
+      "snippet": "\"id\": \"TEST-001:tests/boards/native_posix.overlay:8\",",
+      "context": [
+        {
+          "line": 2154,
+          "text": "    },"
+        },
+        {
+          "line": 2155,
+          "text": "    {"
+        },
+        {
+          "line": 2156,
+          "text": "      \"id\": \"TEST-001:tests/boards/native_posix.overlay:8\","
+        },
+        {
+          "line": 2157,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2158,
+          "text": "      \"source\": \"static\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2159",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2159,
+      "snippet": "\"title\": \"native_posix board removed (use native_sim)\",",
+      "context": [
+        {
+          "line": 2157,
+          "text": "      \"rule\": \"TEST-001\","
+        },
+        {
+          "line": 2158,
+          "text": "      \"source\": \"static\","
+        },
+        {
+          "line": 2159,
+          "text": "      \"title\": \"native_posix board removed (use native_sim)\","
+        },
+        {
+          "line": 2160,
+          "text": "      \"category\": \"test-harness\","
+        },
+        {
+          "line": 2161,
+          "text": "      \"severity\": \"breaking\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2165",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2165,
+      "snippet": "\"file\": \"tests/boards/native_posix.overlay\",",
+      "context": [
+        {
+          "line": 2163,
+          "text": "      \"removed\": \"4.2\","
+        },
+        {
+          "line": 2164,
+          "text": "      \"stream\": \"foundation\","
+        },
+        {
+          "line": 2165,
+          "text": "      \"file\": \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 2166,
+          "text": "      \"line\": 8,"
+        },
+        {
+          "line": 2167,
+          "text": "      \"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2167",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2167,
+      "snippet": "\"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\",",
+      "context": [
+        {
+          "line": 2165,
+          "text": "      \"file\": \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 2166,
+          "text": "      \"line\": 8,"
+        },
+        {
+          "line": 2167,
+          "text": "      \"snippet\": \"/* delete conflicting nodes from Zephyr native_posix board */\","
+        },
+        {
+          "line": 2168,
+          "text": "      \"context\": ["
+        },
+        {
+          "line": 2169,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2179",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2179,
+      "snippet": "\"text\": \"\\t/* delete conflicting nodes from Zephyr native_posix board */\"",
+      "context": [
+        {
+          "line": 2177,
+          "text": "        {"
+        },
+        {
+          "line": 2178,
+          "text": "          \"line\": 8,"
+        },
+        {
+          "line": 2179,
+          "text": "          \"text\": \"\\t/* delete conflicting nodes from Zephyr native_posix board */\""
+        },
+        {
+          "line": 2180,
+          "text": "        },"
+        },
+        {
+          "line": 2181,
+          "text": "        {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/inventory.json:2415",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/inventory.json",
+      "line": 2415,
+      "snippet": "\"text\": \"#set(BOARD \\\"native_posix\\\")\"",
+      "context": [
+        {
+          "line": 2413,
+          "text": "        {"
+        },
+        {
+          "line": 2414,
+          "text": "          \"line\": 7,"
+        },
+        {
+          "line": 2415,
+          "text": "          \"text\": \"#set(BOARD \\\"native_posix\\\")\""
+        },
+        {
+          "line": 2416,
+          "text": "        }"
+        },
+        {
+          "line": 2417,
+          "text": "      ],"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/plan.json:74",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/plan.json",
+      "line": 74,
+      "snippet": "\"TEST-001:tests/boards/native_posix.overlay:8\",",
+      "context": [
+        {
+          "line": 72,
+          "text": "        \"KCFG-002:tests/prj.conf:7\","
+        },
+        {
+          "line": 73,
+          "text": "        \"TEST-001:tests/CMakeLists.txt:7\","
+        },
+        {
+          "line": 74,
+          "text": "        \"TEST-001:tests/boards/native_posix.overlay:8\","
+        },
+        {
+          "line": 75,
+          "text": "        \"WEST-001:west.yml:14\","
+        },
+        {
+          "line": 76,
+          "text": "        \"WEST-002:west.yml:17\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/plan.json:103",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/plan.json",
+      "line": 103,
+      "snippet": "\"tests/boards/native_posix.overlay\",",
+      "context": [
+        {
+          "line": 101,
+          "text": "        \"boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig\","
+        },
+        {
+          "line": 102,
+          "text": "        \"tests/CMakeLists.txt\","
+        },
+        {
+          "line": 103,
+          "text": "        \"tests/boards/native_posix.overlay\","
+        },
+        {
+          "line": 104,
+          "text": "        \"tests/prj.conf\","
+        },
+        {
+          "line": 105,
+          "text": "        \"tests/src/main.cpp\","
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "TEST-001:tests/ui/fixtures/run/plan.json:109",
+      "rule": "TEST-001",
+      "source": "static",
+      "title": "native_posix board removed (use native_sim)",
+      "category": "test-harness",
+      "severity": "breaking",
+      "since": "3.6",
+      "removed": "4.2",
+      "stream": "foundation",
+      "file": "tests/ui/fixtures/run/plan.json",
+      "line": 109,
+      "snippet": "\"description\": \"## Scope\\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\\n\\n## Owned paths\\n- `west.yml`\\n- `zephyr/**`\\n- `app/CMakeLists.txt`\\n- `app/prj.conf`\\n- `app",
+      "context": [
+        {
+          "line": 107,
+          "text": "      ],"
+        },
+        {
+          "line": 108,
+          "text": "      \"manual_estimate_hours\": 23.1,"
+        },
+        {
+          "line": 109,
+          "text": "      \"description\": \"## Scope\\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\\n\\n## Owned paths\\n- `west.yml`\\n- `zephyr/**`\\n- `app/CMakeLists.txt`\\n- `app/prj.conf`\\n"
+        },
+        {
+          "line": 110,
+          "text": "    },"
+        },
+        {
+          "line": 111,
+          "text": "    {"
+        }
+      ],
+      "fix": "Build tests for native_sim and rename the board overlay.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html"
+    },
+    {
+      "id": "WEST-001:west.yml:14",
+      "rule": "WEST-001",
+      "source": "static",
+      "title": "Zephyr pinned to the v3.2 vendor fork",
+      "category": "manifest",
+      "severity": "breaking",
+      "since": "4.3",
+      "removed": null,
+      "stream": "foundation",
+      "file": "west.yml",
+      "line": 14,
+      "snippet": "revision: v3.2-branch",
+      "context": [
+        {
+          "line": 12,
+          "text": "    - name: zephyr"
+        },
+        {
+          "line": 13,
+          "text": "      remote: libresolar"
+        },
+        {
+          "line": 14,
+          "text": "      revision: v3.2-branch"
+        },
+        {
+          "line": 15,
+          "text": "      import:"
+        },
+        {
+          "line": 16,
+          "text": "        name-allowlist:"
+        }
+      ],
+      "fix": "Point the zephyr project at zephyrproject-rtos v4.3-branch.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-4.3.html"
+    },
+    {
+      "id": "WEST-002:west.yml:17",
+      "rule": "WEST-002",
+      "source": "static",
+      "title": "CMSIS module renamed (cmsis -> cmsis_6)",
+      "category": "manifest",
+      "severity": "breaking",
+      "since": "4.1",
+      "removed": "4.1",
+      "stream": "foundation",
+      "file": "west.yml",
+      "line": 17,
+      "snippet": "- cmsis",
+      "context": [
+        {
+          "line": 15,
+          "text": "      import:"
+        },
+        {
+          "line": 16,
+          "text": "        name-allowlist:"
+        },
+        {
+          "line": 17,
+          "text": "          - cmsis"
+        },
+        {
+          "line": 18,
+          "text": "          - edtt"
+        },
+        {
+          "line": 19,
+          "text": "          - hal_stm32"
+        }
+      ],
+      "fix": "Allow-list cmsis_6 instead of cmsis so Cortex-M core headers resolve.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-4.1.html"
+    },
+    {
+      "id": "BUILD-001:app/CMakeLists.txt:4",
+      "rule": "BUILD-001",
+      "source": "static",
+      "title": "BOARD_ROOT / DTS_ROOT set from the application CMakeLists",
+      "category": "build",
+      "severity": "deprecated",
+      "since": "3.7",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/CMakeLists.txt",
+      "line": 4,
+      "snippet": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 5,
+          "text": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 6,
+          "text": ""
+        }
+      ],
+      "fix": "Declare board_root and dts_root once in zephyr/module.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/develop/modules.html"
+    },
+    {
+      "id": "BUILD-001:app/CMakeLists.txt:5",
+      "rule": "BUILD-001",
+      "source": "static",
+      "title": "BOARD_ROOT / DTS_ROOT set from the application CMakeLists",
+      "category": "build",
+      "severity": "deprecated",
+      "since": "3.7",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/CMakeLists.txt",
+      "line": 5,
+      "snippet": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)",
+      "context": [
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 5,
+          "text": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 6,
+          "text": ""
+        },
+        {
+          "line": 7,
+          "text": "cmake_minimum_required(VERSION 3.13.1)"
+        }
+      ],
+      "fix": "Declare board_root and dts_root once in zephyr/module.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/develop/modules.html"
+    },
+    {
+      "id": "BUILD-001:tests/CMakeLists.txt:4",
+      "rule": "BUILD-001",
+      "source": "static",
+      "title": "BOARD_ROOT / DTS_ROOT set from the application CMakeLists",
+      "category": "build",
+      "severity": "deprecated",
+      "since": "3.7",
+      "removed": null,
+      "stream": "foundation",
+      "file": "tests/CMakeLists.txt",
+      "line": 4,
+      "snippet": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)",
+      "context": [
+        {
+          "line": 2,
+          "text": "# SPDX-License-Identifier: Apache-2.0"
+        },
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 5,
+          "text": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 6,
+          "text": ""
+        }
+      ],
+      "fix": "Declare board_root and dts_root once in zephyr/module.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/develop/modules.html"
+    },
+    {
+      "id": "BUILD-001:tests/CMakeLists.txt:5",
+      "rule": "BUILD-001",
+      "source": "static",
+      "title": "BOARD_ROOT / DTS_ROOT set from the application CMakeLists",
+      "category": "build",
+      "severity": "deprecated",
+      "since": "3.7",
+      "removed": null,
+      "stream": "foundation",
+      "file": "tests/CMakeLists.txt",
+      "line": 5,
+      "snippet": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)",
+      "context": [
+        {
+          "line": 3,
+          "text": ""
+        },
+        {
+          "line": 4,
+          "text": "set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 5,
+          "text": "set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)"
+        },
+        {
+          "line": 6,
+          "text": ""
+        },
+        {
+          "line": 7,
+          "text": "#set(BOARD \"native_posix\")"
+        }
+      ],
+      "fix": "Declare board_root and dts_root once in zephyr/module.yml.",
+      "ref": "https://docs.zephyrproject.org/latest/develop/modules.html"
+    },
+    {
+      "id": "DT-LABEL-001:boards/arm/mppt_2420_hc/mppt_2420_hc_0_1_0.overlay:39",
+      "rule": "DT-LABEL-001",
+      "source": "static",
+      "title": "Devicetree label property on a device node",
+      "category": "devicetree",
+      "severity": "deprecated",
+      "since": "3.2",
+      "removed": null,
+      "stream": "board",
+      "file": "boards/arm/mppt_2420_hc/mppt_2420_hc_0_1_0.overlay",
+      "line": 39,
+      "snippet": "label = \"EEPROM_0\";",
+      "context": [
+        {
+          "line": 37,
+          "text": "\t\tcompatible = \"atmel,at24\";"
+        },
+        {
+          "line": 38,
+          "text": "\t\treg = <0x50>;"
+        },
+        {
+          "line": 39,
+          "text": "\t\tlabel = \"EEPROM_0\";"
+        },
+        {
+          "line": 40,
+          "text": "\t\tsize = <32768>;"
+        },
+        {
+          "line": 41,
+          "text": "\t\tpagesize = <32>;"
+        }
+      ],
+      "fix": "Remove label and look the device up by node label.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/release-notes-3.2.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:229",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 229,
+      "snippet": "> (bat_conf->load_disconnect_voltage + 0.4);",
+      "context": [
+        {
+          "line": 227,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 228,
+          "text": "                  return bat_conf->load_reconnect_voltage"
+        },
+        {
+          "line": 229,
+          "text": "                         > (bat_conf->load_disconnect_voltage + 0.4);"
+        },
+        {
+          "line": 230,
+          "text": "              },"
+        },
+        {
+          "line": 231,
+          "text": "          .text = \"Load Reconnect Voltage must be higher than Load Disconnect Voltage + 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:234",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 234,
+      "snippet": "return bat_conf->recharge_voltage < (bat_conf->topping_voltage - 0.4);",
+      "context": [
+        {
+          "line": 232,
+          "text": "        { .func ="
+        },
+        {
+          "line": 233,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 234,
+          "text": "                  return bat_conf->recharge_voltage < (bat_conf->topping_voltage - 0.4);"
+        },
+        {
+          "line": 235,
+          "text": "              },"
+        },
+        {
+          "line": 236,
+          "text": "          .text = \"Recharge Voltage must be lower than Topping Voltage - 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:244",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 244,
+      "snippet": "return bat_conf->load_disconnect_voltage > (bat_conf->absolute_min_voltage + 0.4);",
+      "context": [
+        {
+          "line": 242,
+          "text": "        { .func ="
+        },
+        {
+          "line": 243,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 244,
+          "text": "                  return bat_conf->load_disconnect_voltage > (bat_conf->absolute_min_voltage + 0.4);"
+        },
+        {
+          "line": 245,
+          "text": "              },"
+        },
+        {
+          "line": 246,
+          "text": "          .text = \"Load Disconnecct Voltage must be higher than Absolute Min Voltage + 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:250",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 250,
+      "snippet": "< bat_conf->load_disconnect_voltage * 0.1 / DISCHARGE_CURRENT_MAX;",
+      "context": [
+        {
+          "line": 248,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 249,
+          "text": "                  return bat_conf->internal_resistance"
+        },
+        {
+          "line": 250,
+          "text": "                         < bat_conf->load_disconnect_voltage * 0.1 / DISCHARGE_CURRENT_MAX;"
+        },
+        {
+          "line": 251,
+          "text": "              },"
+        },
+        {
+          "line": 252,
+          "text": "          .text = \"Internal Battery Resistance must not cause more than 10% drop at Max Discharge \""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:257",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 257,
+      "snippet": "< bat_conf->topping_voltage * 0.03 / DISCHARGE_CURRENT_MAX;",
+      "context": [
+        {
+          "line": 255,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 256,
+          "text": "                  return bat_conf->wire_resistance"
+        },
+        {
+          "line": 257,
+          "text": "                         < bat_conf->topping_voltage * 0.03 / DISCHARGE_CURRENT_MAX;"
+        },
+        {
+          "line": 258,
+          "text": "              },"
+        },
+        {
+          "line": 259,
+          "text": "          .text = \"Wire Resistances must not cause more than 3% drop at Max Discharge Current\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:262",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 262,
+      "snippet": "return bat_conf->topping_cutoff_current < (bat_conf->nominal_capacity / 10.0);",
+      "context": [
+        {
+          "line": 260,
+          "text": "        { .func ="
+        },
+        {
+          "line": 261,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 262,
+          "text": "                  return bat_conf->topping_cutoff_current < (bat_conf->nominal_capacity / 10.0);"
+        },
+        {
+          "line": 263,
+          "text": "              },"
+        },
+        {
+          "line": 264,
+          "text": "          .text = \"Topping Cutoff Current must be less than 10% of Nominal Capacity (C/10)\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:265",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 265,
+      "snippet": "{ .func = [bat_conf]() { return bat_conf->topping_cutoff_current > 0.01; },",
+      "context": [
+        {
+          "line": 263,
+          "text": "              },"
+        },
+        {
+          "line": 264,
+          "text": "          .text = \"Topping Cutoff Current must be less than 10% of Nominal Capacity (C/10)\" },"
+        },
+        {
+          "line": 265,
+          "text": "        { .func = [bat_conf]() { return bat_conf->topping_cutoff_current > 0.01; },"
+        },
+        {
+          "line": 266,
+          "text": "          .text = \"Topping Cutoff Current must be higher than 0.01A\" },"
+        },
+        {
+          "line": 267,
+          "text": "        { .func ="
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:369",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 369,
+      "snippet": "if (fabs(port->current) < 0.2) {",
+      "context": [
+        {
+          "line": 367,
+          "text": "    static int soc_filtered = 0; // SOC / 100 for better filtering"
+        },
+        {
+          "line": 368,
+          "text": ""
+        },
+        {
+          "line": 369,
+          "text": "    if (fabs(port->current) < 0.2) {"
+        },
+        {
+          "line": 370,
+          "text": "        int soc_new = (int)((port->bus->voltage - bat_conf->ocv_empty)"
+        },
+        {
+          "line": 371,
+          "text": "                            / (bat_conf->ocv_full - bat_conf->ocv_empty) * 10000.0);"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:371",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 371,
+      "snippet": "/ (bat_conf->ocv_full - bat_conf->ocv_empty) * 10000.0);",
+      "context": [
+        {
+          "line": 369,
+          "text": "    if (fabs(port->current) < 0.2) {"
+        },
+        {
+          "line": 370,
+          "text": "        int soc_new = (int)((port->bus->voltage - bat_conf->ocv_empty)"
+        },
+        {
+          "line": 371,
+          "text": "                            / (bat_conf->ocv_full - bat_conf->ocv_empty) * 10000.0);"
+        },
+        {
+          "line": 372,
+          "text": ""
+        },
+        {
+          "line": 373,
+          "text": "        if (soc_new > 500 && soc_filtered == 0) {"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:94",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 94,
+      "snippet": "return 1.0 / (1.0 / (273.15 + 25) + 1.0 / NTC_BETA_VALUE * log(rts / 10000.0)) - 273.15; // \u00b0C",
+      "context": [
+        {
+          "line": 92,
+          "text": "    float rts = ntc_series_resistor * v_temp / (vref - v_temp);"
+        },
+        {
+          "line": 93,
+          "text": ""
+        },
+        {
+          "line": 94,
+          "text": "    return 1.0 / (1.0 / (273.15 + 25) + 1.0 / NTC_BETA_VALUE * log(rts / 10000.0)) - 273.15; // \u00b0C"
+        },
+        {
+          "line": 95,
+          "text": "}"
+        },
+        {
+          "line": 96,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:370",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 370,
+      "snippet": "adc_readings[ADC_POS(vref_mcu)] = (uint16_t)(1.224 / 3.3 * 4096) << 4;",
+      "context": [
+        {
+          "line": 368,
+          "text": "void prepare_adc_readings(AdcValues values)"
+        },
+        {
+          "line": 369,
+          "text": "{"
+        },
+        {
+          "line": 370,
+          "text": "    adc_readings[ADC_POS(vref_mcu)] = (uint16_t)(1.224 / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 371,
+          "text": "    adc_readings[ADC_POS(v_high)] ="
+        },
+        {
+          "line": 372,
+          "text": "        (uint16_t)((values.solar_voltage / ADC_GAIN(v_high)) / 3.3 * 4096) << 4;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:372",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 372,
+      "snippet": "(uint16_t)((values.solar_voltage / ADC_GAIN(v_high)) / 3.3 * 4096) << 4;",
+      "context": [
+        {
+          "line": 370,
+          "text": "    adc_readings[ADC_POS(vref_mcu)] = (uint16_t)(1.224 / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 371,
+          "text": "    adc_readings[ADC_POS(v_high)] ="
+        },
+        {
+          "line": 372,
+          "text": "        (uint16_t)((values.solar_voltage / ADC_GAIN(v_high)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 373,
+          "text": "    adc_readings[ADC_POS(v_low)] ="
+        },
+        {
+          "line": 374,
+          "text": "        (uint16_t)((values.battery_voltage / ADC_GAIN(v_low)) / 3.3 * 4096) << 4;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:374",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 374,
+      "snippet": "(uint16_t)((values.battery_voltage / ADC_GAIN(v_low)) / 3.3 * 4096) << 4;",
+      "context": [
+        {
+          "line": 372,
+          "text": "        (uint16_t)((values.solar_voltage / ADC_GAIN(v_high)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 373,
+          "text": "    adc_readings[ADC_POS(v_low)] ="
+        },
+        {
+          "line": 374,
+          "text": "        (uint16_t)((values.battery_voltage / ADC_GAIN(v_low)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 375,
+          "text": "    adc_readings[ADC_POS(i_dcdc)] ="
+        },
+        {
+          "line": 376,
+          "text": "        (uint16_t)((values.dcdc_current / ADC_GAIN(i_dcdc)) / 3.3 * 4096) << 4;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:376",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 376,
+      "snippet": "(uint16_t)((values.dcdc_current / ADC_GAIN(i_dcdc)) / 3.3 * 4096) << 4;",
+      "context": [
+        {
+          "line": 374,
+          "text": "        (uint16_t)((values.battery_voltage / ADC_GAIN(v_low)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 375,
+          "text": "    adc_readings[ADC_POS(i_dcdc)] ="
+        },
+        {
+          "line": 376,
+          "text": "        (uint16_t)((values.dcdc_current / ADC_GAIN(i_dcdc)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 377,
+          "text": "    adc_readings[ADC_POS(i_load)] ="
+        },
+        {
+          "line": 378,
+          "text": "        (uint16_t)((values.load_current / ADC_GAIN(i_load)) / 3.3 * 4096) << 4;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/daq.cpp:378",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/daq.cpp",
+      "line": 378,
+      "snippet": "(uint16_t)((values.load_current / ADC_GAIN(i_load)) / 3.3 * 4096) << 4;",
+      "context": [
+        {
+          "line": 376,
+          "text": "        (uint16_t)((values.dcdc_current / ADC_GAIN(i_dcdc)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 377,
+          "text": "    adc_readings[ADC_POS(i_load)] ="
+        },
+        {
+          "line": 378,
+          "text": "        (uint16_t)((values.load_current / ADC_GAIN(i_load)) / 3.3 * 4096) << 4;"
+        },
+        {
+          "line": 379,
+          "text": "}"
+        },
+        {
+          "line": 380,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:56",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 56,
+      "snippet": "ls_voltage_min = 9.0;",
+      "context": [
+        {
+          "line": 54,
+          "text": "    hs_voltage_max = DT_PROP(DT_PATH(pcb), hs_voltage_max);"
+        },
+        {
+          "line": 55,
+          "text": "    ls_voltage_max = DT_PROP(DT_PATH(pcb), ls_voltage_max);"
+        },
+        {
+          "line": 56,
+          "text": "    ls_voltage_min = 9.0;"
+        },
+        {
+          "line": 57,
+          "text": "    output_power_min = 1; // switch off if power < 1 W"
+        },
+        {
+          "line": 58,
+          "text": "    restart_interval = 60;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:63",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 63,
+      "snippet": "DT_PROP(DT_INST(0, half_bridge), deadtime), 12 / hs_voltage_max, 0.97);",
+      "context": [
+        {
+          "line": 61,
+          "text": "    // lower duty limit might have to be adjusted dynamically depending on LS voltage"
+        },
+        {
+          "line": 62,
+          "text": "    half_bridge_init(DT_PROP(DT_INST(0, half_bridge), frequency) / 1000,"
+        },
+        {
+          "line": 63,
+          "text": "                     DT_PROP(DT_INST(0, half_bridge), deadtime), 12 / hs_voltage_max, 0.97);"
+        },
+        {
+          "line": 64,
+          "text": "}"
+        },
+        {
+          "line": 65,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:72",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 72,
+      "snippet": "if ((uptime() - power_good_timestamp > 10 || power < -10.0) && mode != DCDC_MODE_AUTO) {",
+      "context": [
+        {
+          "line": 70,
+          "text": "    }"
+        },
+        {
+          "line": 71,
+          "text": ""
+        },
+        {
+          "line": 72,
+          "text": "    if ((uptime() - power_good_timestamp > 10 || power < -10.0) && mode != DCDC_MODE_AUTO) {"
+        },
+        {
+          "line": 73,
+          "text": "        // switch off after 10s low power or negative power (if not in nanogrid mode)"
+        },
+        {
+          "line": 74,
+          "text": "        pwm_direction = 0;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:117",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 117,
+      "snippet": "if ((uptime() - power_good_timestamp > 10 || -power < -10.0) && mode != DCDC_MODE_AUTO) {",
+      "context": [
+        {
+          "line": 115,
+          "text": "    }"
+        },
+        {
+          "line": 116,
+          "text": ""
+        },
+        {
+          "line": 117,
+          "text": "    if ((uptime() - power_good_timestamp > 10 || -power < -10.0) && mode != DCDC_MODE_AUTO) {"
+        },
+        {
+          "line": 118,
+          "text": "        // switch off after 10s low power or negative power (if not in nanogrid mode)"
+        },
+        {
+          "line": 119,
+          "text": "        pwm_direction = 0;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:169",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 169,
+      "snippet": "&& hvb->voltage * 0.85 > lvb->voltage)",
+      "context": [
+        {
+          "line": 167,
+          "text": "    if (lvb->sink_current_margin > 0 && lvb->voltage < lvb->sink_control_voltage()"
+        },
+        {
+          "line": 168,
+          "text": "        && hvb->src_current_margin < 0 && hvb->voltage > hvb->src_control_voltage()"
+        },
+        {
+          "line": 169,
+          "text": "        && hvb->voltage * 0.85 > lvb->voltage)"
+        },
+        {
+          "line": 170,
+          "text": "    {"
+        },
+        {
+          "line": 171,
+          "text": "        return DCDC_MODE_BUCK;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:278",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 278,
+      "snippet": "if (mode == DCDC_MODE_BUCK || (mode == DCDC_MODE_AUTO && inductor_current > 0.1)) {",
+      "context": [
+        {
+          "line": 276,
+          "text": "        }"
+        },
+        {
+          "line": 277,
+          "text": "        else {"
+        },
+        {
+          "line": 278,
+          "text": "            if (mode == DCDC_MODE_BUCK || (mode == DCDC_MODE_AUTO && inductor_current > 0.1)) {"
+        },
+        {
+          "line": 279,
+          "text": "                perturb_observe_buck();"
+        },
+        {
+          "line": 280,
+          "text": "            }"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:294",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 294,
+      "snippet": "half_bridge_get_duty_cycle() * 100.0, state, pwm_direction);",
+      "context": [
+        {
+          "line": 292,
+          "text": "                        power, inductor_current, hvb->voltage, hvb->src_current_margin,"
+        },
+        {
+          "line": 293,
+          "text": "                        lvb->voltage, lvb->sink_voltage_intercept, lvb->sink_current_margin,"
+        },
+        {
+          "line": 294,
+          "text": "                        half_bridge_get_duty_cycle() * 100.0, state, pwm_direction);"
+        },
+        {
+          "line": 295,
+          "text": "            }"
+        },
+        {
+          "line": 296,
+          "text": "            else {"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:319",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 319,
+      "snippet": "if (half_bridge_get_duty_cycle() > 0.50) {",
+      "context": [
+        {
+          "line": 317,
+          "text": "        }"
+        },
+        {
+          "line": 318,
+          "text": "        else {"
+        },
+        {
+          "line": 319,
+          "text": "            if (half_bridge_get_duty_cycle() > 0.50) {"
+        },
+        {
+          "line": 320,
+          "text": "                half_bridge_set_ccr(half_bridge_get_ccr() - 1);"
+        },
+        {
+          "line": 321,
+          "text": "            }"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/dcdc.cpp:365",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/dcdc.cpp",
+      "line": 365,
+      "snippet": "half_bridge_init(50, 0, 0, 0.98); // reset safety limits to allow 0% duty cycle",
+      "context": [
+        {
+          "line": 363,
+          "text": "        data_storage_write();"
+        },
+        {
+          "line": 364,
+          "text": "        half_bridge_stop();"
+        },
+        {
+          "line": 365,
+          "text": "        half_bridge_init(50, 0, 0, 0.98); // reset safety limits to allow 0% duty cycle"
+        },
+        {
+          "line": 366,
+          "text": "        half_bridge_set_duty_cycle(0);"
+        },
+        {
+          "line": 367,
+          "text": "        half_bridge_start();"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:70",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 70,
+      "snippet": "solar_terminal.neg_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 68,
+          "text": "            grid_export_total_Wh_prev = grid_export_total_Wh;"
+        },
+        {
+          "line": 69,
+          "text": "#endif"
+        },
+        {
+          "line": 70,
+          "text": "            solar_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 71,
+          "text": "#if BOARD_HAS_LOAD_OUTPUT"
+        },
+        {
+          "line": 72,
+          "text": "            load.pos_energy_Wh = 0.0;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:72",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 72,
+      "snippet": "load.pos_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 70,
+          "text": "            solar_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 71,
+          "text": "#if BOARD_HAS_LOAD_OUTPUT"
+        },
+        {
+          "line": 72,
+          "text": "            load.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 73,
+          "text": "#endif"
+        },
+        {
+          "line": 74,
+          "text": "            bat_terminal.pos_energy_Wh = 0.0;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:74",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 74,
+      "snippet": "bat_terminal.pos_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 72,
+          "text": "            load.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 73,
+          "text": "#endif"
+        },
+        {
+          "line": 74,
+          "text": "            bat_terminal.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 75,
+          "text": "            bat_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 76,
+          "text": "#if CONFIG_HV_TERMINAL_NANOGRID"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:75",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 75,
+      "snippet": "bat_terminal.neg_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 73,
+          "text": "#endif"
+        },
+        {
+          "line": 74,
+          "text": "            bat_terminal.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 75,
+          "text": "            bat_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 76,
+          "text": "#if CONFIG_HV_TERMINAL_NANOGRID"
+        },
+        {
+          "line": 77,
+          "text": "            grid_terminal.pos_energy_Wh = 0.0;"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:77",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 77,
+      "snippet": "grid_terminal.pos_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 75,
+          "text": "            bat_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 76,
+          "text": "#if CONFIG_HV_TERMINAL_NANOGRID"
+        },
+        {
+          "line": 77,
+          "text": "            grid_terminal.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 78,
+          "text": "            grid_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 79,
+          "text": "#endif"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/device_status.cpp:78",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/device_status.cpp",
+      "line": 78,
+      "snippet": "grid_terminal.neg_energy_Wh = 0.0;",
+      "context": [
+        {
+          "line": 76,
+          "text": "#if CONFIG_HV_TERMINAL_NANOGRID"
+        },
+        {
+          "line": 77,
+          "text": "            grid_terminal.pos_energy_Wh = 0.0;"
+        },
+        {
+          "line": 78,
+          "text": "            grid_terminal.neg_energy_Wh = 0.0;"
+        },
+        {
+          "line": 79,
+          "text": "#endif"
+        },
+        {
+          "line": 80,
+          "text": "        }"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/half_bridge.c:393",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/half_bridge.c",
+      "line": 393,
+      "snippet": "if (duty >= 0.0 && duty <= 1.0) {",
+      "context": [
+        {
+          "line": 391,
+          "text": "void half_bridge_set_duty_cycle(float duty)"
+        },
+        {
+          "line": 392,
+          "text": "{"
+        },
+        {
+          "line": 393,
+          "text": "    if (duty >= 0.0 && duty <= 1.0) {"
+        },
+        {
+          "line": 394,
+          "text": "        half_bridge_set_ccr(half_bridge_get_arr() * duty);"
+        },
+        {
+          "line": 395,
+          "text": "    }"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/load.cpp:42",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/load.cpp",
+      "line": 42,
+      "snippet": "ov_hysteresis = 0.3;",
+      "context": [
+        {
+          "line": 40,
+          "text": "    lvd_recovery_delay = CONFIG_LOAD_LVD_RECOVERY_DELAY;"
+        },
+        {
+          "line": 41,
+          "text": ""
+        },
+        {
+          "line": 42,
+          "text": "    ov_hysteresis = 0.3;"
+        },
+        {
+          "line": 43,
+          "text": ""
+        },
+        {
+          "line": 44,
+          "text": "    enable = true; // switch on in next control() call if everything is fine"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/main.cpp:71",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/main.cpp",
+      "line": 71,
+      "snippet": "usb_pwr.set_voltage_limits(bat_conf.load_disconnect_voltage - 0.1, // keep on longer than load",
+      "context": [
+        {
+          "line": 69,
+          "text": ""
+        },
+        {
+          "line": 70,
+          "text": "#if BOARD_HAS_USB_OUTPUT"
+        },
+        {
+          "line": 71,
+          "text": "    usb_pwr.set_voltage_limits(bat_conf.load_disconnect_voltage - 0.1, // keep on longer than load"
+        },
+        {
+          "line": 72,
+          "text": "                               bat_conf.load_reconnect_voltage, bat_conf.absolute_max_voltage);"
+        },
+        {
+          "line": 73,
+          "text": "#endif"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:17",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 17,
+      "snippet": "pos_current_limit = 5.0;",
+      "context": [
+        {
+          "line": 15,
+          "text": "void PowerPort::init_nanogrid()"
+        },
+        {
+          "line": 16,
+          "text": "{"
+        },
+        {
+          "line": 17,
+          "text": "    pos_current_limit = 5.0;"
+        },
+        {
+          "line": 18,
+          "text": "    neg_current_limit = -5.0;"
+        },
+        {
+          "line": 19,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:18",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 18,
+      "snippet": "neg_current_limit = -5.0;",
+      "context": [
+        {
+          "line": 16,
+          "text": "{"
+        },
+        {
+          "line": 17,
+          "text": "    pos_current_limit = 5.0;"
+        },
+        {
+          "line": 18,
+          "text": "    neg_current_limit = -5.0;"
+        },
+        {
+          "line": 19,
+          "text": ""
+        },
+        {
+          "line": 20,
+          "text": "    // 1 Ohm means 1V change of target voltage per amp, same droop for both current directions."
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:21",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 21,
+      "snippet": "bus->sink_droop_res = 0.1;",
+      "context": [
+        {
+          "line": 19,
+          "text": ""
+        },
+        {
+          "line": 20,
+          "text": "    // 1 Ohm means 1V change of target voltage per amp, same droop for both current directions."
+        },
+        {
+          "line": 21,
+          "text": "    bus->sink_droop_res = 0.1;"
+        },
+        {
+          "line": 22,
+          "text": "    bus->src_droop_res = 0.1;"
+        },
+        {
+          "line": 23,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:22",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 22,
+      "snippet": "bus->src_droop_res = 0.1;",
+      "context": [
+        {
+          "line": 20,
+          "text": "    // 1 Ohm means 1V change of target voltage per amp, same droop for both current directions."
+        },
+        {
+          "line": 21,
+          "text": "    bus->sink_droop_res = 0.1;"
+        },
+        {
+          "line": 22,
+          "text": "    bus->src_droop_res = 0.1;"
+        },
+        {
+          "line": 23,
+          "text": ""
+        },
+        {
+          "line": 24,
+          "text": "    // also initialize the connected bus"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:25",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 25,
+      "snippet": "bus->src_voltage_intercept = 30.0;  // starting buck mode above this point",
+      "context": [
+        {
+          "line": 23,
+          "text": ""
+        },
+        {
+          "line": 24,
+          "text": "    // also initialize the connected bus"
+        },
+        {
+          "line": 25,
+          "text": "    bus->src_voltage_intercept = 30.0;  // starting buck mode above this point"
+        },
+        {
+          "line": 26,
+          "text": "    bus->sink_voltage_intercept = 28.0; // boost mode until this voltage is reached"
+        },
+        {
+          "line": 27,
+          "text": "}"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/power_port.cpp:26",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/power_port.cpp",
+      "line": 26,
+      "snippet": "bus->sink_voltage_intercept = 28.0; // boost mode until this voltage is reached",
+      "context": [
+        {
+          "line": 24,
+          "text": "    // also initialize the connected bus"
+        },
+        {
+          "line": 25,
+          "text": "    bus->src_voltage_intercept = 30.0;  // starting buck mode above this point"
+        },
+        {
+          "line": 26,
+          "text": "    bus->sink_voltage_intercept = 28.0; // boost mode until this voltage is reached"
+        },
+        {
+          "line": 27,
+          "text": "}"
+        },
+        {
+          "line": 28,
+          "text": ""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:9",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 9,
+      "snippet": "CONFIG_NEWLIB_LIBC=y",
+      "context": [
+        {
+          "line": 7,
+          "text": "CONFIG_LIB_CPLUSPLUS=y"
+        },
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 10,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:10",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 10,
+      "snippet": "CONFIG_NEWLIB_LIBC_NANO=y",
+      "context": [
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 10,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        },
+        {
+          "line": 12,
+          "text": ""
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:11",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 11,
+      "snippet": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y",
+      "context": [
+        {
+          "line": 9,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 10,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        },
+        {
+          "line": 12,
+          "text": ""
+        },
+        {
+          "line": 13,
+          "text": "CONFIG_WATCHDOG=y"
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "BUILD:tests/prj.conf:6:0:tests",
+      "rule": "BUILD-KCONFIG",
+      "source": "build",
+      "title": "Kconfig symbol no longer exists: CPLUSPLUS",
+      "category": "kconfig",
+      "severity": "deprecated",
+      "since": null,
+      "removed": null,
+      "stream": "foundation",
+      "file": "tests/prj.conf",
+      "line": 6,
+      "snippet": "attempt to assign the value 'y' to the undefined symbol CPLUSPLUS",
+      "context": [],
+      "fix": "Reported by the Zephyr v4.3 trial build (tests).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/index.html",
+      "step": "tests"
+    },
+    {
+      "id": "BUILD:tests/prj.conf:7:1:tests",
+      "rule": "BUILD-KCONFIG",
+      "source": "build",
+      "title": "Kconfig symbol no longer exists: LIB_CPLUSPLUS",
+      "category": "kconfig",
+      "severity": "deprecated",
+      "since": null,
+      "removed": null,
+      "stream": "foundation",
+      "file": "tests/prj.conf",
+      "line": 7,
+      "snippet": "attempt to assign the value 'y' to the undefined symbol LIB_CPLUSPLUS",
+      "context": [],
+      "fix": "Reported by the Zephyr v4.3 trial build (tests).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/index.html",
+      "step": "tests"
+    },
+    {
+      "id": "BUILD:(build):0:0:mppt_2420_hc",
+      "rule": "BUILD-BOARD-MODEL",
+      "source": "build",
+      "title": "Board not found by the hardware model v2 loader",
+      "category": "board-model",
+      "severity": "breaking",
+      "since": null,
+      "removed": null,
+      "stream": "board",
+      "file": "(build)",
+      "line": 0,
+      "snippet": "No board named 'mppt_2420_hc' found. Did you mean:",
+      "context": [],
+      "fix": "Reported by the Zephyr v4.3 trial build (mppt_2420_hc).",
+      "ref": "https://docs.zephyrproject.org/latest/releases/index.html",
+      "step": "mppt_2420_hc"
+    }
+  ],
+  "trial": {
+    "zephyr": "v4.3",
+    "steps": [
+      {
+        "step": "tests",
+        "exit": 1,
+        "diagnostics": 2
+      },
+      {
+        "step": "mppt_2420_hc",
+        "exit": 1,
+        "diagnostics": 1
+      },
+      {
+        "step": "mppt_2420_lc",
+        "exit": 1,
+        "diagnostics": 1
+      },
+      {
+        "step": "mppt_2420_rc",
+        "exit": 1,
+        "diagnostics": 1
+      },
+      {
+        "step": "mppt_2420_hpx",
+        "exit": 1,
+        "diagnostics": 1
+      },
+      {
+        "step": "mppt_1210_hus",
+        "exit": 1,
+        "diagnostics": 1
+      },
+      {
+        "step": "pwm_2420_lus",
+        "exit": 1,
+        "diagnostics": 1
+      }
+    ]
+  }
+}
