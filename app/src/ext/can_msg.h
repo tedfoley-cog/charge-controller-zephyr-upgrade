@@ -72,9 +72,14 @@ static inline struct can_frame can_msg_pub_frame(uint32_t can_id, const uint8_t 
 }
 
 /** Control messages are only accepted from nodes with a lower (higher priority) address */
-static inline bool can_msg_is_control(uint32_t can_id, uint16_t node_addr)
+/*
+ * Control messages are data frames from a node with a lower address. Remote transmission
+ * requests carry no payload and are ignored (only delivered with CONFIG_CAN_ACCEPT_RTR=y).
+ */
+static inline bool can_msg_is_control(const struct can_frame *frame, uint16_t node_addr)
 {
-    return TS_CAN_DATA_ID_GET(can_id) > 0x8000 && TS_CAN_SOURCE_GET(can_id) < node_addr;
+    return (frame->flags & CAN_FRAME_RTR) == 0 && TS_CAN_DATA_ID_GET(frame->id) > 0x8000
+           && TS_CAN_SOURCE_GET(frame->id) < node_addr;
 }
 
 #endif /* CAN_MSG_H_ */

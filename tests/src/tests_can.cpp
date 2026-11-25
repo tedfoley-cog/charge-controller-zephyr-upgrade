@@ -93,19 +93,41 @@ static void pub_frame_is_limited_to_classic_payload()
     TEST_ASSERT_EQUAL_HEX8_ARRAY(data, frame.data, 8);
 }
 
+static struct can_frame frame_with_id(uint32_t id, uint8_t flags = CAN_FRAME_IDE)
+{
+    struct can_frame frame = { 0 };
+    frame.id = id;
+    frame.flags = flags;
+    return frame;
+}
+
+static bool is_control(uint32_t id, uint16_t node_addr)
+{
+    struct can_frame frame = frame_with_id(id);
+    return can_msg_is_control(&frame, node_addr);
+}
+
 static void control_messages_only_from_lower_addresses()
 {
     uint32_t ctrl = TS_CAN_TYPE_PUBSUB | TS_CAN_PRIO_CONTROL_HIGH | TS_CAN_DATA_ID_SET(0x8001);
     uint32_t pub = TS_CAN_TYPE_PUBSUB | TS_CAN_PRIO_PUBSUB_LOW | TS_CAN_DATA_ID_SET(0x7001);
 
-    TEST_ASSERT_TRUE(can_msg_is_control(ctrl | 0x0A, 0x14));
-    TEST_ASSERT_FALSE(can_msg_is_control(ctrl | 0x14, 0x14));
-    TEST_ASSERT_FALSE(can_msg_is_control(ctrl | 0x15, 0x14));
-    TEST_ASSERT_FALSE(can_msg_is_control(pub | 0x0A, 0x14));
+    TEST_ASSERT_TRUE(is_control(ctrl | 0x0A, 0x14));
+    TEST_ASSERT_FALSE(is_control(ctrl | 0x14, 0x14));
+    TEST_ASSERT_FALSE(is_control(ctrl | 0x15, 0x14));
+    TEST_ASSERT_FALSE(is_control(pub | 0x0A, 0x14));
     // 0x8000 itself is not a control data object
-    TEST_ASSERT_FALSE(can_msg_is_control(TS_CAN_TYPE_PUBSUB | TS_CAN_DATA_ID_SET(0x8000) | 0x0A, 0x14));
+    TEST_ASSERT_FALSE(is_control(TS_CAN_TYPE_PUBSUB | TS_CAN_DATA_ID_SET(0x8000) | 0x0A, 0x14));
     // node addresses are stored as 16 bit and not truncated for the comparison
-    TEST_ASSERT_TRUE(can_msg_is_control(ctrl | 0xFD, 0x100));
+    TEST_ASSERT_TRUE(is_control(ctrl | 0xFD, 0x100));
+}
+
+static void remote_requests_are_not_control_messages()
+{
+    uint32_t ctrl = TS_CAN_TYPE_PUBSUB | TS_CAN_PRIO_CONTROL_HIGH | TS_CAN_DATA_ID_SET(0x8001);
+    struct can_frame rtr = frame_with_id(ctrl | 0x0A, CAN_FRAME_IDE | CAN_FRAME_RTR);
+
+    TEST_ASSERT_FALSE(can_msg_is_control(&rtr, 0x14));
 }
 
 int can_tests()
@@ -120,6 +142,7 @@ int can_tests()
     RUN_TEST(pub_frame_is_extended_data_frame);
     RUN_TEST(pub_frame_is_limited_to_classic_payload);
     RUN_TEST(control_messages_only_from_lower_addresses);
+    RUN_TEST(remote_requests_are_not_control_messages);
 
     return UNITY_END();
 }

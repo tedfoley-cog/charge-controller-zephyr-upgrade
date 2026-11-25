@@ -238,7 +238,7 @@ void can_pubsub_thread()
             uint16_t data_id = TS_CAN_DATA_ID_GET(rx_frame.id);
 
             // control message received?
-            if (can_msg_is_control(rx_frame.id, can_node_addr)) {
+            if (can_msg_is_control(&rx_frame, can_node_addr)) {
                 uint8_t buf[4 + 8]; // ThingSet bin headers + CAN frame payload
                 buf[0] = 0xA1;      // CBOR: map with 1 element
                 buf[1] = 0x19;      // CBOR: uint16 follows
