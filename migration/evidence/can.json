@@ -2,332 +2,19 @@
   "ticket": "can",
   "zephyr": "v4.3",
   "tests": {
-    "suites": 7,
-    "total": 95,
+    "suites": 9,
+    "total": 130,
     "failures": 0,
     "ignored": 0,
     "exit": 0
   },
-  "warnings": [
-    {
-      "file": "app/src/half_bridge.c",
-      "line": 393,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 94,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 372,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 374,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 376,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 378,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 72,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 117,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 169,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 262,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 278,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 294,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 292,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 293,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 319,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 340,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 341,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 229,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 234,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 244,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 250,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 257,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 262,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 265,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 358,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 361,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 369,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 371,
-      "message": "implicit conversion from \u2018float\u2019 to \u2018double\u2019 to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/half_bridge.c",
-      "line": 393,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/daq.cpp",
-      "line": 94,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 229,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 234,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 244,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 250,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 257,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 262,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 265,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 358,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 361,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 369,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/bat_charger.cpp",
-      "line": 371,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 72,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 117,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 169,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 262,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 278,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 294,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 292,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 293,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 319,
-      "message": "implicit conversion from 'float' to 'double' to match other operand of binary expression",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 340,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    },
-    {
-      "file": "app/src/dcdc.cpp",
-      "line": 341,
-      "message": "implicit conversion from 'float' to 'double' when passing argument to function",
-      "flag": "-Wdouble-promotion"
-    }
-  ],
+  "warnings": [],
   "boards": {
     "mppt_2420_hc": {
       "target": "mppt_2420_hc@0.2",
       "status": "built",
       "flash": {
-        "used": 109772,
+        "used": 109340,
         "size": 131072
       },
       "sram": {
@@ -339,7 +26,7 @@
       "target": "mppt_2420_rc",
       "status": "built",
       "flash": {
-        "used": 97984,
+        "used": 97560,
         "size": 131072
       },
       "sram": {
@@ -352,12 +39,12 @@
     {
       "name": "unit tests pass",
       "ok": true,
-      "detail": "95 run, 0 failed"
+      "detail": "130 run, 0 failed"
     },
     {
       "name": "no unit test removed",
       "ok": true,
-      "detail": "95 now vs 95 at baseline"
+      "detail": "130 now vs 95 at baseline"
     },
     {
       "name": "regression tests added for changed application code",
@@ -372,7 +59,7 @@
     {
       "name": "mppt_2420_hc: flash budget",
       "ok": true,
-      "detail": "109772 B (+5.9% vs baseline, budget +8%)"
+      "detail": "109340 B (+5.5% vs baseline, budget +8%)"
     },
     {
       "name": "mppt_2420_hc: fits SRAM",
@@ -387,7 +74,7 @@
     {
       "name": "mppt_2420_rc: flash budget",
       "ok": true,
-      "detail": "97984 B (+5.4% vs baseline, budget +8%)"
+      "detail": "97560 B (+4.9% vs baseline, budget +8%)"
     },
     {
       "name": "mppt_2420_rc: fits SRAM",
@@ -397,7 +84,7 @@
     {
       "name": "no new compiler warnings in app code",
       "ok": true,
-      "detail": "52 now vs 0 at baseline (blocks the integration gate)"
+      "detail": "0 now vs 0 at baseline"
     }
   ],
   "verdict": "pass"
