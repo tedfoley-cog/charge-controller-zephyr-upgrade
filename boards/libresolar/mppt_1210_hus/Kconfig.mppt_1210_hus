@@ -2,5 +2,4 @@
 # SPDX-License-Identifier: Apache-2.0
 
 config BOARD_MPPT_1210_HUS
-	bool "Libre Solar MPPT 1210 HUS"
-	depends on SOC_STM32L072XX
+	select SOC_STM32L072XX
