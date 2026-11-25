@@ -1,0 +1,8 @@
+/*
+ * Copyright (c) The Libre Solar Project Contributors
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* v0.7.1 includes no hardware change compared to v0.7.0 */
+#include "mppt_1210_hus_0_7_0.overlay"

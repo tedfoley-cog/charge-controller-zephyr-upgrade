@@ -4,11 +4,11 @@ board:
   vendor: libresolar
   revision:
     format: major.minor.patch
-    # 0.7.1 has no hardware change and resolves to the 0.7.0 files
     default: "0.7.1"
     exact: false
     revisions:
       - name: "0.4.0"
       - name: "0.7.0"
+      - name: "0.7.1"
   socs:
     - name: stm32l072xx
