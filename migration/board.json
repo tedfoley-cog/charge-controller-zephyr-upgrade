@@ -102,7 +102,12 @@
       "key": "MBA-3948",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3948",
       "status": "In Review",
-      "gate": "pass"
+      "gate": "pass",
+      "pr": {
+        "number": 6,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/6",
+        "state": "open"
+      }
     }
   }
 }
