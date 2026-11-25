@@ -14,16 +14,16 @@ void PowerPort::init_solar()
 
 void PowerPort::init_nanogrid()
 {
-    pos_current_limit = 5.0;
-    neg_current_limit = -5.0;
+    pos_current_limit = 5.0F;
+    neg_current_limit = -5.0F;
 
     // 1 Ohm means 1V change of target voltage per amp, same droop for both current directions.
-    bus->sink_droop_res = 0.1;
-    bus->src_droop_res = 0.1;
+    bus->sink_droop_res = 0.1F;
+    bus->src_droop_res = 0.1F;
 
     // also initialize the connected bus
-    bus->src_voltage_intercept = 30.0;  // starting buck mode above this point
-    bus->sink_voltage_intercept = 28.0; // boost mode until this voltage is reached
+    bus->src_voltage_intercept = 30.0F;  // starting buck mode above this point
+    bus->sink_voltage_intercept = 28.0F; // boost mode until this voltage is reached
 }
 
 void PowerPort::energy_balance()

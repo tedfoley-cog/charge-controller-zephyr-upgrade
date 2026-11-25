@@ -226,12 +226,12 @@ bool battery_conf_check(BatConf *bat_conf)
         { .func =
               [bat_conf]() {
                   return bat_conf->load_reconnect_voltage
-                         > (bat_conf->load_disconnect_voltage + 0.4);
+                         > (bat_conf->load_disconnect_voltage + 0.4F);
               },
           .text = "Load Reconnect Voltage must be higher than Load Disconnect Voltage + 0.4" },
         { .func =
               [bat_conf]() {
-                  return bat_conf->recharge_voltage < (bat_conf->topping_voltage - 0.4);
+                  return bat_conf->recharge_voltage < (bat_conf->topping_voltage - 0.4F);
               },
           .text = "Recharge Voltage must be lower than Topping Voltage - 0.4" },
         { .func =
@@ -241,28 +241,29 @@ bool battery_conf_check(BatConf *bat_conf)
           .text = "Recharge Voltage must be higher than Load Disconnect Voltage + 1.0" },
         { .func =
               [bat_conf]() {
-                  return bat_conf->load_disconnect_voltage > (bat_conf->absolute_min_voltage + 0.4);
+                  return bat_conf->load_disconnect_voltage
+                         > (bat_conf->absolute_min_voltage + 0.4F);
               },
           .text = "Load Disconnecct Voltage must be higher than Absolute Min Voltage + 0.4" },
         { .func =
               [bat_conf]() {
                   return bat_conf->internal_resistance
-                         < bat_conf->load_disconnect_voltage * 0.1 / DISCHARGE_CURRENT_MAX;
+                         < bat_conf->load_disconnect_voltage * 0.1F / DISCHARGE_CURRENT_MAX;
               },
           .text = "Internal Battery Resistance must not cause more than 10% drop at Max Discharge "
                   "Current" },
         { .func =
               [bat_conf]() {
                   return bat_conf->wire_resistance
-                         < bat_conf->topping_voltage * 0.03 / DISCHARGE_CURRENT_MAX;
+                         < bat_conf->topping_voltage * 0.03F / DISCHARGE_CURRENT_MAX;
               },
           .text = "Wire Resistances must not cause more than 3% drop at Max Discharge Current" },
         { .func =
               [bat_conf]() {
-                  return bat_conf->topping_cutoff_current < (bat_conf->nominal_capacity / 10.0);
+                  return bat_conf->topping_cutoff_current < (bat_conf->nominal_capacity / 10.0F);
               },
           .text = "Topping Cutoff Current must be less than 10% of Nominal Capacity (C/10)" },
-        { .func = [bat_conf]() { return bat_conf->topping_cutoff_current > 0.01; },
+        { .func = [bat_conf]() { return bat_conf->topping_cutoff_current > 0.01F; },
           .text = "Topping Cutoff Current must be higher than 0.01A" },
         { .func =
               [bat_conf]() {
@@ -355,10 +356,10 @@ void Charger::detect_num_batteries(BatConf *bat) const
         && port->bus->voltage < bat->absolute_max_voltage * 2)
     {
         port->bus->series_multiplier = 2;
-        printf("Detected two batteries (total %.2f V max)\n", bat->topping_voltage * 2);
+        printf("Detected two batteries (total %.2f V max)\n", (double)(bat->topping_voltage * 2));
     }
     else {
-        printf("Detected single battery (%.2f V max)\n", bat->topping_voltage);
+        printf("Detected single battery (%.2f V max)\n", (double)bat->topping_voltage);
     }
 }
 
@@ -366,9 +367,9 @@ void Charger::update_soc(BatConf *bat_conf)
 {
     static int soc_filtered = 0; // SOC / 100 for better filtering
 
-    if (fabs(port->current) < 0.2) {
+    if (fabsf(port->current) < 0.2F) {
         int soc_new = (int)((port->bus->voltage - bat_conf->ocv_empty)
-                            / (bat_conf->ocv_full - bat_conf->ocv_empty) * 10000.0);
+                            / (bat_conf->ocv_full - bat_conf->ocv_empty) * 10000.0F);
 
         if (soc_new > 500 && soc_filtered == 0) {
             // bypass filter during initialization
