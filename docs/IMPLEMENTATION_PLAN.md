@@ -44,7 +44,7 @@ Source: the public [LibreSolar charge-controller-firmware](https://github.com/Li
 6. **CI**: firmware (tests + boards), tools (pytest), console (lint + Playwright).
 7. **Docs**: README with flowchart, `docs/flowchart.html|png`, `DEMO_NOTES.md`, `tests/ui/UI_TEST_PLAN.md`.
 
-## What is deliberately not done on `main`
+## What is deliberately not done on the default branch
 
 - No source file is ported to v4.3.
 - No inventory, plan or Jira keys are committed; they are produced by the run.

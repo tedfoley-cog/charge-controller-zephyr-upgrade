@@ -78,8 +78,8 @@ jobs:
           args=""
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             args="--base-ref origin/${{ github.base_ref }}"
-            # a pull request into main is the release: every board must be migrated
-            if [ "${{ github.base_ref }}" = "main" ]; then args="$args --require-all-boards"; fi
+            # a pull request into the default branch is the release: every board must be migrated
+            if [ "${{ github.base_ref }}" = "${{ github.event.repository.default_branch }}" ]; then args="$args --require-all-boards"; fi
           fi
           python tools/migrate/gate.py $args
       - uses: actions/upload-artifact@v4

@@ -5,14 +5,16 @@ description: Run the Zephyr v3.2 to v4.3 upgrade of this firmware end to end - b
 
 # OS upgrade orchestrator
 
-You coordinate. Child sessions do the ticket work. `main` stays on Zephyr v3.2
-until a human merges the final pull request; never push to `main`.
+You coordinate. Child sessions do the ticket work. The repository's default
+branch stays on Zephyr v3.2 until a human merges the final pull request; never
+push to it. Find it with `git symbolic-ref --short refs/remotes/origin/HEAD`
+(below: `<default>`).
 
 ## 1. Baseline and inventory
 
 ```
 make setup          # both Zephyr workspaces (skip if ~/zephyr-ws/v3.2 and v4.3 exist)
-git checkout -b upgrade/zephyr-4.3 origin/main
+git checkout -b upgrade/zephyr-4.3 origin/<default>
 make baseline       # only if migration/evidence/baseline.json is missing
 make scan           # static rules
 make trial          # build the v3.2 tree against v4.3, harvest diagnostics
@@ -56,7 +58,7 @@ and `session` (child session URL) per ticket. Only the orchestrator edits
 Start one child session with the prompt below (ticket id `foundation`). Wait
 for it. Require: PR open against `upgrade/zephyr-4.3`, CI green, Devin Review
 findings resolved or answered. Then merge that PR into `upgrade/zephyr-4.3`
-(this is the integration branch, not `main`) and move the Jira ticket to Done.
+(this is the integration branch, not the default branch) and move the Jira ticket to Done.
 
 ## 4. Wave 1: parallel sessions
 
@@ -88,7 +90,7 @@ python3 tools/migrate/gate.py --ticket integration --require-all-boards
 
 Fix only integration fallout (e.g. two tickets' tests registering in the same
 runner). Commit the refreshed inventory, plan, `migration/evidence/integration.json`
-and final `board.json`. Open the pull request `upgrade/zephyr-4.3` → `main`
+and final `board.json`. Open the pull request `upgrade/zephyr-4.3` → `<default>`
 with the before/after table (tests, flash per board, findings) and links to
 the epic and every ticket PR. Wait for CI and Devin Review, resolve findings.
 **Do not merge it.** Move the integration ticket to In Review.

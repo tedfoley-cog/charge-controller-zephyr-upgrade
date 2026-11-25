@@ -4,10 +4,10 @@
 Runs the unit tests and board builds for the OS version the tree is on,
 records the evidence and compares it with migration/evidence/baseline.json.
 
-  gate.py --capture-baseline      record the v3.2 baseline (run once on main)
+  gate.py --capture-baseline      record the v3.2 baseline (run once on the default branch)
   gate.py                         gate the current tree
   gate.py --require-all-boards    integration gate: no board may be pending
-  gate.py --base-ref origin/main  changes under app/src must add unit tests versus that ref
+  gate.py --base-ref origin/<base> changes under app/src must add unit tests versus that ref
 """
 from __future__ import annotations
 
@@ -179,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
 
     baseline = read_json(MIGRATION / "evidence" / "baseline.json")
     if baseline is None:
-        print("no baseline evidence; run `make baseline` on main first", file=sys.stderr)
+        print("no baseline evidence; run `make baseline` on the default branch first", file=sys.stderr)
         return 2
     delta = tests_delta(args.base_ref) if args.base_ref else None
     if args.ticket:

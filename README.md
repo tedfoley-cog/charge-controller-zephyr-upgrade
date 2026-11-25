@@ -79,7 +79,7 @@ Host packages (Ubuntu): `ninja-build gperf device-tree-compiler gcc-multilib g++
 - every unit test still exists and passes;
 - a change under `app/src/` must add unit tests;
 - every migrated board builds, stays within **+8 % flash** of its v3.2 size and fits SRAM;
-- for the release pull request into `main`: no board left behind, no new compiler warnings in application code.
+- for the release pull request into the default branch: no board left behind, no new compiler warnings in application code.
 
 CI runs the gate, the tooling tests and the Playwright suite on every push.
 
