@@ -22,6 +22,11 @@
       "detail": "95 now vs 95 at baseline"
     },
     {
+      "name": "regression tests added for changed application code",
+      "ok": true,
+      "detail": "8 files under app/src changed; +23 test cases vs the base branch"
+    },
+    {
       "name": "no new compiler warnings in app code",
       "ok": true,
       "detail": "0 now vs 0 at baseline"
