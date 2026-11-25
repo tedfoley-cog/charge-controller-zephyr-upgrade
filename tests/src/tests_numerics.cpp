@@ -229,6 +229,81 @@ void bat_conf_topping_cutoff_current_limits()
     TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
 }
 
+/*
+ * Profiles stored in the field that sit exactly on a threshold: battery_conf_check must keep the
+ * outcome it had on Zephyr v3.2 (double-precision comparison), otherwise the stored profile is
+ * replaced by defaults at boot. Each accepted case below is rejected by a float-only comparison
+ * and each "v3.2 rejected" case must stay rejected.
+ */
+
+void bat_conf_stored_lfp_cutoff_at_c10_kept()
+{
+    bat_conf.wire_resistance = 0;
+
+    // LFP defaults: cutoff = C/10 in float. 0.7F and 0.9F are below 0.7 and 0.9
+    battery_conf_init(&bat_conf, BAT_TYPE_LFP, 4, 7);
+    TEST_ASSERT_EQUAL_FLOAT(0.7F, bat_conf.topping_cutoff_current);
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+    battery_conf_init(&bat_conf, BAT_TYPE_LFP, 4, 9);
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+
+    // not loosened: 0.3F is above 0.3, 10.0F equals 10.0
+    battery_conf_init(&bat_conf, BAT_TYPE_LFP, 4, 3);
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+    battery_conf_init(&bat_conf, BAT_TYPE_LFP, 4, 100);
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+}
+
+void bat_conf_stored_internal_resistance_at_limit()
+{
+    // limit: 10% drop at 20 A
+    init_bat_conf();
+    bat_conf.load_disconnect_voltage = 11.0F;
+    bat_conf.internal_resistance = 0.055F;
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+
+    // v3.2 rejected this one (a float-only comparison would accept it)
+    init_bat_conf();
+    bat_conf.load_disconnect_voltage = 10.7F;
+    bat_conf.internal_resistance = 0.0535F;
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+}
+
+void bat_conf_stored_wire_resistance_at_limit()
+{
+    // limit: 3% drop at 20 A
+    init_bat_conf();
+    bat_conf.topping_voltage = 14.0F;
+    bat_conf.float_voltage = 13.8F; // keep below topping voltage
+    bat_conf.wire_resistance = 0.021F;
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+}
+
+void bat_conf_stored_voltage_margins_at_limit()
+{
+    // exactly 0.4 V apart in decimal: rejected on v3.2
+    init_bat_conf();
+    bat_conf.load_disconnect_voltage = 11.0F;
+    bat_conf.load_reconnect_voltage = 11.4F;
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+
+    init_bat_conf();
+    bat_conf.topping_voltage = 14.0F;
+    bat_conf.float_voltage = 13.8F; // keep below topping voltage
+    bat_conf.recharge_voltage = 13.6F;
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+
+    init_bat_conf();
+    bat_conf.absolute_min_voltage = 11.0F;
+    bat_conf.load_disconnect_voltage = 11.4F;
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+
+    // lowest accepted cutoff current: 0.01F is below 0.01
+    init_bat_conf();
+    bat_conf.topping_cutoff_current = 0.01F;
+    TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
+}
+
 static void init_soc(float bus_voltage, float current)
 {
     init_bat_conf();
@@ -394,6 +469,10 @@ int numerics_tests()
     RUN_TEST(bat_conf_internal_resistance_limit);
     RUN_TEST(bat_conf_wire_resistance_limit);
     RUN_TEST(bat_conf_topping_cutoff_current_limits);
+    RUN_TEST(bat_conf_stored_lfp_cutoff_at_c10_kept);
+    RUN_TEST(bat_conf_stored_internal_resistance_at_limit);
+    RUN_TEST(bat_conf_stored_wire_resistance_at_limit);
+    RUN_TEST(bat_conf_stored_voltage_margins_at_limit);
     RUN_TEST(soc_follows_open_circuit_voltage);
     RUN_TEST(soc_not_updated_under_load);
     RUN_TEST(soc_discharged_ah_integration);
