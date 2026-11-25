@@ -31,20 +31,59 @@
     "mppt-lowpower": {
       "key": "MBA-3945",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3945",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/e1e47d8f7937420aaa95cf8fb0e90985"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/e1e47d8f7937420aaa95cf8fb0e90985",
+      "pr": {
+        "number": 2,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/2",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "status": "complete",
+        "findings": 2,
+        "resolved": 1,
+        "escalated": 1,
+        "note": "CI builds HUS only at rev 0.7; deferred to integration"
+      }
     },
     "pwm": {
       "key": "MBA-3946",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3946",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/bf0a2179239e4edc8b1424ebd3631004"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/bf0a2179239e4edc8b1424ebd3631004",
+      "pr": {
+        "number": 3,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/3",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "status": "complete",
+        "findings": 1,
+        "resolved": 0,
+        "escalated": 1,
+        "note": "CI builds only rev 0.3; deferred to integration"
+      }
     },
     "numerics": {
       "key": "MBA-3947",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3947",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/41eea762f2104792984582538387c599"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/41eea762f2104792984582538387c599",
+      "pr": {
+        "number": 4,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/4",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "status": "complete",
+        "findings": 8,
+        "resolved": 6,
+        "escalated": 2,
+        "note": "3 fixed, 3 answered, 2 escalated (gate counts unregistered tests; no on-target temperature test)"
+      }
     },
     "integration": {
       "key": "MBA-3948",
