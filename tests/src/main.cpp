@@ -35,6 +35,7 @@ int main(void)
     err += device_status_tests();
     err += load_tests();
     err += numerics_tests();
+    err += can_tests();
 
 #ifdef CONFIG_CUSTOM_TESTS
     err += custom_tests();
