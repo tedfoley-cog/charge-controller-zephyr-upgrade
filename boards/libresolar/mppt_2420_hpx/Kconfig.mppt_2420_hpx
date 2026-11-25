@@ -2,5 +2,4 @@
 # SPDX-License-Identifier: Apache-2.0
 
 config BOARD_MPPT_2420_HPX
-	bool "Libre Solar MPPT 2420 HPX"
-	depends on SOC_STM32G431XX
+	select SOC_STM32G431XX
