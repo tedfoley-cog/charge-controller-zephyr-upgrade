@@ -9,7 +9,18 @@
     "foundation": {
       "key": "MBA-3943",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3943",
-      "status": "To Do"
+      "status": "Done",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/1",
+        "state": "merged"
+      },
+      "review": {
+        "status": "complete",
+        "findings": 3,
+        "resolved": 2
+      },
+      "session": "https://devin-gtm.devinenterprise.com/sessions/2e6d350dd5e1473e971a89096c5a15ce"
     },
     "can": {
       "key": "MBA-3944",
