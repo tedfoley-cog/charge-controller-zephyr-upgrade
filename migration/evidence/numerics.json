@@ -24,7 +24,7 @@
     {
       "name": "regression tests added for changed application code",
       "ok": true,
-      "detail": "8 files under app/src changed; +23 test cases vs the base branch"
+      "detail": "9 files under app/src changed; +23 test cases vs the base branch"
     },
     {
       "name": "no new compiler warnings in app code",
