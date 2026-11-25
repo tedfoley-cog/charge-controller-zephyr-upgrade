@@ -60,81 +60,21 @@
       "gate": "python3 tools/migrate/gate.py --ticket foundation --boards mppt_2420_lc",
       "depends_on": [],
       "findings": [
-        "API-MAIN-001:tests/src/main.cpp:26",
-        "BOARD-001:boards/arm/mppt_2420_lc/Kconfig.board:4",
-        "BOARD-002:boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig:3",
-        "BOARD-002:boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig:4",
-        "BOARD-003:boards/arm/mppt_2420_lc/Kconfig.defconfig:6",
-        "DT-CAN-001:boards/arm/mppt_2420_lc/mppt_2420_lc.dts:237",
-        "KCFG-001:app/prj.conf:6",
-        "KCFG-001:tests/prj.conf:6",
-        "KCFG-002:app/prj.conf:7",
-        "KCFG-002:tests/prj.conf:7",
-        "TEST-001:tests/CMakeLists.txt:7",
-        "TEST-001:tests/boards/native_posix.overlay:8",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2121",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2129",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2141",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2156",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2159",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2165",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2167",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2179",
-        "TEST-001:tests/ui/fixtures/done/inventory.json:2415",
-        "TEST-001:tests/ui/fixtures/done/plan.json:74",
-        "TEST-001:tests/ui/fixtures/done/plan.json:103",
-        "TEST-001:tests/ui/fixtures/done/plan.json:109",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2121",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2129",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2141",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2156",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2159",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2165",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2167",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2179",
-        "TEST-001:tests/ui/fixtures/run/inventory.json:2415",
-        "TEST-001:tests/ui/fixtures/run/plan.json:74",
-        "TEST-001:tests/ui/fixtures/run/plan.json:103",
-        "TEST-001:tests/ui/fixtures/run/plan.json:109",
-        "WEST-001:west.yml:14",
-        "WEST-002:west.yml:17",
-        "BUILD-001:app/CMakeLists.txt:4",
-        "BUILD-001:app/CMakeLists.txt:5",
-        "BUILD-001:tests/CMakeLists.txt:4",
-        "BUILD-001:tests/CMakeLists.txt:5",
-        "KCFG-003:app/prj.conf:9",
-        "KCFG-003:app/prj.conf:10",
         "KCFG-003:app/prj.conf:11",
-        "BUILD:tests/prj.conf:6:0:tests",
-        "BUILD:tests/prj.conf:7:1:tests",
-        "BUILD:(build):0:0:mppt_2420_hc"
+        "KCFG-003:app/prj.conf:12",
+        "KCFG-003:app/prj.conf:13"
       ],
-      "finding_count": 48,
+      "finding_count": 3,
       "by_severity": {
-        "breaking": 39,
-        "deprecated": 6,
+        "breaking": 0,
+        "deprecated": 0,
         "advisory": 3
       },
       "files": [
-        "(build)",
-        "app/CMakeLists.txt",
-        "app/prj.conf",
-        "boards/arm/mppt_2420_lc/Kconfig.board",
-        "boards/arm/mppt_2420_lc/Kconfig.defconfig",
-        "boards/arm/mppt_2420_lc/mppt_2420_lc.dts",
-        "boards/arm/mppt_2420_lc/mppt_2420_lc_defconfig",
-        "tests/CMakeLists.txt",
-        "tests/boards/native_posix.overlay",
-        "tests/prj.conf",
-        "tests/src/main.cpp",
-        "tests/ui/fixtures/done/inventory.json",
-        "tests/ui/fixtures/done/plan.json",
-        "tests/ui/fixtures/run/inventory.json",
-        "tests/ui/fixtures/run/plan.json",
-        "west.yml"
+        "app/prj.conf"
       ],
-      "manual_estimate_hours": 41.0,
-      "description": "## Scope\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `west.yml`\n- `zephyr/**`\n- `app/CMakeLists.txt`\n- `app/prj.conf`\n- `app/Kconfig`\n- `tests/**`\n- `boards/*/mppt_2420_lc/**`\n- `dts/**`\n- `scripts/**`\n- `.github/**`\n\n## Findings (48)\n- API-MAIN-001: main() must return int (1)\n- BOARD-001: Board uses hardware model v1 layout (boards/<arch>/) (1)\n- BOARD-002: Board defconfig selects the SoC (now derived from board.yml) (2)\n- BOARD-003: config BOARD default set in Kconfig.defconfig (1)\n- BUILD-001: BOARD_ROOT / DTS_ROOT set from the application CMakeLists (4)\n- BUILD-BOARD-MODEL: Board not found by the hardware model v2 loader (1)\n- BUILD-KCONFIG: Kconfig symbol no longer exists: CPLUSPLUS (1)\n- BUILD-KCONFIG: Kconfig symbol no longer exists: LIB_CPLUSPLUS (1)\n- DT-CAN-001: CAN bus-speed / sjw / sample-point devicetree properties (1)\n- KCFG-001: CONFIG_CPLUSPLUS removed (use CONFIG_CPP) (2)\n- KCFG-002: CONFIG_LIB_CPLUSPLUS removed (use CONFIG_REQUIRES_FULL_LIBCPP) (2)\n- KCFG-003: Newlib selected explicitly (picolibc is the default C library) (3)\n- TEST-001: native_posix board removed (use native_sim) (26)\n- WEST-001: Zephyr pinned to the v3.2 vendor fork (1)\n- WEST-002: CMSIS module renamed (cmsis -> cmsis_6) (1)\n\n## Acceptance criteria\n- west.yml tracks zephyrproject-rtos v4.3-branch; `make test` runs on native_sim\n- All existing unit tests pass on Zephyr v4.3 (none removed, none skipped)\n- Reference board mppt_2420_lc builds under hardware model v2 inside the flash budget\n- Board and devicetree roots are declared in zephyr/module.yml\n\n## Gate\n`python3 tools/migrate/gate.py --ticket foundation --boards mppt_2420_lc`"
+      "manual_estimate_hours": 10.3,
+      "description": "## Scope\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `west.yml`\n- `zephyr/**`\n- `app/CMakeLists.txt`\n- `app/prj.conf`\n- `app/Kconfig`\n- `tests/**`\n- `boards/*/mppt_2420_lc/**`\n- `dts/**`\n- `scripts/**`\n- `.github/**`\n\n## Findings (3)\n- KCFG-003: Newlib selected explicitly (picolibc is the default C library) (3)\n\n## Acceptance criteria\n- west.yml tracks zephyrproject-rtos v4.3-branch; `make test` runs on native_sim\n- All existing unit tests pass on Zephyr v4.3 (none removed, none skipped)\n- Reference board mppt_2420_lc builds under hardware model v2 inside the flash budget\n- Board and devicetree roots are declared in zephyr/module.yml\n\n## Gate\n`python3 tools/migrate/gate.py --ticket foundation --boards mppt_2420_lc`"
     },
     {
       "id": "can",
@@ -160,61 +100,16 @@
       "depends_on": [
         "foundation"
       ],
-      "findings": [
-        "API-CAN-001:app/src/ext/can.cpp:49",
-        "API-CAN-001:app/src/ext/can.cpp:55",
-        "API-CAN-001:app/src/ext/can.cpp:149",
-        "API-CAN-001:app/src/ext/can.cpp:150",
-        "API-CAN-001:app/src/ext/can.cpp:151",
-        "API-CAN-001:app/src/ext/can.cpp:152",
-        "API-CAN-001:app/src/ext/can.cpp:163",
-        "API-CAN-001:app/src/ext/can.cpp:164",
-        "API-ISOTP-001:app/src/ext/can.cpp:50",
-        "API-ISOTP-001:app/src/ext/can.cpp:51",
-        "API-ISOTP-001:app/src/ext/can.cpp:56",
-        "API-ISOTP-001:app/src/ext/can.cpp:57",
-        "BOARD-001:boards/arm/mppt_2420_hc/Kconfig.board:4",
-        "BOARD-001:boards/arm/mppt_2420_rc/Kconfig.board:4",
-        "BOARD-002:boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig:3",
-        "BOARD-002:boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig:4",
-        "BOARD-002:boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig:3",
-        "BOARD-002:boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig:4",
-        "BOARD-003:boards/arm/mppt_2420_hc/Kconfig.defconfig:6",
-        "BOARD-003:boards/arm/mppt_2420_rc/Kconfig.defconfig:6",
-        "BOARD-004:boards/arm/mppt_2420_hc/revision.cmake:3",
-        "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:218",
-        "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:219",
-        "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:220",
-        "DT-CAN-001:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:221",
-        "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:225",
-        "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:226",
-        "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:227",
-        "DT-CAN-001:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:228",
-        "DT-CAN-002:boards/arm/mppt_2420_hc/mppt_2420_hc.dts:215",
-        "DT-CAN-002:boards/arm/mppt_2420_rc/mppt_2420_rc.dts:222",
-        "DT-LABEL-001:boards/arm/mppt_2420_hc/mppt_2420_hc_0_1_0.overlay:39"
-      ],
-      "finding_count": 32,
+      "findings": [],
+      "finding_count": 0,
       "by_severity": {
-        "breaking": 31,
-        "deprecated": 1,
+        "breaking": 0,
+        "deprecated": 0,
         "advisory": 0
       },
-      "files": [
-        "app/src/ext/can.cpp",
-        "boards/arm/mppt_2420_hc/Kconfig.board",
-        "boards/arm/mppt_2420_hc/Kconfig.defconfig",
-        "boards/arm/mppt_2420_hc/mppt_2420_hc.dts",
-        "boards/arm/mppt_2420_hc/mppt_2420_hc_0_1_0.overlay",
-        "boards/arm/mppt_2420_hc/mppt_2420_hc_defconfig",
-        "boards/arm/mppt_2420_hc/revision.cmake",
-        "boards/arm/mppt_2420_rc/Kconfig.board",
-        "boards/arm/mppt_2420_rc/Kconfig.defconfig",
-        "boards/arm/mppt_2420_rc/mppt_2420_rc.dts",
-        "boards/arm/mppt_2420_rc/mppt_2420_rc_defconfig"
-      ],
-      "manual_estimate_hours": 39.5,
-      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_2420_hc/**`\n- `boards/*/mppt_2420_rc/**`\n- `app/src/ext/can.cpp`\n- `app/src/ext/can_msg*`\n- `tests/src/tests_can*`\n\n## Findings (32)\n- API-CAN-001: CAN frame / filter id_type and rtr fields (replaced by flags) (8)\n- API-ISOTP-001: ISO-TP isotp_msg_id addressing bitfields (replaced by flags) (4)\n- BOARD-001: Board uses hardware model v1 layout (boards/<arch>/) (2)\n- BOARD-002: Board defconfig selects the SoC (now derived from board.yml) (4)\n- BOARD-003: config BOARD default set in Kconfig.defconfig (2)\n- BOARD-004: Board revisions declared in revision.cmake (1)\n- DT-CAN-001: CAN bus-speed / sjw / sample-point devicetree properties (8)\n- DT-CAN-002: STM32G4 CAN node label can1 (now fdcan1) (2)\n- DT-LABEL-001: Devicetree label property on a device node (1)\n\n## Acceptance criteria\n- mppt_2420_hc and mppt_2420_rc build under hardware model v2 with CAN enabled\n- CAN frames and filters use the flags API; ISO-TP uses fixed addressing flags\n- New unit tests pin the CAN identifier and filter-mask layout used on the bus\n\n## Gate\n`python3 tools/migrate/gate.py --ticket can --boards mppt_2420_hc,mppt_2420_rc --base-ref origin/upgrade/zephyr-4.3`"
+      "files": [],
+      "manual_estimate_hours": 16,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_2420_hc/**`\n- `boards/*/mppt_2420_rc/**`\n- `app/src/ext/can.cpp`\n- `app/src/ext/can_msg*`\n- `tests/src/tests_can*`\n\n## Findings (0)\n\n## Acceptance criteria\n- mppt_2420_hc and mppt_2420_rc build under hardware model v2 with CAN enabled\n- CAN frames and filters use the flags API; ISO-TP uses fixed addressing flags\n- New unit tests pin the CAN identifier and filter-mask layout used on the bus\n\n## Gate\n`python3 tools/migrate/gate.py --ticket can --boards mppt_2420_hc,mppt_2420_rc --base-ref origin/upgrade/zephyr-4.3`"
     },
     {
       "id": "mppt-lowpower",
@@ -236,34 +131,16 @@
       "depends_on": [
         "foundation"
       ],
-      "findings": [
-        "BOARD-001:boards/arm/mppt_1210_hus/Kconfig.board:4",
-        "BOARD-001:boards/arm/mppt_2420_hpx/Kconfig.board:4",
-        "BOARD-002:boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig:3",
-        "BOARD-002:boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig:4",
-        "BOARD-002:boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig:3",
-        "BOARD-002:boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig:4",
-        "BOARD-003:boards/arm/mppt_1210_hus/Kconfig.defconfig:6",
-        "BOARD-003:boards/arm/mppt_2420_hpx/Kconfig.defconfig:6",
-        "BOARD-004:boards/arm/mppt_1210_hus/revision.cmake:3"
-      ],
-      "finding_count": 9,
+      "findings": [],
+      "finding_count": 0,
       "by_severity": {
-        "breaking": 9,
+        "breaking": 0,
         "deprecated": 0,
         "advisory": 0
       },
-      "files": [
-        "boards/arm/mppt_1210_hus/Kconfig.board",
-        "boards/arm/mppt_1210_hus/Kconfig.defconfig",
-        "boards/arm/mppt_1210_hus/mppt_1210_hus_defconfig",
-        "boards/arm/mppt_1210_hus/revision.cmake",
-        "boards/arm/mppt_2420_hpx/Kconfig.board",
-        "boards/arm/mppt_2420_hpx/Kconfig.defconfig",
-        "boards/arm/mppt_2420_hpx/mppt_2420_hpx_defconfig"
-      ],
-      "manual_estimate_hours": 22.8,
-      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_1210_hus/**`\n- `boards/*/mppt_2420_hpx/**`\n\n## Findings (9)\n- BOARD-001: Board uses hardware model v1 layout (boards/<arch>/) (2)\n- BOARD-002: Board defconfig selects the SoC (now derived from board.yml) (4)\n- BOARD-003: config BOARD default set in Kconfig.defconfig (2)\n- BOARD-004: Board revisions declared in revision.cmake (1)\n\n## Acceptance criteria\n- Both boards build under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket mppt-lowpower --boards mppt_1210_hus,mppt_2420_hpx --base-ref origin/upgrade/zephyr-4.3`"
+      "files": [],
+      "manual_estimate_hours": 16,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_1210_hus/**`\n- `boards/*/mppt_2420_hpx/**`\n\n## Findings (0)\n\n## Acceptance criteria\n- Both boards build under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket mppt-lowpower --boards mppt_1210_hus,mppt_2420_hpx --base-ref origin/upgrade/zephyr-4.3`"
     },
     {
       "id": "pwm",
@@ -283,27 +160,16 @@
       "depends_on": [
         "foundation"
       ],
-      "findings": [
-        "BOARD-001:boards/arm/pwm_2420_lus/Kconfig.board:4",
-        "BOARD-002:boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig:3",
-        "BOARD-002:boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig:4",
-        "BOARD-003:boards/arm/pwm_2420_lus/Kconfig.defconfig:6",
-        "BOARD-004:boards/arm/pwm_2420_lus/revision.cmake:3"
-      ],
-      "finding_count": 5,
+      "findings": [],
+      "finding_count": 0,
       "by_severity": {
-        "breaking": 5,
+        "breaking": 0,
         "deprecated": 0,
         "advisory": 0
       },
-      "files": [
-        "boards/arm/pwm_2420_lus/Kconfig.board",
-        "boards/arm/pwm_2420_lus/Kconfig.defconfig",
-        "boards/arm/pwm_2420_lus/pwm_2420_lus_defconfig",
-        "boards/arm/pwm_2420_lus/revision.cmake"
-      ],
-      "manual_estimate_hours": 13.8,
-      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/pwm_2420_lus/**`\n\n## Findings (5)\n- BOARD-001: Board uses hardware model v1 layout (boards/<arch>/) (1)\n- BOARD-002: Board defconfig selects the SoC (now derived from board.yml) (2)\n- BOARD-003: config BOARD default set in Kconfig.defconfig (1)\n- BOARD-004: Board revisions declared in revision.cmake (1)\n\n## Acceptance criteria\n- pwm_2420_lus builds under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket pwm --boards pwm_2420_lus --base-ref origin/upgrade/zephyr-4.3`"
+      "files": [],
+      "manual_estimate_hours": 10,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/pwm_2420_lus/**`\n\n## Findings (0)\n\n## Acceptance criteria\n- pwm_2420_lus builds under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket pwm --boards pwm_2420_lus --base-ref origin/upgrade/zephyr-4.3`"
     },
     {
       "id": "numerics",
@@ -326,64 +192,25 @@
         "foundation"
       ],
       "findings": [
-        "NUM-001:app/src/bat_charger.cpp:229",
-        "NUM-001:app/src/bat_charger.cpp:234",
-        "NUM-001:app/src/bat_charger.cpp:244",
+        "NUM-001:app/src/bat_charger.cpp:233",
+        "NUM-001:app/src/bat_charger.cpp:239",
         "NUM-001:app/src/bat_charger.cpp:250",
-        "NUM-001:app/src/bat_charger.cpp:257",
-        "NUM-001:app/src/bat_charger.cpp:262",
-        "NUM-001:app/src/bat_charger.cpp:265",
-        "NUM-001:app/src/bat_charger.cpp:369",
-        "NUM-001:app/src/bat_charger.cpp:371",
-        "NUM-001:app/src/daq.cpp:94",
-        "NUM-001:app/src/daq.cpp:370",
-        "NUM-001:app/src/daq.cpp:372",
-        "NUM-001:app/src/daq.cpp:374",
-        "NUM-001:app/src/daq.cpp:376",
-        "NUM-001:app/src/daq.cpp:378",
-        "NUM-001:app/src/dcdc.cpp:56",
-        "NUM-001:app/src/dcdc.cpp:63",
-        "NUM-001:app/src/dcdc.cpp:72",
-        "NUM-001:app/src/dcdc.cpp:117",
-        "NUM-001:app/src/dcdc.cpp:169",
-        "NUM-001:app/src/dcdc.cpp:278",
-        "NUM-001:app/src/dcdc.cpp:294",
-        "NUM-001:app/src/dcdc.cpp:319",
-        "NUM-001:app/src/dcdc.cpp:365",
-        "NUM-001:app/src/device_status.cpp:70",
-        "NUM-001:app/src/device_status.cpp:72",
-        "NUM-001:app/src/device_status.cpp:74",
-        "NUM-001:app/src/device_status.cpp:75",
-        "NUM-001:app/src/device_status.cpp:77",
-        "NUM-001:app/src/device_status.cpp:78",
-        "NUM-001:app/src/half_bridge.c:393",
-        "NUM-001:app/src/load.cpp:42",
-        "NUM-001:app/src/main.cpp:71",
-        "NUM-001:app/src/power_port.cpp:17",
-        "NUM-001:app/src/power_port.cpp:18",
-        "NUM-001:app/src/power_port.cpp:21",
-        "NUM-001:app/src/power_port.cpp:22",
-        "NUM-001:app/src/power_port.cpp:25",
-        "NUM-001:app/src/power_port.cpp:26"
+        "NUM-001:app/src/bat_charger.cpp:256",
+        "NUM-001:app/src/bat_charger.cpp:263",
+        "NUM-001:app/src/bat_charger.cpp:269",
+        "NUM-001:app/src/bat_charger.cpp:272"
       ],
-      "finding_count": 39,
+      "finding_count": 7,
       "by_severity": {
         "breaking": 0,
-        "deprecated": 39,
+        "deprecated": 7,
         "advisory": 0
       },
       "files": [
-        "app/src/bat_charger.cpp",
-        "app/src/daq.cpp",
-        "app/src/dcdc.cpp",
-        "app/src/device_status.cpp",
-        "app/src/half_bridge.c",
-        "app/src/load.cpp",
-        "app/src/main.cpp",
-        "app/src/power_port.cpp"
+        "app/src/bat_charger.cpp"
       ],
-      "manual_estimate_hours": 13.8,
-      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `app/src/*.cpp`\n- `app/src/*.c`\n- `app/src/*.h`\n- `tests/src/tests_numerics*`\n\n## Findings (39)\n- NUM-001: Double-precision literal in single-precision control maths (39)\n\n## Acceptance criteria\n- Characterization tests for NTC temperature, ADC scaling and charger thresholds are added first and pass before and after the change\n- No double-precision literals or maths remain in the control path\n- No new compiler warnings in application code\n\n## Gate\n`python3 tools/migrate/gate.py --ticket numerics --tests-only --base-ref origin/upgrade/zephyr-4.3`"
+      "manual_estimate_hours": 5.8,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `app/src/*.cpp`\n- `app/src/*.c`\n- `app/src/*.h`\n- `tests/src/tests_numerics*`\n\n## Findings (7)\n- NUM-001: Double-precision literal in single-precision control maths (7)\n\n## Acceptance criteria\n- Characterization tests for NTC temperature, ADC scaling and charger thresholds are added first and pass before and after the change\n- No double-precision literals or maths remain in the control path\n- No new compiler warnings in application code\n\n## Gate\n`python3 tools/migrate/gate.py --ticket numerics --tests-only --base-ref origin/upgrade/zephyr-4.3`"
     },
     {
       "id": "integration",
@@ -417,5 +244,5 @@
     }
   ],
   "conflicts": [],
-  "manual_estimate_hours": 134.9
+  "manual_estimate_hours": 62.1
 }

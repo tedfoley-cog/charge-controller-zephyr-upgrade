@@ -101,7 +101,8 @@
     "integration": {
       "key": "MBA-3948",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3948",
-      "status": "To Do"
+      "status": "In Review",
+      "gate": "pass"
     }
   }
 }

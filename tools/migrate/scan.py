@@ -13,19 +13,23 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from common import MIGRATION, REPO, SEVERITY_ORDER, load_rules, read_json, write_json
+from common import MIGRATION, REPO, SEVERITY_ORDER, glob_match, load_rules, read_json, write_json
 
 SKIP_DIRS = {".git", "build", "node_modules", "console", "tools", "migration", "docs", "test-results"}
 
 
-def candidate_files(repo: Path, globs: list[str]) -> list[Path]:
+def candidate_files(repo: Path, globs: list[str], exclude_globs: list[str] | None = None) -> list[Path]:
     found: set[Path] = set()
     for pattern in globs:
         if pattern.endswith('**'):
             pattern += '/*'
         for path in repo.glob(pattern):
-            if path.is_file() and not (set(path.relative_to(repo).parts[:-1]) & SKIP_DIRS):
-                found.add(path)
+            rel = path.relative_to(repo)
+            if not path.is_file() or set(rel.parts[:-1]) & SKIP_DIRS:
+                continue
+            if any(glob_match(rel.as_posix(), g) for g in exclude_globs or ()):
+                continue
+            found.add(path)
     return sorted(found)
 
 
@@ -35,7 +39,7 @@ def scan(repo: Path = REPO, pack: dict | None = None) -> list[dict]:
     for rule in pack["rules"]:
         regex = re.compile(rule["pattern"])
         exclude = re.compile(rule["exclude"]) if rule.get("exclude") else None
-        for path in candidate_files(repo, rule["files"]):
+        for path in candidate_files(repo, rule["files"], rule.get("exclude_files")):
             try:
                 lines = path.read_text(encoding="utf-8").splitlines()
             except UnicodeDecodeError:

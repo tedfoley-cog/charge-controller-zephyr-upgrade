@@ -38,6 +38,8 @@ def test_rule_pack_is_valid_and_patterns_compile():
         ("DT-CAN-001", "boards/arm/x/x.dts", "\tbus-speed = <500000>;", True),
         ("DT-CAN-001", "boards/arm/x/x.dts", "\tbitrate = <500000>;", False),
         ("TEST-001", "tests/CMakeLists.txt", "set(BOARD native_posix)", True),
+        ("TEST-001", ".github/workflows/ci.yml", "west build -b native_posix tests", True),
+        ("TEST-001", "tests/ui/fixtures/run/inventory.json", '"snippet": "set(BOARD native_posix)"', False),
         ("NUM-001", "app/src/dcdc.cpp", "    ls_voltage_min = 9.0;", True),
         ("NUM-001", "app/src/dcdc.cpp", "    ls_voltage_min = 9.0f;", False),
         ("NUM-001", "app/src/dcdc.cpp", "    // limit is 9.0 V", False),

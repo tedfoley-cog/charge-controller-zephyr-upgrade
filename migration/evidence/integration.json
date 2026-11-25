@@ -1,0 +1,194 @@
+{
+  "ticket": "integration",
+  "zephyr": "v4.3",
+  "tests": {
+    "suites": 9,
+    "total": 131,
+    "failures": 0,
+    "ignored": 0,
+    "exit": 0
+  },
+  "warnings": [],
+  "boards": {
+    "mppt_2420_hc": {
+      "target": "mppt_2420_hc@0.2",
+      "status": "built",
+      "flash": {
+        "used": 109340,
+        "size": 131072
+      },
+      "sram": {
+        "used": 22240,
+        "size": 32768
+      }
+    },
+    "mppt_2420_lc": {
+      "target": "mppt_2420_lc",
+      "status": "built",
+      "flash": {
+        "used": 85884,
+        "size": 131072
+      },
+      "sram": {
+        "used": 13960,
+        "size": 16384
+      }
+    },
+    "mppt_2420_rc": {
+      "target": "mppt_2420_rc",
+      "status": "built",
+      "flash": {
+        "used": 97560,
+        "size": 131072
+      },
+      "sram": {
+        "used": 21600,
+        "size": 32768
+      }
+    },
+    "mppt_2420_hpx": {
+      "target": "mppt_2420_hpx",
+      "status": "built",
+      "flash": {
+        "used": 86108,
+        "size": 131072
+      },
+      "sram": {
+        "used": 14464,
+        "size": 32768
+      }
+    },
+    "mppt_1210_hus": {
+      "target": "mppt_1210_hus@0.7",
+      "status": "built",
+      "flash": {
+        "used": 84088,
+        "size": 196608
+      },
+      "sram": {
+        "used": 13760,
+        "size": 20480
+      }
+    },
+    "pwm_2420_lus": {
+      "target": "pwm_2420_lus@0.3",
+      "status": "built",
+      "flash": {
+        "used": 82636,
+        "size": 196608
+      },
+      "sram": {
+        "used": 13592,
+        "size": 20480
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "unit tests pass",
+      "ok": true,
+      "detail": "131 run, 0 failed"
+    },
+    {
+      "name": "no unit test removed",
+      "ok": true,
+      "detail": "131 now vs 95 at baseline"
+    },
+    {
+      "name": "mppt_2420_hc: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_hc: flash budget",
+      "ok": true,
+      "detail": "109340 B (+5.5% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_hc: fits SRAM",
+      "ok": true,
+      "detail": "22240 of 32768 B"
+    },
+    {
+      "name": "mppt_2420_lc: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_lc: flash budget",
+      "ok": true,
+      "detail": "85884 B (+2.6% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_lc: fits SRAM",
+      "ok": true,
+      "detail": "13960 of 16384 B"
+    },
+    {
+      "name": "mppt_2420_rc: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_rc: flash budget",
+      "ok": true,
+      "detail": "97560 B (+4.9% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_rc: fits SRAM",
+      "ok": true,
+      "detail": "21600 of 32768 B"
+    },
+    {
+      "name": "mppt_2420_hpx: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_2420_hpx: flash budget",
+      "ok": true,
+      "detail": "86108 B (+2.2% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_2420_hpx: fits SRAM",
+      "ok": true,
+      "detail": "14464 of 32768 B"
+    },
+    {
+      "name": "mppt_1210_hus: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "mppt_1210_hus: flash budget",
+      "ok": true,
+      "detail": "84088 B (+2.7% vs baseline, budget +8%)"
+    },
+    {
+      "name": "mppt_1210_hus: fits SRAM",
+      "ok": true,
+      "detail": "13760 of 20480 B"
+    },
+    {
+      "name": "pwm_2420_lus: builds",
+      "ok": true,
+      "detail": "built"
+    },
+    {
+      "name": "pwm_2420_lus: flash budget",
+      "ok": true,
+      "detail": "82636 B (+2.8% vs baseline, budget +8%)"
+    },
+    {
+      "name": "pwm_2420_lus: fits SRAM",
+      "ok": true,
+      "detail": "13592 of 20480 B"
+    },
+    {
+      "name": "no new compiler warnings in app code",
+      "ok": true,
+      "detail": "0 now vs 0 at baseline"
+    }
+  ],
+  "verdict": "pass"
+}
