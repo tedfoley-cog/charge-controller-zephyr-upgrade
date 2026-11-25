@@ -67,15 +67,15 @@ void DeviceStatus::update_energy()
             grid_import_total_Wh_prev = grid_import_total_Wh;
             grid_export_total_Wh_prev = grid_export_total_Wh;
 #endif
-            solar_terminal.neg_energy_Wh = 0.0;
+            solar_terminal.neg_energy_Wh = 0.0F;
 #if BOARD_HAS_LOAD_OUTPUT
-            load.pos_energy_Wh = 0.0;
+            load.pos_energy_Wh = 0.0F;
 #endif
-            bat_terminal.pos_energy_Wh = 0.0;
-            bat_terminal.neg_energy_Wh = 0.0;
+            bat_terminal.pos_energy_Wh = 0.0F;
+            bat_terminal.neg_energy_Wh = 0.0F;
 #if CONFIG_HV_TERMINAL_NANOGRID
-            grid_terminal.pos_energy_Wh = 0.0;
-            grid_terminal.neg_energy_Wh = 0.0;
+            grid_terminal.pos_energy_Wh = 0.0F;
+            grid_terminal.neg_energy_Wh = 0.0F;
 #endif
         }
         seconds_zero_solar = 0;

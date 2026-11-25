@@ -39,7 +39,7 @@ LoadOutput::LoadOutput(DcBus *dc_bus, void (*switch_fn)(bool), void (*init_fn)()
     oc_recovery_delay = CONFIG_LOAD_OC_RECOVERY_DELAY;
     lvd_recovery_delay = CONFIG_LOAD_LVD_RECOVERY_DELAY;
 
-    ov_hysteresis = 0.3;
+    ov_hysteresis = 0.3F;
 
     enable = true; // switch on in next control() call if everything is fine
 }
