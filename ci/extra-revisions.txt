@@ -1,3 +1,4 @@
 mppt_2420_hc@0.1
 mppt_1210_hus@0.4
 pwm_2420_lus@0.2
+mppt_1210_hus@0.7.1
