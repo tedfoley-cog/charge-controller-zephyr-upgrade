@@ -76,7 +76,7 @@ ensure_ws() {
         echo "$want" >"$stamp"
     fi
     # The workspace can come from a cache while the Python environment is new.
-    python3 -c "import elftools, pykwalify" 2>/dev/null \
+    python3 -c "import elftools, pykwalify, jsonschema" 2>/dev/null \
         || python3 -m pip install -q -r "$WS/zephyr/scripts/requirements-base.txt"
 }
 

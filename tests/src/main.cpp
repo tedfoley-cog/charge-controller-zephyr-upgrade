@@ -23,7 +23,7 @@ void tearDown(void) {}
 
 } /* extern "C" */
 
-void main()
+int main(void)
 {
     int err = 0;
 
@@ -42,4 +42,6 @@ void main()
 #ifdef CONFIG_ARCH_POSIX
     posix_exit(err);
 #endif
+
+    return err;
 }

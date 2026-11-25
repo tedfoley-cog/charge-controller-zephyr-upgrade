@@ -3,7 +3,8 @@
 # Copyright (c) The Libre Solar Project Contributors
 # SPDX-License-Identifier: Apache-2.0
 
-DEFAULT_BRANCH="origin/main"
+# Base to diff against: first argument, else the remote default branch
+DEFAULT_BRANCH="${1:-$(git symbolic-ref -q --short refs/remotes/origin/HEAD || echo origin/main)}"
 
 if [ -x "$(command -v clang-format-diff)" ]; then
 CLANG_FORMAT_DIFF="clang-format-diff"

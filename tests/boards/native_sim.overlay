@@ -5,14 +5,14 @@
  */
 
 / {
-	/* delete conflicting nodes from Zephyr native_posix board */
+	/* delete conflicting nodes from Zephyr native_sim board */
 	/delete-node/ leds;
 	/delete-node/ aliases;
 
 	pcb {
 		compatible = "charge-controller";
 
-		type = "Native POSIX dummy";
+		type = "Native simulator dummy";
 		version-str = "v0.1";
 		version-num = <1>;
 
