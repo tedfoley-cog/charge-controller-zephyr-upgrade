@@ -2,8 +2,8 @@
   "ticket": "numerics",
   "zephyr": "v4.3",
   "tests": {
-    "suites": 7,
-    "total": 95,
+    "suites": 8,
+    "total": 122,
     "failures": 0,
     "ignored": 0,
     "exit": 0
@@ -14,17 +14,17 @@
     {
       "name": "unit tests pass",
       "ok": true,
-      "detail": "95 run, 0 failed"
+      "detail": "122 run, 0 failed"
     },
     {
       "name": "no unit test removed",
       "ok": true,
-      "detail": "95 now vs 95 at baseline"
+      "detail": "122 now vs 95 at baseline"
     },
     {
       "name": "regression tests added for changed application code",
       "ok": true,
-      "detail": "9 files under app/src changed; +23 test cases vs the base branch"
+      "detail": "9 files under app/src changed; +27 test cases vs the base branch"
     },
     {
       "name": "no new compiler warnings in app code",
