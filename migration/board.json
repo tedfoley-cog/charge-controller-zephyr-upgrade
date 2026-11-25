@@ -69,8 +69,21 @@
     "numerics": {
       "key": "MBA-3947",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3947",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/41eea762f2104792984582538387c599"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/41eea762f2104792984582538387c599",
+      "pr": {
+        "number": 4,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/4",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "status": "complete",
+        "findings": 8,
+        "resolved": 6,
+        "escalated": 2,
+        "note": "3 fixed, 3 answered, 2 escalated (gate counts unregistered tests; no on-target temperature test)"
+      }
     },
     "integration": {
       "key": "MBA-3948",
