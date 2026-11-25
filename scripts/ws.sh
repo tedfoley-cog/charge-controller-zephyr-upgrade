@@ -73,9 +73,11 @@ ensure_ws() {
         echo "== west update for Zephyr $VER (first run downloads ~1 GB)"
         (cd "$WS" && west update --narrow -o=--depth=1 >"$LOGS/west-update-$VER.log" 2>&1) \
             || { tail -20 "$LOGS/west-update-$VER.log"; exit 1; }
-        python3 -m pip install -q -r "$WS/zephyr/scripts/requirements-base.txt" 2>/dev/null || true
         echo "$want" >"$stamp"
     fi
+    # The workspace can come from a cache while the Python environment is new.
+    python3 -c "import elftools, pykwalify" 2>/dev/null \
+        || python3 -m pip install -q -r "$WS/zephyr/scripts/requirements-base.txt"
 }
 
 rewrite_paths() { sed -u -e "s#$FW/#$REPO/#g" -e 's/\x1b\[[0-9;]*[mK]//g'; }
