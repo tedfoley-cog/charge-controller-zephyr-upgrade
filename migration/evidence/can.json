@@ -3,7 +3,7 @@
   "zephyr": "v4.3",
   "tests": {
     "suites": 9,
-    "total": 130,
+    "total": 131,
     "failures": 0,
     "ignored": 0,
     "exit": 0
@@ -39,17 +39,17 @@
     {
       "name": "unit tests pass",
       "ok": true,
-      "detail": "130 run, 0 failed"
+      "detail": "131 run, 0 failed"
     },
     {
       "name": "no unit test removed",
       "ok": true,
-      "detail": "130 now vs 95 at baseline"
+      "detail": "131 now vs 95 at baseline"
     },
     {
       "name": "regression tests added for changed application code",
       "ok": true,
-      "detail": "2 files under app/src changed; +8 test cases vs the base branch"
+      "detail": "2 files under app/src changed; +9 test cases vs the base branch"
     },
     {
       "name": "mppt_2420_hc: builds",
