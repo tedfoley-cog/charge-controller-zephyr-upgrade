@@ -1,10 +1,8 @@
 # Copyright (c) The Libre Solar Project Contributors
 # SPDX-License-Identifier: Apache-2.0
 
-set(BOARD_ROOT ${CMAKE_SOURCE_DIR}/..)
-set(DTS_ROOT ${CMAKE_SOURCE_DIR}/..)
 
-#set(BOARD "native_posix")
+#set(BOARD "native_sim")
 #set(ZEPHYR_TOOLCHAIN_VARIANT "host")
 
 cmake_minimum_required(VERSION 3.13.1)
@@ -32,6 +30,8 @@ target_sources(app PRIVATE
         src/tests_device_status.cpp
         src/tests_half_bridge.cpp
         src/tests_load.cpp
+        src/tests_numerics.cpp
+        src/tests_can.cpp
         src/tests_power_port.cpp
 )
 

@@ -29,8 +29,8 @@
 #define VREFINT_VALUE     3300                        // mV
 #define TSENSE_CAL1       (*((uint16_t *)0x1FFFF7B8))
 #define TSENSE_CAL2       (*((uint16_t *)0x1FFFF7C2))
-#define TSENSE_CAL1_VALUE 30.0  // temperature of first calibration point
-#define TSENSE_CAL2_VALUE 110.0 // temperature of second calibration point
+#define TSENSE_CAL1_VALUE 30.0F  // temperature of first calibration point
+#define TSENSE_CAL2_VALUE 110.0F // temperature of second calibration point
 
 #elif defined(CONFIG_SOC_SERIES_STM32L0X)
 
@@ -38,8 +38,8 @@
 #define VREFINT_VALUE     3000                        // mV
 #define TSENSE_CAL1       (*((uint16_t *)0x1FF8007A))
 #define TSENSE_CAL2       (*((uint16_t *)0x1FF8007E))
-#define TSENSE_CAL1_VALUE 30.0  // temperature of first calibration point
-#define TSENSE_CAL2_VALUE 130.0 // temperature of second calibration point
+#define TSENSE_CAL1_VALUE 30.0F  // temperature of first calibration point
+#define TSENSE_CAL2_VALUE 130.0F // temperature of second calibration point
 
 #elif defined(CONFIG_SOC_SERIES_STM32G4X)
 
@@ -47,17 +47,17 @@
 #define VREFINT_VALUE     3000                        // mV
 #define TSENSE_CAL1       (*((uint16_t *)0x1FFF75A8))
 #define TSENSE_CAL2       (*((uint16_t *)0x1FFF75CA))
-#define TSENSE_CAL1_VALUE 30.0  // temperature of first calibration point
-#define TSENSE_CAL2_VALUE 110.0 // temperature of second calibration point
+#define TSENSE_CAL1_VALUE 30.0F  // temperature of first calibration point
+#define TSENSE_CAL2_VALUE 110.0F // temperature of second calibration point
 
 #elif !defined(CONFIG_SOC_FAMILY_STM32)
 
-#define VREFINT_CAL       (4096 * 1.224 / 3.0)          // VREFINT @3.0V/25°C
+#define VREFINT_CAL       (4096 * 1.224F / 3.0F)        // VREFINT @3.0V/25°C
 #define VREFINT_VALUE     3000                          // mV
-#define TSENSE_CAL1       (4096.0 * (670 - 161) / 3300) // datasheet: slope 1.61 mV/°C
-#define TSENSE_CAL2       (4096.0 * 670 / 3300)         // datasheet: 670 mV
-#define TSENSE_CAL1_VALUE 30.0                          // temperature of first calibration point
-#define TSENSE_CAL2_VALUE 130.0                         // temperature of second calibration point
+#define TSENSE_CAL1       (4096.0F * (670 - 161) / 3300) // datasheet: slope 1.61 mV/°C
+#define TSENSE_CAL2       (4096.0F * 670 / 3300)         // datasheet: 670 mV
+#define TSENSE_CAL1_VALUE 30.0F                          // temperature of first calibration point
+#define TSENSE_CAL2_VALUE 130.0F                         // temperature of second calibration point
 
 #endif
 

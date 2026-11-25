@@ -10,11 +10,11 @@ manifest:
       url-base: https://github.com/ThrowTheSwitch
   projects:
     - name: zephyr
-      remote: libresolar
-      revision: v3.2-branch
+      remote: zephyrproject
+      revision: v4.3-branch
       import:
         name-allowlist:
-          - cmsis
+          - cmsis_6
           - edtt
           - hal_stm32
     - name: oled-display-library

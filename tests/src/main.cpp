@@ -23,7 +23,7 @@ void tearDown(void) {}
 
 } /* extern "C" */
 
-void main()
+int main(void)
 {
     int err = 0;
 
@@ -34,6 +34,8 @@ void main()
     err += dcdc_tests();
     err += device_status_tests();
     err += load_tests();
+    err += numerics_tests();
+    err += can_tests();
 
 #ifdef CONFIG_CUSTOM_TESTS
     err += custom_tests();
@@ -42,4 +44,6 @@ void main()
 #ifdef CONFIG_ARCH_POSIX
     posix_exit(err);
 #endif
+
+    return err;
 }

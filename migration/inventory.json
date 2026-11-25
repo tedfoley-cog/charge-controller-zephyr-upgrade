@@ -1,0 +1,406 @@
+{
+  "from": "v3.2",
+  "to": "v4.3",
+  "rules": 18,
+  "summary": {
+    "total": 10,
+    "by_severity": {
+      "deprecated": 7,
+      "advisory": 3
+    },
+    "by_category": {
+      "numerics": 7,
+      "kconfig": 3
+    },
+    "by_stream": {
+      "numerics": 7,
+      "foundation": 3
+    },
+    "by_source": {
+      "static": 10
+    },
+    "files": 2
+  },
+  "findings": [
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:233",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 233,
+      "snippet": "> ((double)bat_conf->load_disconnect_voltage + 0.4);",
+      "context": [
+        {
+          "line": 231,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 232,
+          "text": "                  return (double)bat_conf->load_reconnect_voltage"
+        },
+        {
+          "line": 233,
+          "text": "                         > ((double)bat_conf->load_disconnect_voltage + 0.4);"
+        },
+        {
+          "line": 234,
+          "text": "              },"
+        },
+        {
+          "line": 235,
+          "text": "          .text = \"Load Reconnect Voltage must be higher than Load Disconnect Voltage + 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:239",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 239,
+      "snippet": "< ((double)bat_conf->topping_voltage - 0.4);",
+      "context": [
+        {
+          "line": 237,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 238,
+          "text": "                  return (double)bat_conf->recharge_voltage"
+        },
+        {
+          "line": 239,
+          "text": "                         < ((double)bat_conf->topping_voltage - 0.4);"
+        },
+        {
+          "line": 240,
+          "text": "              },"
+        },
+        {
+          "line": 241,
+          "text": "          .text = \"Recharge Voltage must be lower than Topping Voltage - 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:250",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 250,
+      "snippet": "> ((double)bat_conf->absolute_min_voltage + 0.4);",
+      "context": [
+        {
+          "line": 248,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 249,
+          "text": "                  return (double)bat_conf->load_disconnect_voltage"
+        },
+        {
+          "line": 250,
+          "text": "                         > ((double)bat_conf->absolute_min_voltage + 0.4);"
+        },
+        {
+          "line": 251,
+          "text": "              },"
+        },
+        {
+          "line": 252,
+          "text": "          .text = \"Load Disconnecct Voltage must be higher than Absolute Min Voltage + 0.4\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:256",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 256,
+      "snippet": "< (double)bat_conf->load_disconnect_voltage * 0.1 / DISCHARGE_CURRENT_MAX;",
+      "context": [
+        {
+          "line": 254,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 255,
+          "text": "                  return (double)bat_conf->internal_resistance"
+        },
+        {
+          "line": 256,
+          "text": "                         < (double)bat_conf->load_disconnect_voltage * 0.1 / DISCHARGE_CURRENT_MAX;"
+        },
+        {
+          "line": 257,
+          "text": "              },"
+        },
+        {
+          "line": 258,
+          "text": "          .text = \"Internal Battery Resistance must not cause more than 10% drop at Max Discharge \""
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:263",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 263,
+      "snippet": "< (double)bat_conf->topping_voltage * 0.03 / DISCHARGE_CURRENT_MAX;",
+      "context": [
+        {
+          "line": 261,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 262,
+          "text": "                  return (double)bat_conf->wire_resistance"
+        },
+        {
+          "line": 263,
+          "text": "                         < (double)bat_conf->topping_voltage * 0.03 / DISCHARGE_CURRENT_MAX;"
+        },
+        {
+          "line": 264,
+          "text": "              },"
+        },
+        {
+          "line": 265,
+          "text": "          .text = \"Wire Resistances must not cause more than 3% drop at Max Discharge Current\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:269",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 269,
+      "snippet": "< ((double)bat_conf->nominal_capacity / 10.0);",
+      "context": [
+        {
+          "line": 267,
+          "text": "              [bat_conf]() {"
+        },
+        {
+          "line": 268,
+          "text": "                  return (double)bat_conf->topping_cutoff_current"
+        },
+        {
+          "line": 269,
+          "text": "                         < ((double)bat_conf->nominal_capacity / 10.0);"
+        },
+        {
+          "line": 270,
+          "text": "              },"
+        },
+        {
+          "line": 271,
+          "text": "          .text = \"Topping Cutoff Current must be less than 10% of Nominal Capacity (C/10)\" },"
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "NUM-001:app/src/bat_charger.cpp:272",
+      "rule": "NUM-001",
+      "source": "static",
+      "title": "Double-precision literal in single-precision control maths",
+      "category": "numerics",
+      "severity": "deprecated",
+      "since": "3.5",
+      "removed": null,
+      "stream": "numerics",
+      "file": "app/src/bat_charger.cpp",
+      "line": 272,
+      "snippet": "{ .func = [bat_conf]() { return (double)bat_conf->topping_cutoff_current > 0.01; },",
+      "context": [
+        {
+          "line": 270,
+          "text": "              },"
+        },
+        {
+          "line": 271,
+          "text": "          .text = \"Topping Cutoff Current must be less than 10% of Nominal Capacity (C/10)\" },"
+        },
+        {
+          "line": 272,
+          "text": "        { .func = [bat_conf]() { return (double)bat_conf->topping_cutoff_current > 0.01; },"
+        },
+        {
+          "line": 273,
+          "text": "          .text = \"Topping Cutoff Current must be higher than 0.01A\" },"
+        },
+        {
+          "line": 274,
+          "text": "        { .func ="
+        }
+      ],
+      "fix": "Use float literals / logf so the Cortex-M0 builds do not pull in soft-double and -Wdouble-promotion stays clean. Pin behaviour with characterization tests first.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:11",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 11,
+      "snippet": "CONFIG_NEWLIB_LIBC=y",
+      "context": [
+        {
+          "line": 9,
+          "text": "# newlib is kept on purpose: the pinned oled-display module does not compile"
+        },
+        {
+          "line": 10,
+          "text": "# against picolibc (the default C library since Zephyr v3.5)"
+        },
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 13,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:12",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 12,
+      "snippet": "CONFIG_NEWLIB_LIBC_NANO=y",
+      "context": [
+        {
+          "line": 10,
+          "text": "# against picolibc (the default C library since Zephyr v3.5)"
+        },
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 13,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        },
+        {
+          "line": 14,
+          "text": ""
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    },
+    {
+      "id": "KCFG-003:app/prj.conf:13",
+      "rule": "KCFG-003",
+      "source": "static",
+      "title": "Newlib selected explicitly (picolibc is the default C library)",
+      "category": "kconfig",
+      "severity": "advisory",
+      "since": "3.5",
+      "removed": null,
+      "stream": "foundation",
+      "file": "app/prj.conf",
+      "line": 13,
+      "snippet": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y",
+      "context": [
+        {
+          "line": 11,
+          "text": "CONFIG_NEWLIB_LIBC=y"
+        },
+        {
+          "line": 12,
+          "text": "CONFIG_NEWLIB_LIBC_NANO=y"
+        },
+        {
+          "line": 13,
+          "text": "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF=y"
+        },
+        {
+          "line": 14,
+          "text": ""
+        },
+        {
+          "line": 15,
+          "text": "CONFIG_WATCHDOG=y"
+        }
+      ],
+      "fix": "Keep only if newlib is required; otherwise drop and re-measure flash.",
+      "ref": "https://docs.zephyrproject.org/latest/releases/migration-guide-3.5.html"
+    }
+  ]
+}

@@ -76,6 +76,8 @@ rules:
     since: "3.6"
     removed: "4.2"
     files: ["tests/**", ".github/**"]
+    # console Playwright fixtures quote old inventories; they are not firmware
+    exclude_files: ["tests/ui/**"]
     pattern: 'native_posix'
     fix: Build tests for native_sim and rename the board overlay.
     ref: https://docs.zephyrproject.org/latest/releases/migration-guide-4.2.html

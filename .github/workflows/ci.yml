@@ -82,6 +82,13 @@ jobs:
             if [ "${{ github.base_ref }}" = "${{ github.event.repository.default_branch }}" ]; then args="$args --require-all-boards"; fi
           fi
           python tools/migrate/gate.py $args
+      - name: Additional board revisions build
+        if: hashFiles('ci/extra-revisions.txt') != ''
+        run: |
+          # revisions not measured by the gate (one target per board) must still compile
+          while read -r target; do
+            [ -n "$target" ] && scripts/ws.sh auto build "$target"
+          done < ci/extra-revisions.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:

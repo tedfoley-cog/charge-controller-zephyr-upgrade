@@ -1,0 +1,248 @@
+{
+  "from": "v3.2",
+  "to": "v4.3",
+  "integration_branch": "upgrade/zephyr-4.3",
+  "epic": {
+    "summary": "Upgrade charge-controller firmware from Zephyr v3.2 to v4.3"
+  },
+  "waves": [
+    {
+      "wave": 0,
+      "parallel": 1,
+      "tickets": [
+        "foundation"
+      ]
+    },
+    {
+      "wave": 1,
+      "parallel": 4,
+      "tickets": [
+        "can",
+        "mppt-lowpower",
+        "pwm",
+        "numerics"
+      ]
+    },
+    {
+      "wave": 2,
+      "parallel": 1,
+      "tickets": [
+        "integration"
+      ]
+    }
+  ],
+  "tickets": [
+    {
+      "id": "foundation",
+      "wave": 0,
+      "title": "Foundation: Zephyr v4.3 workspace, Kconfig, test harness, reference board",
+      "boards": [
+        "mppt_2420_lc"
+      ],
+      "owns": [
+        "west.yml",
+        "zephyr/**",
+        "app/CMakeLists.txt",
+        "app/prj.conf",
+        "app/Kconfig",
+        "tests/**",
+        "boards/*/mppt_2420_lc/**",
+        "dts/**",
+        "scripts/**",
+        ".github/**"
+      ],
+      "acceptance": [
+        "west.yml tracks zephyrproject-rtos v4.3-branch; `make test` runs on native_sim",
+        "All existing unit tests pass on Zephyr v4.3 (none removed, none skipped)",
+        "Reference board mppt_2420_lc builds under hardware model v2 inside the flash budget",
+        "Board and devicetree roots are declared in zephyr/module.yml"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket foundation --boards mppt_2420_lc",
+      "depends_on": [],
+      "findings": [
+        "KCFG-003:app/prj.conf:11",
+        "KCFG-003:app/prj.conf:12",
+        "KCFG-003:app/prj.conf:13"
+      ],
+      "finding_count": 3,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 0,
+        "advisory": 3
+      },
+      "files": [
+        "app/prj.conf"
+      ],
+      "manual_estimate_hours": 10.3,
+      "description": "## Scope\nWave 0 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `west.yml`\n- `zephyr/**`\n- `app/CMakeLists.txt`\n- `app/prj.conf`\n- `app/Kconfig`\n- `tests/**`\n- `boards/*/mppt_2420_lc/**`\n- `dts/**`\n- `scripts/**`\n- `.github/**`\n\n## Findings (3)\n- KCFG-003: Newlib selected explicitly (picolibc is the default C library) (3)\n\n## Acceptance criteria\n- west.yml tracks zephyrproject-rtos v4.3-branch; `make test` runs on native_sim\n- All existing unit tests pass on Zephyr v4.3 (none removed, none skipped)\n- Reference board mppt_2420_lc builds under hardware model v2 inside the flash budget\n- Board and devicetree roots are declared in zephyr/module.yml\n\n## Gate\n`python3 tools/migrate/gate.py --ticket foundation --boards mppt_2420_lc`"
+    },
+    {
+      "id": "can",
+      "wave": 1,
+      "title": "CAN boards: FDCAN devicetree and CAN / ISO-TP flags API",
+      "boards": [
+        "mppt_2420_hc",
+        "mppt_2420_rc"
+      ],
+      "owns": [
+        "boards/*/mppt_2420_hc/**",
+        "boards/*/mppt_2420_rc/**",
+        "app/src/ext/can.cpp",
+        "app/src/ext/can_msg*",
+        "tests/src/tests_can*"
+      ],
+      "acceptance": [
+        "mppt_2420_hc and mppt_2420_rc build under hardware model v2 with CAN enabled",
+        "CAN frames and filters use the flags API; ISO-TP uses fixed addressing flags",
+        "New unit tests pin the CAN identifier and filter-mask layout used on the bus"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket can --boards mppt_2420_hc,mppt_2420_rc --base-ref origin/upgrade/zephyr-4.3",
+      "depends_on": [
+        "foundation"
+      ],
+      "findings": [],
+      "finding_count": 0,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 0,
+        "advisory": 0
+      },
+      "files": [],
+      "manual_estimate_hours": 16,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_2420_hc/**`\n- `boards/*/mppt_2420_rc/**`\n- `app/src/ext/can.cpp`\n- `app/src/ext/can_msg*`\n- `tests/src/tests_can*`\n\n## Findings (0)\n\n## Acceptance criteria\n- mppt_2420_hc and mppt_2420_rc build under hardware model v2 with CAN enabled\n- CAN frames and filters use the flags API; ISO-TP uses fixed addressing flags\n- New unit tests pin the CAN identifier and filter-mask layout used on the bus\n\n## Gate\n`python3 tools/migrate/gate.py --ticket can --boards mppt_2420_hc,mppt_2420_rc --base-ref origin/upgrade/zephyr-4.3`"
+    },
+    {
+      "id": "mppt-lowpower",
+      "wave": 1,
+      "title": "MPPT boards without CAN: mppt_1210_hus and mppt_2420_hpx to hardware model v2",
+      "boards": [
+        "mppt_1210_hus",
+        "mppt_2420_hpx"
+      ],
+      "owns": [
+        "boards/*/mppt_1210_hus/**",
+        "boards/*/mppt_2420_hpx/**"
+      ],
+      "acceptance": [
+        "Both boards build under hardware model v2, all revisions declared in board.yml",
+        "Flash stays inside the +8% budget and SRAM fits"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket mppt-lowpower --boards mppt_1210_hus,mppt_2420_hpx --base-ref origin/upgrade/zephyr-4.3",
+      "depends_on": [
+        "foundation"
+      ],
+      "findings": [],
+      "finding_count": 0,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 0,
+        "advisory": 0
+      },
+      "files": [],
+      "manual_estimate_hours": 16,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/mppt_1210_hus/**`\n- `boards/*/mppt_2420_hpx/**`\n\n## Findings (0)\n\n## Acceptance criteria\n- Both boards build under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket mppt-lowpower --boards mppt_1210_hus,mppt_2420_hpx --base-ref origin/upgrade/zephyr-4.3`"
+    },
+    {
+      "id": "pwm",
+      "wave": 1,
+      "title": "PWM controller board: pwm_2420_lus to hardware model v2",
+      "boards": [
+        "pwm_2420_lus"
+      ],
+      "owns": [
+        "boards/*/pwm_2420_lus/**"
+      ],
+      "acceptance": [
+        "pwm_2420_lus builds under hardware model v2, all revisions declared in board.yml",
+        "Flash stays inside the +8% budget and SRAM fits"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket pwm --boards pwm_2420_lus --base-ref origin/upgrade/zephyr-4.3",
+      "depends_on": [
+        "foundation"
+      ],
+      "findings": [],
+      "finding_count": 0,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 0,
+        "advisory": 0
+      },
+      "files": [],
+      "manual_estimate_hours": 10,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `boards/*/pwm_2420_lus/**`\n\n## Findings (0)\n\n## Acceptance criteria\n- pwm_2420_lus builds under hardware model v2, all revisions declared in board.yml\n- Flash stays inside the +8% budget and SRAM fits\n\n## Gate\n`python3 tools/migrate/gate.py --ticket pwm --boards pwm_2420_lus --base-ref origin/upgrade/zephyr-4.3`"
+    },
+    {
+      "id": "numerics",
+      "wave": 1,
+      "title": "Control maths: remove double-precision promotion, pin behaviour with tests",
+      "boards": [],
+      "owns": [
+        "app/src/*.cpp",
+        "app/src/*.c",
+        "app/src/*.h",
+        "tests/src/tests_numerics*"
+      ],
+      "acceptance": [
+        "Characterization tests for NTC temperature, ADC scaling and charger thresholds are added first and pass before and after the change",
+        "No double-precision literals or maths remain in the control path",
+        "No new compiler warnings in application code"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket numerics --tests-only --base-ref origin/upgrade/zephyr-4.3",
+      "depends_on": [
+        "foundation"
+      ],
+      "findings": [
+        "NUM-001:app/src/bat_charger.cpp:233",
+        "NUM-001:app/src/bat_charger.cpp:239",
+        "NUM-001:app/src/bat_charger.cpp:250",
+        "NUM-001:app/src/bat_charger.cpp:256",
+        "NUM-001:app/src/bat_charger.cpp:263",
+        "NUM-001:app/src/bat_charger.cpp:269",
+        "NUM-001:app/src/bat_charger.cpp:272"
+      ],
+      "finding_count": 7,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 7,
+        "advisory": 0
+      },
+      "files": [
+        "app/src/bat_charger.cpp"
+      ],
+      "manual_estimate_hours": 5.8,
+      "description": "## Scope\nWave 1 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n- `app/src/*.cpp`\n- `app/src/*.c`\n- `app/src/*.h`\n- `tests/src/tests_numerics*`\n\n## Findings (7)\n- NUM-001: Double-precision literal in single-precision control maths (7)\n\n## Acceptance criteria\n- Characterization tests for NTC temperature, ADC scaling and charger thresholds are added first and pass before and after the change\n- No double-precision literals or maths remain in the control path\n- No new compiler warnings in application code\n\n## Gate\n`python3 tools/migrate/gate.py --ticket numerics --tests-only --base-ref origin/upgrade/zephyr-4.3`"
+    },
+    {
+      "id": "integration",
+      "wave": 2,
+      "title": "Integration: all boards and tests on Zephyr v4.3, release gate",
+      "boards": [],
+      "owns": [],
+      "acceptance": [
+        "Every board builds on Zephyr v4.3 inside its flash and SRAM budget",
+        "Unit test count is at or above the v3.2 baseline, zero failures",
+        "`make scan --check` reports no breaking findings"
+      ],
+      "gate": "python3 tools/migrate/gate.py --ticket integration --require-all-boards",
+      "depends_on": [
+        "foundation",
+        "can",
+        "mppt-lowpower",
+        "pwm",
+        "numerics"
+      ],
+      "findings": [],
+      "finding_count": 0,
+      "by_severity": {
+        "breaking": 0,
+        "deprecated": 0,
+        "advisory": 0
+      },
+      "files": [],
+      "manual_estimate_hours": 4,
+      "description": "## Scope\nWave 2 of the Zephyr v3.2 -> v4.3 upgrade. Base branch: `upgrade/zephyr-4.3`.\n\n## Owned paths\n\n## Findings (0)\n\n## Acceptance criteria\n- Every board builds on Zephyr v4.3 inside its flash and SRAM budget\n- Unit test count is at or above the v3.2 baseline, zero failures\n- `make scan --check` reports no breaking findings\n\n## Gate\n`python3 tools/migrate/gate.py --ticket integration --require-all-boards`"
+    }
+  ],
+  "conflicts": [],
+  "manual_estimate_hours": 62.1
+}
