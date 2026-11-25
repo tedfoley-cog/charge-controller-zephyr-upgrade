@@ -20,6 +20,7 @@
 LOG_MODULE_REGISTER(ext_can, CONFIG_CAN_LOG_LEVEL);
 
 #include "bat_charger.h"
+#include "can_msg.h"
 #include "data_objects.h"
 #include "hardware.h"
 #include "helper.h"
@@ -33,7 +34,21 @@ extern ThingSet ts;
 extern uint16_t can_node_addr;
 extern Charger charger;
 
-static const struct device *can_dev = DEVICE_DT_GET(DT_NODELABEL(can1));
+// STM32G4 (FDCAN) parts name the node fdcan1, bxCAN parts can1
+#if DT_NODE_EXISTS(DT_NODELABEL(fdcan1))
+#define CAN_NODE DT_NODELABEL(fdcan1)
+#else
+#define CAN_NODE DT_NODELABEL(can1)
+#endif
+
+static const struct device *can_dev = DEVICE_DT_GET(CAN_NODE);
+
+// The controller is in stopped state after driver initialization
+static int can_ensure_started()
+{
+    int err = can_start(can_dev);
+    return err == -EALREADY ? 0 : err;
+}
 
 #ifdef CONFIG_ISOTP
 
@@ -45,16 +60,13 @@ const struct isotp_fc_opts fc_opts = {
     .stmin = 1, // minimum separation time = 100 ms
 };
 
+// Normal ISO-TP addressing (using only CAN ID), SAE J1939 compatible fixed addressing
 struct isotp_msg_id rx_addr = {
-    .id_type = CAN_EXTENDED_IDENTIFIER,
-    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)
-    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing
+    .flags = CAN_MSG_ISOTP_FLAGS,
 };
 
 struct isotp_msg_id tx_addr = {
-    .id_type = CAN_EXTENDED_IDENTIFIER,
-    .use_ext_addr = 0,   // Normal ISO-TP addressing (using only CAN ID)
-    .use_fixed_addr = 1, // enable SAE J1939 compatible addressing
+    .flags = CAN_MSG_ISOTP_FLAGS,
 };
 
 static struct isotp_recv_ctx recv_ctx;
@@ -78,12 +90,16 @@ void can_isotp_thread()
         return;
     }
 
+    ret = can_ensure_started();
+    if (ret != 0) {
+        LOG_ERR("Unable to start CAN controller [%d]", ret);
+        return;
+    }
+
     while (1) {
         /* re-assign address in every loop as it may have been changed via ThingSet */
-        rx_addr.ext_id =
-            TS_CAN_TYPE_REQRESP | TS_CAN_PRIO_REQRESP | TS_CAN_TARGET_SET(can_node_addr);
-        tx_addr.ext_id =
-            TS_CAN_TYPE_REQRESP | TS_CAN_PRIO_REQRESP | TS_CAN_SOURCE_SET(can_node_addr);
+        rx_addr.ext_id = can_msg_reqresp_rx_id(can_node_addr);
+        tx_addr.ext_id = can_msg_reqresp_tx_id(can_node_addr);
 
         ret = isotp_bind(&recv_ctx, can_dev, &rx_addr, &tx_addr, &fc_opts, K_FOREVER);
         if (ret != ISOTP_N_OK) {
@@ -138,19 +154,7 @@ K_THREAD_DEFINE(can_isotp, RX_THREAD_STACK_SIZE, can_isotp_thread, NULL, NULL, N
 
 #endif /* CONFIG_ISOTP */
 
-// below defines should go into the ThingSet library
-#define TS_CAN_SOURCE_GET(id)  (((uint32_t)id & TS_CAN_SOURCE_MASK) >> TS_CAN_SOURCE_POS)
-#define TS_CAN_DATA_ID_GET(id) (((uint32_t)id & TS_CAN_DATA_ID_MASK) >> TS_CAN_DATA_ID_POS)
-
 CAN_MSGQ_DEFINE(sub_msgq, 10);
-
-const struct can_filter ctrl_filter = {
-    .id = TS_CAN_TYPE_PUBSUB,
-    .rtr = CAN_DATAFRAME,
-    .id_type = CAN_EXTENDED_IDENTIFIER,
-    .id_mask = TS_CAN_TYPE_MASK,
-    .rtr_mask = 1,
-};
 
 void can_pub_isr(const struct device *dev, int error, void *user_data)
 {
@@ -159,18 +163,10 @@ void can_pub_isr(const struct device *dev, int error, void *user_data)
 
 void can_pub_send(uint32_t can_id, uint8_t can_data[8], uint8_t data_len)
 {
-    struct can_frame frame = { 0 };
-    frame.id_type = CAN_EXTENDED_IDENTIFIER;
-    frame.rtr = CAN_DATAFRAME;
-    frame.id = can_id;
-    memcpy(frame.data, can_data, 8);
+    struct can_frame frame = can_msg_pub_frame(can_id, can_data, data_len);
 
-    if (data_len >= 0) {
-        frame.dlc = data_len;
-
-        if (can_send(can_dev, &frame, K_MSEC(10), can_pub_isr, NULL) != 0) {
-            LOG_DBG("Error sending CAN frame");
-        }
+    if (can_send(can_dev, &frame, K_MSEC(10), can_pub_isr, NULL) != 0) {
+        LOG_DBG("Error sending CAN frame");
     }
 }
 
@@ -186,6 +182,14 @@ void can_pubsub_thread()
         return;
     }
 
+    int err = can_ensure_started();
+    if (err != 0) {
+        LOG_ERR("Unable to start CAN controller [%d]", err);
+        return;
+    }
+
+    // remote transmission requests are not passed on by the driver (CONFIG_CAN_ACCEPT_RTR=n)
+    const struct can_filter ctrl_filter = can_msg_pubsub_filter();
     int filter_id = can_add_rx_filter_msgq(can_dev, &sub_msgq, &ctrl_filter);
     if (filter_id < 0) {
         LOG_ERR("Unable to attach ISR [%d]", filter_id);
@@ -232,10 +236,9 @@ void can_pubsub_thread()
         while (k_msgq_get(&sub_msgq, &rx_frame, K_TIMEOUT_ABS_MS(next_pub)) != -EAGAIN) {
             // process message
             uint16_t data_id = TS_CAN_DATA_ID_GET(rx_frame.id);
-            uint8_t sender_addr = TS_CAN_SOURCE_GET(rx_frame.id);
 
             // control message received?
-            if (data_id > 0x8000 && sender_addr < can_node_addr) {
+            if (can_msg_is_control(rx_frame.id, can_node_addr)) {
                 uint8_t buf[4 + 8]; // ThingSet bin headers + CAN frame payload
                 buf[0] = 0xA1;      // CBOR: map with 1 element
                 buf[1] = 0x19;      // CBOR: uint16 follows
