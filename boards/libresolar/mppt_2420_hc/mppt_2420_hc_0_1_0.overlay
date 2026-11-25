@@ -32,7 +32,7 @@
 };
 
 &i2c1 {
-	eeprom@50 {
+	eeprom: eeprom@50 {
 		// Microchip 24AA32A
 		compatible = "atmel,at24";
 		reg = <0x50>;
