@@ -46,9 +46,9 @@
       },
       "gate": "pass",
       "review": {
-        "ran": true,
+        "status": "complete",
         "findings": 1,
-        "fixed": 0,
+        "resolved": 0,
         "escalated": 1,
         "note": "CI builds only rev 0.3; deferred to integration"
       }
