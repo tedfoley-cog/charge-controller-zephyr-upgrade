@@ -1,0 +1,40 @@
+{
+  "site": "https://cog-gtm.atlassian.net",
+  "project": "MBA",
+  "epic": {
+    "key": "MBA-3942",
+    "url": "https://cog-gtm.atlassian.net/browse/MBA-3942"
+  },
+  "tickets": {
+    "foundation": {
+      "key": "MBA-3943",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3943",
+      "status": "To Do"
+    },
+    "can": {
+      "key": "MBA-3944",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3944",
+      "status": "To Do"
+    },
+    "mppt-lowpower": {
+      "key": "MBA-3945",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3945",
+      "status": "To Do"
+    },
+    "pwm": {
+      "key": "MBA-3946",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3946",
+      "status": "To Do"
+    },
+    "numerics": {
+      "key": "MBA-3947",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3947",
+      "status": "To Do"
+    },
+    "integration": {
+      "key": "MBA-3948",
+      "url": "https://cog-gtm.atlassian.net/browse/MBA-3948",
+      "status": "To Do"
+    }
+  }
+}
