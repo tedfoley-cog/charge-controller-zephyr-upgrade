@@ -298,6 +298,31 @@ void bat_conf_stored_voltage_margins_at_limit()
     bat_conf.load_disconnect_voltage = 11.4F;
     TEST_ASSERT_FALSE(battery_conf_check(&bat_conf));
 
+    // Low-voltage profiles where the float sum rounds onto the stored value: accepted on v3.2,
+    // rejected by a float-only comparison (3.4F is above 3.0 + 0.4, 2.6F is below 3.0 - 0.4)
+    init_bat_conf();
+    bat_conf.absolute_min_voltage = 2.0F;
+    bat_conf.internal_resistance = 0.01F;
+    bat_conf.load_disconnect_voltage = 3.0F;
+    bat_conf.load_reconnect_voltage = 3.4F;
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+
+    init_bat_conf();
+    bat_conf.absolute_min_voltage = 0.5F;
+    bat_conf.internal_resistance = 0.004F;
+    bat_conf.load_disconnect_voltage = 1.0F;
+    bat_conf.load_reconnect_voltage = 2.0F;
+    bat_conf.float_voltage = 2.9F;
+    bat_conf.topping_voltage = 3.0F;
+    bat_conf.recharge_voltage = 2.6F;
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+
+    init_bat_conf();
+    bat_conf.internal_resistance = 0.01F;
+    bat_conf.absolute_min_voltage = 3.0F;
+    bat_conf.load_disconnect_voltage = 3.4F;
+    TEST_ASSERT_TRUE(battery_conf_check(&bat_conf));
+
     // lowest accepted cutoff current: 0.01F is below 0.01
     init_bat_conf();
     bat_conf.topping_cutoff_current = 0.01F;
