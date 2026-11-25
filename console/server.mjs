@@ -70,5 +70,6 @@ const server = createServer(async (req, res) => {
 });
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  server.listen(PORT, () => console.log(`Migration Console on http://localhost:${PORT} (data: ${DATA})`));
+  // loopback only by default: the state API is unauthenticated
+  server.listen(PORT, process.env.HOST || 'localhost', () => console.log(`Migration Console on http://localhost:${PORT} (data: ${DATA})`));
 }
