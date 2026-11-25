@@ -25,22 +25,26 @@
     "can": {
       "key": "MBA-3944",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3944",
-      "status": "To Do"
+      "status": "In Progress",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/ff8bf59c3a2d41998cf57525f4bca017"
     },
     "mppt-lowpower": {
       "key": "MBA-3945",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3945",
-      "status": "To Do"
+      "status": "In Progress",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/e1e47d8f7937420aaa95cf8fb0e90985"
     },
     "pwm": {
       "key": "MBA-3946",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3946",
-      "status": "To Do"
+      "status": "In Progress",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/bf0a2179239e4edc8b1424ebd3631004"
     },
     "numerics": {
       "key": "MBA-3947",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3947",
-      "status": "To Do"
+      "status": "In Progress",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/41eea762f2104792984582538387c599"
     },
     "integration": {
       "key": "MBA-3948",
