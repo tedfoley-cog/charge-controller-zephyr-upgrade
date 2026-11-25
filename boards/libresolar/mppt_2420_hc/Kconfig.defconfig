@@ -3,9 +3,6 @@
 
 if BOARD_MPPT_2420_HC
 
-config BOARD
-	default "mppt_2420_hc"
-
 config LIBRE_SOLAR_TYPE_ID
 	default 8
 

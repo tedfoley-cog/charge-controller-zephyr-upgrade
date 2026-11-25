@@ -22,6 +22,7 @@ int device_status_tests();
 int load_tests();
 
 int numerics_tests();
+int can_tests();
 
 #ifdef CONFIG_CUSTOM_TESTS
 int custom_tests();

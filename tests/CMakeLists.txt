@@ -31,6 +31,7 @@ target_sources(app PRIVATE
         src/tests_half_bridge.cpp
         src/tests_load.cpp
         src/tests_numerics.cpp
+        src/tests_can.cpp
         src/tests_power_port.cpp
 )
 

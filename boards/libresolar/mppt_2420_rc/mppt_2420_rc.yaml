@@ -1,7 +1,8 @@
-identifier: mppt_2420_hc
-name: MPPT-2420-HC
+identifier: mppt_2420_rc
+name: MPPT-2420-RC
 type: mcu
 arch: arm
+vendor: libresolar
 toolchain:
   - zephyr
   - gnuarmemb

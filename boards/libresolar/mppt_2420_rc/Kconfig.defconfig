@@ -3,9 +3,6 @@
 
 if BOARD_MPPT_2420_RC
 
-config BOARD
-	default "mppt_2420_rc"
-
 config LIBRE_SOLAR_TYPE_ID
 	default 0
 
