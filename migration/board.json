@@ -37,8 +37,21 @@
     "pwm": {
       "key": "MBA-3946",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3946",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/bf0a2179239e4edc8b1424ebd3631004"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/bf0a2179239e4edc8b1424ebd3631004",
+      "pr": {
+        "number": 3,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/3",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "ran": true,
+        "findings": 1,
+        "fixed": 0,
+        "escalated": 1,
+        "note": "CI builds only rev 0.3; deferred to integration"
+      }
     },
     "numerics": {
       "key": "MBA-3947",
