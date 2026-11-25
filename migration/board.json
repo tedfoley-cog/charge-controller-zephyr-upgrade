@@ -25,8 +25,21 @@
     "can": {
       "key": "MBA-3944",
       "url": "https://cog-gtm.atlassian.net/browse/MBA-3944",
-      "status": "In Progress",
-      "session": "https://devin-gtm.devinenterprise.com/sessions/ff8bf59c3a2d41998cf57525f4bca017"
+      "status": "Done",
+      "session": "https://devin-gtm.devinenterprise.com/sessions/ff8bf59c3a2d41998cf57525f4bca017",
+      "pr": {
+        "number": 5,
+        "url": "https://github.com/tedfoley-cog/charge-controller-zephyr-upgrade/pull/5",
+        "state": "merged"
+      },
+      "gate": "pass",
+      "review": {
+        "status": "complete",
+        "findings": 8,
+        "resolved": 7,
+        "escalated": 1,
+        "note": "3 fixed, 4 answered, 1 escalated to MBA-3949 (ThingSet Password object readable over CAN, unchanged since v3.2)"
+      }
     },
     "mppt-lowpower": {
       "key": "MBA-3945",
