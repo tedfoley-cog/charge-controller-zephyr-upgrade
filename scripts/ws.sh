@@ -76,8 +76,10 @@ ensure_ws() {
         echo "$want" >"$stamp"
     fi
     # The workspace can come from a cache while the Python environment is new.
-    python3 -c "import elftools, pykwalify, jsonschema" 2>/dev/null \
-        || python3 -m pip install -q -r "$WS/zephyr/scripts/requirements-base.txt"
+    local reqs="$WS/zephyr/scripts/requirements-base.txt" mods="elftools, pykwalify"
+    # Probe jsonschema (list_boards.py) only where this Zephyr version lists it
+    if grep -qi '^jsonschema' "$reqs"; then mods="$mods, jsonschema"; fi
+    python3 -c "import $mods" 2>/dev/null || python3 -m pip install -q -r "$reqs"
 }
 
 rewrite_paths() { sed -u -e "s#$FW/#$REPO/#g" -e 's/\x1b\[[0-9;]*[mK]//g'; }
